@@ -1,0 +1,35 @@
+body{
+    margin:0;
+    font-family: Arial, serif;
+    background-color:#f1f1f1;
+}
+.navbar {
+    /*position:sticky;*/
+    width:100%;
+    top:0;
+    background-color:darkred;
+}
+.navbar-link{
+    color:white;
+    background-color: transparent;
+    font-size:64px;
+    margin-left:5%;
+    text-decoration: none;
+}
+.login {
+    display:flex;
+    margin:auto;
+    width:200px;
+    align-items: center;
+    justify-content: center;
+    background-color: grey;
+}
+.data-table{
+    background-color: white;
+}
+.data-table tr:nth-child(even){
+    background-color: lightgrey;
+}
+
+
+

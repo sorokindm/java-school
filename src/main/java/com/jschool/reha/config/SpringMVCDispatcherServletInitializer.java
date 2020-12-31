@@ -3,7 +3,10 @@ package com.jschool.reha.config;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 
-//No xnl dispatcher servlet init
+/**
+ * Dispatcher servlet initializer
+ * @author Dmitry Sorokin
+ */
 public class SpringMVCDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -13,7 +16,7 @@ public class SpringMVCDispatcherServletInitializer extends AbstractAnnotationCon
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] { SpringConfig.class };
+        return new Class[] { WebMVCSpringConfig.class };
     }
 
     @Override

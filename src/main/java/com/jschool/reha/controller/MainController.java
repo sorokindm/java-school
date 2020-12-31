@@ -1,6 +1,9 @@
 package com.jschool.reha.controller;
 
-import com.jschool.reha.model.User;
+import com.jschool.reha.crud.Person;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,103 +11,99 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.*;
-import java.util.ArrayList;
+import java.util.List;
 
+
+/**
+ * Main controller
+ * @author Dmitry Sorokin
+ */
 @Controller
 public class MainController {
 
-    private static final String LOGIN_PAGE ="login";
-    private static final String LOGGED_IN_PAGE ="loggedIn";
-    private static final String REDIRECT_LOGGED_IN ="redirect:/"+ LOGGED_IN_PAGE;
 
+    private static final String LOGIN_PAGE = "login";
+    private static final String LOGGED_IN_PAGE = "loggedIn";
+    private static final String REDIRECT_LOGGED_IN = "redirect:/" + LOGGED_IN_PAGE;
+
+    /**
+     * Welcome page mapping
+     * @author Dmitry Sorokin
+     * @param request
+     * @return welcome or login page ULR
+     */
     @RequestMapping("/")
-    public String loginPage(HttpServletRequest request)
-    {
+    public String loginPage(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        if (user == null) return LOGIN_PAGE;
+        Person person = (Person) session.getAttribute("person");
+        if (person == null) return LOGIN_PAGE;
         else return REDIRECT_LOGGED_IN;
     }
 
+    /**
+     * Login action controller
+     * @author Dmitry Sorokin
+     * @param request
+     * @param username
+     * @param password
+     * @return Logged in page on success, login page on fail
+     */
     @RequestMapping("/doLogin")
-    public String doLogin(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password)
-    {
+    public String doLogin(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        Person person = (Person) session.getAttribute("person");
 
-        final String login="admin";
-        final String pass="admin";
-        if (user != null) {
+        final String login = "admin";
+        final String pass = "admin";
+        if (person != null) {
             return REDIRECT_LOGGED_IN;
-        }
-        else
-        {
-            if (username.equals(login)&&password.equals(pass))
-            {
-                user = new User();
-                user.setUsername(username);
-                user.setPassword(password);
+        } else {
+            if (username.equals(login) && password.equals(pass)) {
+                person = new Person();
+                person.setUsername(username);
+                person.setPassword(password);
 
-                session.setAttribute("user", user);
+                session.setAttribute("person", person);
                 return REDIRECT_LOGGED_IN;
             }
         }
         return LOGIN_PAGE;
     }
-    
+
+    /**
+     * Logged in page. Fetches user data from db, adds data to attribute
+     * @author Dmitry Sorokin
+     * @param model
+     * @return logged in page on success, error page on fail
+     */
     @RequestMapping("/loggedIn")
-    public String loggedInPage(Model model)
-    {
-
+    public String loggedInPage(Model model) {
+        List<Person> personList;
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Person.class)
+                .buildSessionFactory();
+        Session session = factory.getCurrentSession();
         //Get list of all users from DB
-        ArrayList<User> users=new ArrayList<>();
-        String dbUrl = "jdbc:mysql://localhost:3306/reha?useUnicode=true&serverTimezone=UTC";
-        String username = "rehauser";
-        String password = "user1234";
-
-        Statement stmt = null;
-        Connection conn = null;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            session.beginTransaction();
+            personList = session.createQuery("from Person").getResultList();
+            session.getTransaction().commit();
 
-            conn = DriverManager.getConnection(dbUrl, username, password);
-            stmt = conn.createStatement();
-
-            String sql = "select * from user";
-            ResultSet set = stmt.executeQuery(sql);
-
-            while (set.next()) {
-                User user = new User();
-                user.setUsername(set.getString("username"));
-                user.setEmail(set.getString("email"));
-                user.setPassword(set.getString("password"));
-                user.setRole(set.getString("role"));
-
-                users.add(user);
-            }
-
-            //Add user data to model and present it in logged in page
-            model.addAttribute("users",users);
-            return LOGGED_IN_PAGE;
-
-        } catch (SQLException | ClassNotFoundException x) {
-            x.printStackTrace();
-            return "error";
         } finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-            }
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
+
+            factory.close();
         }
+
+
+        //Add user data to model and present it in logged in page
+        if (personList != null) {
+            model.addAttribute("users", personList);
+            return LOGGED_IN_PAGE;
+        } else {
+            return "error";
+        }
+
 
     }
 }

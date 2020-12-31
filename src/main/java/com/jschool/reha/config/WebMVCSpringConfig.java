@@ -12,10 +12,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.jschool.reha")
-public class SpringConfig implements WebMvcConfigurer {
+public class WebMVCSpringConfig implements WebMvcConfigurer {
 
     /**
-     * Map resources folder
+     * @author Dmitry Sorokin
+     * Defines resources folder mapping
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -24,7 +25,8 @@ public class SpringConfig implements WebMvcConfigurer {
     }
 
     /**
-    Setting up view resolver
+     * @author Dmitry Sorokin
+     * @return view resolver
      */
     @Bean
     public ViewResolver viewResolver() {

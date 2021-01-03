@@ -1,4 +1,4 @@
-<%@ page import="com.jschool.reha.crud.Person" %>
+<%@ page import="com.jschool.reha.crud.entity.Person" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>

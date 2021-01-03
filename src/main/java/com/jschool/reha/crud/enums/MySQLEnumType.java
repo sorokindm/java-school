@@ -1,4 +1,4 @@
-package com.jschool.reha.config;
+package com.jschool.reha.crud.enums;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

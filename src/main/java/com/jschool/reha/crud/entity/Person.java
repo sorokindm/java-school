@@ -1,6 +1,6 @@
-package com.jschool.reha.crud;
+package com.jschool.reha.crud.entity;
 
-import com.jschool.reha.config.MySQLEnumType;
+import com.jschool.reha.crud.enums.MySQLEnumType;
 import com.jschool.reha.crud.enums.Gender;
 import com.jschool.reha.crud.enums.Role;
 import lombok.Data;
@@ -9,6 +9,9 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 
+/**
+ * POJO Class to store every user data
+ */
 @Entity
 @Table(name = "person")
 @TypeDef(name = "mysql_enum", typeClass = MySQLEnumType.class)

@@ -38,5 +38,4 @@ public class WebMVCSpringConfig implements WebMvcConfigurer {
         return viewResolver;
     }
 
-
 }

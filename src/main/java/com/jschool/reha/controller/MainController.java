@@ -1,9 +1,8 @@
 package com.jschool.reha.controller;
 
-import com.jschool.reha.crud.Person;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import com.jschool.reha.crud.dao.PersonDAO;
+import com.jschool.reha.crud.entity.Person;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +25,11 @@ public class MainController {
     private static final String LOGGED_IN_PAGE = "loggedIn";
     private static final String REDIRECT_LOGGED_IN = "redirect:/" + LOGGED_IN_PAGE;
 
+    @Autowired
+    private PersonDAO personDAO;
+
     /**
      * Welcome page mapping
-     * @author Dmitry Sorokin
      * @param request
      * @return welcome or login page ULR
      */
@@ -42,7 +43,6 @@ public class MainController {
 
     /**
      * Login action controller
-     * @author Dmitry Sorokin
      * @param request
      * @param username
      * @param password
@@ -72,28 +72,12 @@ public class MainController {
 
     /**
      * Logged in page. Fetches user data from db, adds data to attribute
-     * @author Dmitry Sorokin
      * @param model
      * @return logged in page on success, error page on fail
      */
     @RequestMapping("/loggedIn")
     public String loggedInPage(Model model) {
-        List<Person> personList;
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Person.class)
-                .buildSessionFactory();
-        Session session = factory.getCurrentSession();
-        //Get list of all users from DB
-        try {
-            session.beginTransaction();
-            personList = session.createQuery("from Person").getResultList();
-            session.getTransaction().commit();
-
-        } finally {
-
-            factory.close();
-        }
+        List<Person> personList=personDAO.getAllPersons();
 
 
         //Add user data to model and present it in logged in page

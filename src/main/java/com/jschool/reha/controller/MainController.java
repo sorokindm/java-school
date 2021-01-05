@@ -1,7 +1,7 @@
 package com.jschool.reha.controller;
 
-import com.jschool.reha.crud.dao.PersonDAO;
 import com.jschool.reha.crud.entity.Person;
+import com.jschool.reha.crud.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,7 @@ public class MainController {
     private static final String REDIRECT_LOGGED_IN = "redirect:/" + LOGGED_IN_PAGE;
 
     @Autowired
-    private PersonDAO personDAO;
+    private AdminService adminService;
 
     /**
      * Welcome page mapping
@@ -77,7 +77,7 @@ public class MainController {
      */
     @RequestMapping("/loggedIn")
     public String loggedInPage(Model model) {
-        List<Person> personList=personDAO.getAllPersons();
+        List<Person> personList=adminService.getAllPersons();
 
 
         //Add user data to model and present it in logged in page

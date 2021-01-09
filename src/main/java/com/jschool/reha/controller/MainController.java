@@ -5,8 +5,7 @@ import com.jschool.reha.crud.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,39 +34,20 @@ public class MainController {
      */
     @RequestMapping("/")
     public String loginPage(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Person person = (Person) session.getAttribute("person");
-        if (person == null) return LOGIN_PAGE;
-        else return REDIRECT_LOGGED_IN;
+        //TODO Main menu page
+         return REDIRECT_LOGGED_IN;
     }
 
-    /**
-     * Login action controller
-     * @param request
-     * @param username
-     * @param password
-     * @return Logged in page on success, login page on fail
-     */
-    @RequestMapping("/doLogin")
-    public String doLogin(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) {
-        HttpSession session = request.getSession();
-        Person person = (Person) session.getAttribute("person");
+    @GetMapping(value="/admin")
+    public String adminPageGet() {
 
-        final String login = "admin";
-        final String pass = "admin";
-        if (person != null) {
-            return REDIRECT_LOGGED_IN;
-        } else {
-            if (username.equals(login) && password.equals(pass)) {
-                person = new Person();
-                person.setUsername(username);
-                person.setPassword(password);
+        return "admin";
+    }
 
-                session.setAttribute("person", person);
-                return REDIRECT_LOGGED_IN;
-            }
-        }
-        return LOGIN_PAGE;
+    @PostMapping(value="/admin")
+    public String adminPagePost() {
+
+        return "admin";
     }
 
     /**
@@ -75,7 +55,7 @@ public class MainController {
      * @param model
      * @return logged in page on success, error page on fail
      */
-    @RequestMapping("/loggedIn")
+    @GetMapping("/loggedIn")
     public String loggedInPage(Model model) {
         List<Person> personList=adminService.getAllPersons();
 

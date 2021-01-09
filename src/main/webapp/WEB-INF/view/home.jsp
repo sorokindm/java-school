@@ -15,22 +15,18 @@
 
 <div class="container-fluid navbar">
     <div class="row"></div>
-        <div class="col"> <a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-        <div class="col"></div>
+    <div class="col"> <a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
+    <div class="col"></div>
 </div>
 <br>
-    <form:form  class="login text-center" action="${pageContext.request.contextPath}/doLogin"
-               method="POST">
-        <c:if test="${param.error!=null}">
-            <h3>Invalid username or password</h3>
-        </c:if>
 
-        <input type="text" id="idUsername" class="form-control" value="admin"  name="username" placeholder="Username">
-        <input type="password" id="idPassword" class="form-control" value="admin"  name="password" placeholder="Password">
+<%--TODO Main menu controls:
+1.Logout
+2.Events button
+3.Service button--%>
 
-        <button type="submit" class="btn btn-primary w-100">Log in</button>
 
-    </form:form>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>

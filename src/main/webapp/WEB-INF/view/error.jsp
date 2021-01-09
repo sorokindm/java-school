@@ -13,8 +13,10 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="navbar">
-    <a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a>
+<div class="container-fluid navbar">
+    <div class="row"></div>
+    <div class="col"> <a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
+    <div class="col"></div>
 </div>
 <br>
 <h1>Error</h1>

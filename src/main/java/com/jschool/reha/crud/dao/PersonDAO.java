@@ -5,19 +5,8 @@ import com.jschool.reha.crud.entity.Person;
 import java.util.List;
 
 public interface PersonDAO {
-
-    /**
-     * Fetches one person from DB by id
-     *
-     * @param id Persons id in DB
-     * @return Person
-     */
-    public Person getPersonById(int id);
-
-    /**
-     * Fetches all Person Data From DB
-     *
-     * @return List<Person>
+    /*
+        Fetches all persons data from a DB
      */
     public List<Person> getAllPersons();
 }

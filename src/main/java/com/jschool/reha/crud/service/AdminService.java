@@ -1,6 +1,6 @@
 package com.jschool.reha.crud.service;
 
-import com.jschool.reha.crud.entity.Person;
+import com.jschool.reha.crud.dto.UserDto;
 
 import java.util.List;
 
@@ -9,7 +9,5 @@ import java.util.List;
  * @author Dmitry Sorokin
  */
 public interface AdminService {
-    public List<Person> getAllPersons();
-    public Person getPersonById(int id);
-
+    public List<UserDto> getAllUserData();
 }

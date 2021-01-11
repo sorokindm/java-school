@@ -22,7 +22,7 @@
       <configuration>
         <datasource-map>
           <unit-entry name="hibernate.cfg.xml" />
-          <unit-entry name="sessionFactory" />
+          <unit-entry name="sessionFactory" value="ff4999b0-9073-444b-8f56-2e17c7396426" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
@@ -59,6 +59,8 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.7.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.7.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.14.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.14.0" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.16" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.2" level="project" />
@@ -74,6 +76,8 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:5.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:5.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:5.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-taglibs:5.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-acl:5.4.2" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.22" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.4.27.Final" level="project" />
@@ -94,6 +98,9 @@
     <orderEntry type="library" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet.staxex:stax-ex:1.8" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-c3p0:5.4.27.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.5" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.19" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-dbcp:8.5.61" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-juli:8.5.61" level="project" />
   </component>

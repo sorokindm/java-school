@@ -1,13 +1,15 @@
 package com.jschool.reha.crud.entity;
 
-import com.jschool.reha.crud.enums.MySQLEnumType;
+import com.jschool.reha.crud.dto.UserDto;
 import com.jschool.reha.crud.enums.Gender;
+import com.jschool.reha.crud.enums.MySQLEnumType;
 import com.jschool.reha.crud.enums.Role;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * POJO Class to store every user data
@@ -18,8 +20,9 @@ import javax.persistence.*;
 @Data
 public class Person {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idperson")
-    private int id;
+    private int idPerson;
     @Column(name = "name")
     private String name;
     @Column(name = "last_name")
@@ -41,5 +44,9 @@ public class Person {
     @Column(name="idinsurance")
     private String idinsurance;
 
+    @OneToMany(mappedBy="person")
+    private Set<Treatment> treatmentsAsPatient;
+    @OneToMany(mappedBy="curator")
+    private Set<Treatment> treatmentsAsCurator;
 
 }

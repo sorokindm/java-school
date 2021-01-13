@@ -16,5 +16,6 @@ public class MySQLEnumType extends org.hibernate.type.EnumType {
     public void nullSafeSet(PreparedStatement st, Object value, int index,
                             SharedSessionContractImplementor session) throws HibernateException, SQLException {
         st.setObject(index,value!=null?((Enum)value).name():null, Types.OTHER);
+        //TODO 12.01.2021 matmalik: Что то я не понимаю что тут написано :) Для чего этот класс, обсудим на след созвоне
     }
 }

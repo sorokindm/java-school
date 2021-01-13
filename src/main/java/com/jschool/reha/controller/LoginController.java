@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-
+//TODO 12.01.2021 matmalik: remove unused imports
 /**
  * User login controller
  * @author Dmitry Sorokin
@@ -18,6 +18,7 @@ public class LoginController {
     private static final String LOGIN_PAGE = "login";
     private static final String LOGGED_IN_PAGE = "loggedIn";
     private static final String REDIRECT_LOGGED_IN = "redirect:/" + LOGGED_IN_PAGE;
+    //TODO 12.01.2021 matmalik: dio we need this REDIRECT_LOGGED_IN?
 
     /**
      * Welcome page mapping

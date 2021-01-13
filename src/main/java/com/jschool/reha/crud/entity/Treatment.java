@@ -22,20 +22,20 @@ public class Treatment {
     private int idTreatment;
     @ManyToOne
     @JoinColumn(name="idcurator")
-    private Person curator;
+    private Person curator; //TODO 12.01.2021 matmalik: Please refactor it as we discussed.
     @ManyToOne
     @JoinColumn(name="idperson")
     private Person person;
     @Column(name="diagnosis")
     private String diagnosis;
     @Column(name="started")
-    java.sql.Date started;
+    java.sql.Date started; //TODO 12.01.2021 matmalik: same as in Medevent entity
     @Column(name="ended")
-    java.sql.Date ended;
+    java.sql.Date ended; //TODO 12.01.2021 matmalik: same as in Medevent entity
     @OneToMany(mappedBy = "treatment")
-    private Set<Assignment> assignments;
+    private Set<Assignment> assignments; //TODO 12.01.2021 matmalik: same as in Person entity
 
-
+//TODO 12.01.2021 matmalik: remove empty lines
 
 
 

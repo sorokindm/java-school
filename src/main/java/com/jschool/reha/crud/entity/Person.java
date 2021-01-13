@@ -10,7 +10,7 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.Set;
-
+//TODO 12.01.2021 matmalik: remove useless imports
 /**
  * POJO Class to store every user data
  */
@@ -45,8 +45,8 @@ public class Person {
     private String idinsurance;
 
     @OneToMany(mappedBy="person")
-    private Set<Treatment> treatmentsAsPatient;
+    private Set<Treatment> treatmentsAsPatient; //TODO 12.01.2021 matmalik: Why Set not Collection or simple List?
     @OneToMany(mappedBy="curator")
-    private Set<Treatment> treatmentsAsCurator;
+    private Set<Treatment> treatmentsAsCurator; //TODO 12.01.2021 matmalik: same as above
 
 }

@@ -13,6 +13,8 @@ import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
+//TODO 12.01.2021 matmalik: As i know we need to use JPA with hibernate as
+// provider but here you are using hibernate sf. Please take a look at JPA's EntityManager
 /**
  * Hibernate Spring configuration
  *
@@ -62,7 +64,7 @@ public class HibernateConfig {
         dataSource.setMaxPoolSize(30);
         dataSource.setMaxIdleTime(3000);
 
-
+        //TODO 12.01.2021 matmalik: remove this empty line
         return dataSource;
     }
 

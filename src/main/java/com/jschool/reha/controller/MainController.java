@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 public class MainController {
 
-
+    //TODO 12.01.2021 matmalik: remove this empty line
     private static final String HOME_PAGE = "home";
     private static final String ADMIN_PAGE = "admin";
     private static final String DOCTOR_PAGE = "doctor";
@@ -83,7 +83,7 @@ public class MainController {
      * @param request
      * @return patienet page url
      */
-    @GetMapping("/patienet")
+    @GetMapping("/patienet") //TODO 12.01.2021 matmalik: typo in word patient
     public String patienetPage(HttpServletRequest request) {
         return PATIENT_PAGE;
     }

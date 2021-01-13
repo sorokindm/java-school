@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//TODO 12.01.2021 matmalik: javadoc
 @Repository
 public class PersonDAOImpl implements PersonDAO{
 
+    //TODO 12.01.2021 matmalik: Please check my comment in HibernateConfig.class and use here em
     @Autowired
     private SessionFactory sessionFactory;
 

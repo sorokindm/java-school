@@ -1,36 +1,38 @@
 package com.jschool.reha.crud.entity;
 
 import com.jschool.reha.crud.enums.EventStatus;
-import com.jschool.reha.crud.enums.MySQLEnumType;
 import lombok.Data;
-import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author Dmitry Sorokin
  * POJO Class to store medical event data
  */
 @Entity
-@Table(name = "medevent")
-@TypeDef(name = "mysql_enum", typeClass = MySQLEnumType.class) //TODO 12.01.2021 matmalik: What is the purpose of this annotation?
+@Table(name = "med_event")
 @Data
-public class Medevent {//TODO 12.01.2021 matmalik: use CamelCase please
+public class MedEvent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idmedevent")
+    @Column(name = "id_med_event",nullable = false)
     private int idMedevent;
-    @ManyToOne
-    @JoinColumn(name="idassignment")
-    private Assignment assignment;
-    @Column(name="starts")
-    java.sql.Timestamp starts; //TODO 12.01.2021 matmalik: Please think about it.
-    // Will it be convenient to use  java.sql.Timestamp instead of simple LocalDate/LocalTime/LocalDateTime of java.time (for example) in your code?
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status",columnDefinition = "enum('PENDING','SCHEDULED','DONE','CANCELED')")
-    private EventStatus type;
-    @Column(name = "idexecutor")
-    private int idExecutor;
 
+    @ManyToOne
+    @JoinColumn(name="id_assignment",nullable = false)
+    private Assignment assignment;
+
+    @Column(name="starts",nullable = false)
+    LocalDateTime starts;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status",columnDefinition = "enum('PENDING','SCHEDULED','DONE','CANCELED')",nullable = false)
+    private EventStatus type;
+
+    @OneToOne
+    @JoinColumn(name = "id_nurse",referencedColumnName = "id_person")
+    private Person nurse;
 
 }

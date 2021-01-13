@@ -13,8 +13,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 public class SpringMVCDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        //return new Class[] {HibernateConfig.class};
-        return null;
+        return new Class[] {HibernateConfig.class};
     }
 
     @Override

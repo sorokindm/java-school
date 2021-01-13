@@ -1,52 +1,55 @@
 package com.jschool.reha.crud.entity;
 
-import com.jschool.reha.crud.dto.UserDto;
 import com.jschool.reha.crud.enums.Gender;
-import com.jschool.reha.crud.enums.MySQLEnumType;
 import com.jschool.reha.crud.enums.Role;
 import lombok.Data;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.Set;
-//TODO 12.01.2021 matmalik: remove useless imports
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * POJO Class to store every user data
  */
 @Entity
 @Table(name = "person")
-@TypeDef(name = "mysql_enum", typeClass = MySQLEnumType.class)
 @Data
-public class Person {
+public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idperson")
+    @Column(name = "id_person",nullable = false)
     private int idPerson;
-    @Column(name = "name")
+
+    @Column(name = "name",nullable = false)
     private String name;
-    @Column(name = "last_name")
+
+    @Column(name = "last_name",nullable = false)
     private String lastName;
+
     @Enumerated(EnumType.STRING)
-    @Column(name="gender", columnDefinition = "enum('MALE','FEMALE')")
-    @Type(type = "mysql_enum")
+    @Column(name="gender", columnDefinition = "enum('MALE','FEMALE')",nullable = false)
     private Gender gender;
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", columnDefinition = "enum('PATIENT','NURSE','DOCTOR','ADMIN')")
-    @Type(type = "mysql_enum")
+    @Column(name = "role", columnDefinition = "enum('PATIENT','NURSE','DOCTOR','ADMIN')",nullable = false)
     private Role role;
+
     @Column(name = "username")
     private String username;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "password")
     private String password;
-    @Column(name="idinsurance")
-    private String idinsurance;
 
-    @OneToMany(mappedBy="person")
-    private Set<Treatment> treatmentsAsPatient; //TODO 12.01.2021 matmalik: Why Set not Collection or simple List?
-    @OneToMany(mappedBy="curator")
-    private Set<Treatment> treatmentsAsCurator; //TODO 12.01.2021 matmalik: same as above
+    @Column(name="id_insurance")
+    private String idInsurance;
+
+    @OneToMany(mappedBy="patient")
+    private List<Treatment> treatmentsAsPatient;
+
+    @OneToMany(mappedBy="doctor")
+    private List<Treatment> treatmentsAsDoctor;
 
 }

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.jschool.reha")
+@ComponentScan(basePackages = "com.jschool.reha.controller")
 public class WebMVCSpringConfig implements WebMvcConfigurer {
 
     /**

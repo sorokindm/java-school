@@ -9,20 +9,24 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-//TODO 12.01.2021 matmalik: javadoc
+
+/**
+ * Admin service. Handles user data.
+ * @author Dmitry Sorokin
+ */
 @Service
+@Transactional
 public class AdminServiceImpl implements AdminService{
 
     @Autowired
     private PersonDAO personDAO;
 
     @Override
-    @Transactional //TODO 12.01.2021 matmalik: Are you sure we need this here? Or maybe at class level?
     public List<UserDto> getAllUserData() {
         ArrayList<UserDto> userData=new ArrayList<>();
         List<Person> persons=personDAO.getAllPersons();
         for (Person person:persons)
-        { //TODO 12.01.2021 matmalik: You can create class mapper for this mapping and inject it to this service
+        {
             UserDto dto=new UserDto();
             dto.setRole(person.getRole());
             dto.setName(person.getName());
@@ -32,6 +36,7 @@ public class AdminServiceImpl implements AdminService{
             dto.setGender(person.getGender());
             userData.add(dto);
         }
+
         return userData;
     }
 }

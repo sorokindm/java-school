@@ -1,8 +1,7 @@
 package com.jschool.reha.crud.enums;
 
-//TODO 12.01.2021 matmalik: Its not helper. Fix javadoc please
 /**
- * DB Helper enum to map timeframe column.
+ * Enum for DB timeframe column mapping
  * @author Dmitry Sorokin
  */
 public enum Timeframe {

@@ -1,11 +1,11 @@
 package com.jschool.reha.crud.entity;
 
-import com.jschool.reha.crud.enums.MySQLEnumType;
 import lombok.Data;
-import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Dmitry Sorokin
@@ -13,30 +13,31 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "treatment")
-@TypeDef(name = "mysql_enum", typeClass = MySQLEnumType.class)
 @Data
-public class Treatment {
+public class Treatment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idtreatment")
+    @Column(name = "id_treatment",nullable = false)
     private int idTreatment;
+
     @ManyToOne
-    @JoinColumn(name="idcurator")
-    private Person curator; //TODO 12.01.2021 matmalik: Please refactor it as we discussed.
+    @JoinColumn(name="id_doctor",nullable = false)
+    private Person doctor;
+
     @ManyToOne
-    @JoinColumn(name="idperson")
-    private Person person;
+    @JoinColumn(name="id_person",nullable = false)
+    private Person patient;
+
     @Column(name="diagnosis")
     private String diagnosis;
-    @Column(name="started")
-    java.sql.Date started; //TODO 12.01.2021 matmalik: same as in Medevent entity
+
+    @Column(name="started",nullable = false)
+    LocalDate started;
+
     @Column(name="ended")
-    java.sql.Date ended; //TODO 12.01.2021 matmalik: same as in Medevent entity
+    LocalDate ended;
+
     @OneToMany(mappedBy = "treatment")
-    private Set<Assignment> assignments; //TODO 12.01.2021 matmalik: same as in Person entity
-
-//TODO 12.01.2021 matmalik: remove empty lines
-
-
+    private List<Assignment> assignments;
 
 }

@@ -33,6 +33,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
+          <factory-entry name="entityManagerFactory" value="ff4999b0-9073-444b-8f56-2e17c7396426" />
           <factory-entry name="java-school" value="ff4999b0-9073-444b-8f56-2e17c7396426" />
         </datasource-mapping>
         <naming-strategy-map />

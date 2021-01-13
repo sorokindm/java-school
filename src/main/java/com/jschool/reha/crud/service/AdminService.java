@@ -9,5 +9,5 @@ import java.util.List;
  * @author Dmitry Sorokin
  */
 public interface AdminService {
-    public List<UserDto> getAllUserData();//TODO 12.01.2021 matmalik: remove public and add javadoc
+    List<UserDto> getAllUserData();
 }

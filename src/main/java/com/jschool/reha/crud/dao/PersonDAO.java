@@ -4,11 +4,15 @@ import com.jschool.reha.crud.entity.Person;
 
 import java.util.List;
 
-//TODO 12.01.2021 matmalik: javadoc
+/**
+ * DAO Interface for Person Entity
+ * @author Dmitry Sorokin
+ */
 public interface PersonDAO {
-    /*
-        Fetches all persons data from a DB
+
+    /**
+     * Fetches all person data from db
+     * @return List of all persons data
      */
-    public List<Person> getAllPersons();
-    //TODO 12.01.2021 matmalik: all methods in interface are abstract and public by default
+    List<Person> getAllPersons();
 }

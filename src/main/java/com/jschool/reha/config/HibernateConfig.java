@@ -4,8 +4,10 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -13,8 +15,6 @@ import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
-//TODO 12.01.2021 matmalik: As i know we need to use JPA with hibernate as
-// provider but here you are using hibernate sf. Please take a look at JPA's EntityManager
 /**
  * Hibernate Spring configuration
  *
@@ -24,20 +24,18 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.jschool.reha")
 public class HibernateConfig {
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em
+                = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan("com.jschool.reha.crud.entity");
 
-    /**
-     * Hibernate session factory bean
-     *
-     * @return sessionFactory
-     */
-    @Bean(name = "sessionFactory")
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.jschool.reha.crud");
-        sessionFactory.setHibernateProperties(hibernateProperties());
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(additionalProperties());
 
-        return sessionFactory;
+        return em;
     }
 
     /**
@@ -64,7 +62,6 @@ public class HibernateConfig {
         dataSource.setMaxPoolSize(30);
         dataSource.setMaxIdleTime(3000);
 
-        //TODO 12.01.2021 matmalik: remove this empty line
         return dataSource;
     }
 
@@ -74,10 +71,10 @@ public class HibernateConfig {
      * @return transactionManager
      */
     @Bean
-    public PlatformTransactionManager hibernateTransactionManager() {
-        HibernateTransactionManager transactionManager
-                = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager
+                = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getNativeEntityManagerFactory());
         return transactionManager;
     }
 
@@ -86,20 +83,20 @@ public class HibernateConfig {
      *
      * @return hibernateProperties
      */
-    private Properties hibernateProperties() {
-        Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty(
+    private Properties additionalProperties() {
+        Properties properties = new Properties();
+        properties.setProperty(
                 "hibernate.hbm2ddl.auto", "validate");
-        hibernateProperties.setProperty(
+        properties.setProperty(
                 "hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        hibernateProperties.setProperty(
+        properties.setProperty(
                 "show_sql","true");
-        hibernateProperties.setProperty("hibernate.c3p0.initialPoolSize","5");
-        hibernateProperties.setProperty("hibernate.c3p0.min_size","5");
-        hibernateProperties.setProperty("hibernate.c3p0.max_size","30");
-        hibernateProperties.setProperty("hibernate.c3p0.timeout","2000");
-        hibernateProperties.setProperty("show_sql","true");
+        properties.setProperty("hibernate.c3p0.initialPoolSize","5");
+        properties.setProperty("hibernate.c3p0.min_size","5");
+        properties.setProperty("hibernate.c3p0.max_size","30");
+        properties.setProperty("hibernate.c3p0.timeout","2000");
+        properties.setProperty("show_sql","true");
 
-        return hibernateProperties;
+        return properties;
     }
 }

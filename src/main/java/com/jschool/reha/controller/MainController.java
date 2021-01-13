@@ -18,8 +18,6 @@ import java.util.List;
  */
 @Controller
 public class MainController {
-
-    //TODO 12.01.2021 matmalik: remove this empty line
     private static final String HOME_PAGE = "home";
     private static final String ADMIN_PAGE = "admin";
     private static final String DOCTOR_PAGE = "doctor";
@@ -32,7 +30,7 @@ public class MainController {
     /**
      * Welcome page mapping
      *
-     * @param request
+     * @param request http request
      * @return home page ULR
      */
     @GetMapping("/")
@@ -58,7 +56,7 @@ public class MainController {
     /**
      * Doctor page mapping
      *
-     * @param request
+     * @param request http request
      * @return doctor page url
      */
     @GetMapping("/doctor")
@@ -69,7 +67,7 @@ public class MainController {
     /**
      * Nurse page mapping
      *
-     * @param request
+     * @param request http request
      * @return nurse page url
      */
     @GetMapping("/nurse")
@@ -80,13 +78,12 @@ public class MainController {
     /**
      * Patient page mapping
      *
-     * @param request
-     * @return patienet page url
+     * @param request http request
+     * @return patient page url
      */
-    @GetMapping("/patienet") //TODO 12.01.2021 matmalik: typo in word patient
-    public String patienetPage(HttpServletRequest request) {
+    @GetMapping("/patient")
+    public String patientPage(HttpServletRequest request) {
         return PATIENT_PAGE;
     }
-
 
 }

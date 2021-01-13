@@ -1,8 +1,8 @@
 package com.jschool.reha.crud.enums;
 
-//TODO 12.01.2021 matmalik: same as in EventStatus
 /**
- * Helper enum for db role field
+ * Enum for DB Role column mapping
+ * @author Dmitry Sorokin
  */
 public enum Role {
     ROLE_PATIENT,

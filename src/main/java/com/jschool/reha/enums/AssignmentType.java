@@ -1,4 +1,4 @@
-package com.jschool.reha.crud.enums;
+package com.jschool.reha.enums;
 
 /**
  * Enum for DB assignment.type column mapping

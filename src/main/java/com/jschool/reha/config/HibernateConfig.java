@@ -17,7 +17,6 @@ import java.util.Properties;
 
 /**
  * Hibernate Spring configuration
- *
  * @author Dmitry Sorokin
  */
 @Configuration
@@ -29,7 +28,7 @@ public class HibernateConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("com.jschool.reha.crud.entity");
+        em.setPackagesToScan("com.jschool.reha.entity");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

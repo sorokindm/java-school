@@ -1,6 +1,6 @@
-package com.jschool.reha.crud.dao;
+package com.jschool.reha.dao;
 
-import com.jschool.reha.crud.entity.Person;
+import com.jschool.reha.entity.Person;
 
 import java.util.List;
 

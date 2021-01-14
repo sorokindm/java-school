@@ -1,8 +1,8 @@
-package com.jschool.reha.crud.service;
+package com.jschool.reha.service;
 
-import com.jschool.reha.crud.dao.PersonDAO;
-import com.jschool.reha.crud.dto.UserDto;
-import com.jschool.reha.crud.entity.Person;
+import com.jschool.reha.dao.PersonDAO;
+import com.jschool.reha.dto.UserDto;
+import com.jschool.reha.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,17 +1,17 @@
-package com.jschool.reha.crud.entity;
+package com.jschool.reha.entity;
 
-import com.jschool.reha.crud.enums.AssignmentType;
-import com.jschool.reha.crud.enums.Timeframe;
+import com.jschool.reha.enums.AssignmentType;
+import com.jschool.reha.enums.Timeframe;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-//TODO 13.01.2021 matmalik: @author is after comment
+
 /**
- * @author Dmitry Sorokin
  * POJO Class to store every assignment in scope of treatment
+ * @author Dmitry Sorokin
  */
 @Entity
 @Table(name = "assignment")
@@ -44,12 +44,10 @@ public class Assignment implements Serializable {
     private Timeframe timeframe;
 
     @Column(name="started",nullable = false)
-    LocalDate started; //TODO 13.01.2021 matmalik: why this field is not private?
-    //TODO 14.01.2021 matmalik: Its better to rename assignmentStartDate
+    private LocalDate assignmentStartDate;
 
     @Column(name="expired")
-    LocalDate expired;//TODO 13.01.2021 matmalik: why this field is not private?
-    //TODO 14.01.2021 matmalik: Its better to rename assignmentEndDate
+    private LocalDate assignmentEndDate;
 
     @Column(name = "comments")
     private String comments;

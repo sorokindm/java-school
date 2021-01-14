@@ -1,13 +1,12 @@
 package com.jschool.reha.controller;
 
-import com.jschool.reha.crud.dto.UserDto;
-import com.jschool.reha.crud.service.AdminService;
+import com.jschool.reha.dto.UserDto;
+import com.jschool.reha.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -30,11 +29,10 @@ public class MainController {
     /**
      * Welcome page mapping
      *
-     * @param request http request
      * @return home page ULR
      */
     @GetMapping("/")
-    public String homePage(HttpServletRequest request) {
+    public String homePage() {
         return HOME_PAGE;
     }
 
@@ -56,33 +54,30 @@ public class MainController {
     /**
      * Doctor page mapping
      *
-     * @param request http request
      * @return doctor page url
      */
     @GetMapping("/doctor")
-    public String doctorPage(HttpServletRequest request) {
+    public String doctorPage() {
         return DOCTOR_PAGE;
     }
 
     /**
      * Nurse page mapping
      *
-     * @param request http request
      * @return nurse page url
      */
     @GetMapping("/nurse")
-    public String nursePage(HttpServletRequest request) {
+    public String nursePage() {
         return NURSE_PAGE;
     }
 
     /**
      * Patient page mapping
      *
-     * @param request http request
      * @return patient page url
      */
     @GetMapping("/patient")
-    public String patientPage(HttpServletRequest request) {
+    public String patientPage() {
         return PATIENT_PAGE;
     }
 

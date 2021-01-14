@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-
+//TODO 13.01.2021 matmalik: @author is after comment
 /**
  * @author Dmitry Sorokin
  * POJO Class to store every assignment in scope of treatment
@@ -44,10 +44,12 @@ public class Assignment implements Serializable {
     private Timeframe timeframe;
 
     @Column(name="started",nullable = false)
-    LocalDate started;
+    LocalDate started; //TODO 13.01.2021 matmalik: why this field is not private?
+    //TODO 14.01.2021 matmalik: Its better to rename assignmentStartDate
 
     @Column(name="expired")
-    LocalDate expired;
+    LocalDate expired;//TODO 13.01.2021 matmalik: why this field is not private?
+    //TODO 14.01.2021 matmalik: Its better to rename assignmentEndDate
 
     @Column(name = "comments")
     private String comments;

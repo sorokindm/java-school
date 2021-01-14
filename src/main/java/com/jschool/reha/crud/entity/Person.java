@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+//TODO 13.01.2021 matmalik: @author?
 /**
  * POJO Class to store every user data
  */
@@ -30,7 +31,7 @@ public class Person implements Serializable {
     @Column(name="gender", columnDefinition = "enum('MALE','FEMALE')",nullable = false)
     private Gender gender;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)//TODO 14.01.2021 matmalik: Are you using enum Role ? Or these are different roles (ROLE_PATIENT, ROLE_ADMIN etc)
     @Column(name = "role", columnDefinition = "enum('PATIENT','NURSE','DOCTOR','ADMIN')",nullable = false)
     private Role role;
 

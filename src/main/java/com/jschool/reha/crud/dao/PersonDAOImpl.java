@@ -18,7 +18,8 @@ public class PersonDAOImpl implements PersonDAO{
     private EntityManagerFactory entityManagerFactory;
 
     @Override
-    public List<Person> getAllPersons() {
+    public List<Person> getAllPersons() {//TODO 14.01.2021 matmalik: why not .createQuery("select p from Person p")?
         return this.entityManagerFactory.createEntityManager().createQuery("from Person").getResultList();
+        //TODO 14.01.2021 matmalik: I suppose we can avoid of using this.
     }
 }

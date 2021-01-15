@@ -9,13 +9,17 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+
+/**
+ * Spring Web MVC Config
+ * @author Dmitry Sorokin
+ */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.jschool.reha")
+@ComponentScan(basePackages = "com.jschool.reha.controller")
 public class WebMVCSpringConfig implements WebMvcConfigurer {
 
     /**
-     * @author Dmitry Sorokin
      * Defines resources folder mapping
      */
     @Override
@@ -25,7 +29,7 @@ public class WebMVCSpringConfig implements WebMvcConfigurer {
     }
 
     /**
-     * @author Dmitry Sorokin
+     * Spring mvc view resolver
      * @return view resolver
      */
     @Bean
@@ -37,6 +41,5 @@ public class WebMVCSpringConfig implements WebMvcConfigurer {
 
         return viewResolver;
     }
-
 
 }

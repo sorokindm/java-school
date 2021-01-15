@@ -1,109 +1,84 @@
 package com.jschool.reha.controller;
 
-import com.jschool.reha.crud.Person;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import com.jschool.reha.dto.UserDto;
+import com.jschool.reha.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
 /**
  * Main controller
+ *
  * @author Dmitry Sorokin
  */
 @Controller
 public class MainController {
+    private static final String HOME_PAGE = "home";
+    private static final String ADMIN_PAGE = "admin";
+    private static final String DOCTOR_PAGE = "doctor";
+    private static final String NURSE_PAGE = "nurse";
+    private static final String PATIENT_PAGE = "patient";
 
-
-    private static final String LOGIN_PAGE = "login";
-    private static final String LOGGED_IN_PAGE = "loggedIn";
-    private static final String REDIRECT_LOGGED_IN = "redirect:/" + LOGGED_IN_PAGE;
+    @Autowired
+    private AdminService adminService;
 
     /**
      * Welcome page mapping
-     * @author Dmitry Sorokin
-     * @param request
-     * @return welcome or login page ULR
+     *
+     * @return home page ULR
      */
-    @RequestMapping("/")
-    public String loginPage(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Person person = (Person) session.getAttribute("person");
-        if (person == null) return LOGIN_PAGE;
-        else return REDIRECT_LOGGED_IN;
+    @GetMapping("/")
+    public String homePage() {
+        return HOME_PAGE;
     }
 
     /**
-     * Login action controller
-     * @author Dmitry Sorokin
-     * @param request
-     * @param username
-     * @param password
-     * @return Logged in page on success, login page on fail
+     * Admin page. Fetches user data from db
+     *
+     * @return model with UserDto List
      */
-    @RequestMapping("/doLogin")
-    public String doLogin(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) {
-        HttpSession session = request.getSession();
-        Person person = (Person) session.getAttribute("person");
+    @GetMapping("/admin")
+    public ModelAndView adminPage() {
+        List<UserDto> users = adminService.getAllUserData();
 
-        final String login = "admin";
-        final String pass = "admin";
-        if (person != null) {
-            return REDIRECT_LOGGED_IN;
-        } else {
-            if (username.equals(login) && password.equals(pass)) {
-                person = new Person();
-                person.setUsername(username);
-                person.setPassword(password);
-
-                session.setAttribute("person", person);
-                return REDIRECT_LOGGED_IN;
-            }
-        }
-        return LOGIN_PAGE;
+        ModelAndView model = new ModelAndView();
+        model.addObject("users", users);
+        model.setViewName(ADMIN_PAGE);
+        return model;
     }
 
     /**
-     * Logged in page. Fetches user data from db, adds data to attribute
-     * @author Dmitry Sorokin
-     * @param model
-     * @return logged in page on success, error page on fail
+     * Doctor page mapping
+     *
+     * @return doctor page url
      */
-    @RequestMapping("/loggedIn")
-    public String loggedInPage(Model model) {
-        List<Person> personList;
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Person.class)
-                .buildSessionFactory();
-        Session session = factory.getCurrentSession();
-        //Get list of all users from DB
-        try {
-            session.beginTransaction();
-            personList = session.createQuery("from Person").getResultList();
-            session.getTransaction().commit();
-
-        } finally {
-
-            factory.close();
-        }
-
-
-        //Add user data to model and present it in logged in page
-        if (personList != null) {
-            model.addAttribute("users", personList);
-            return LOGGED_IN_PAGE;
-        } else {
-            return "error";
-        }
-
-
+    @GetMapping("/doctor")
+    public String doctorPage() {
+        return DOCTOR_PAGE;
     }
+
+    /**
+     * Nurse page mapping
+     *
+     * @return nurse page url
+     */
+    @GetMapping("/nurse")
+    public String nursePage() {
+        return NURSE_PAGE;
+    }
+
+    /**
+     * Patient page mapping
+     *
+     * @return patient page url
+     */
+    @GetMapping("/patient")
+    public String patientPage() {
+        return PATIENT_PAGE;
+    }
+
 }

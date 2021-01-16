@@ -1,10 +1,10 @@
 package com.jschool.reha.dao;
 
 import com.jschool.reha.entity.Person;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -14,11 +14,11 @@ import java.util.List;
 @Repository
 public class PersonDAOImpl implements PersonDAO{
 
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public List<Person> getAllPersons() {
-        return entityManagerFactory.createEntityManager().createQuery("select p from Person p").getResultList();
+        return em.createQuery("select p from Person p").getResultList();
     }
 }

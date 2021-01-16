@@ -47,6 +47,9 @@ public class Person implements Serializable {
     @Column(name="id_insurance")
     private String idInsurance;
 
+    @Column(name="enabled", nullable = false)
+    private boolean enabled;
+
     @OneToMany(mappedBy="patient")
     private List<Treatment> treatmentsAsPatient;
 

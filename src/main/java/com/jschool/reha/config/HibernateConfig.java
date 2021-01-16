@@ -11,6 +11,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
@@ -73,7 +74,7 @@ public class HibernateConfig {
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager
                 = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getNativeEntityManagerFactory());
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
     }
 
@@ -88,13 +89,13 @@ public class HibernateConfig {
                 "hibernate.hbm2ddl.auto", "validate");
         properties.setProperty(
                 "hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.setProperty(
-                "show_sql","true");
         properties.setProperty("hibernate.c3p0.initialPoolSize","5");
         properties.setProperty("hibernate.c3p0.min_size","5");
         properties.setProperty("hibernate.c3p0.max_size","30");
         properties.setProperty("hibernate.c3p0.timeout","2000");
-        properties.setProperty("show_sql","true");
+        properties.setProperty("hibernate.show_sql","true");
+        properties.setProperty("hibernate.format_sql","true");
+        properties.setProperty("hibernate.use_sql_comments","true");
 
         return properties;
     }

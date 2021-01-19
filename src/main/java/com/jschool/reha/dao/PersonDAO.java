@@ -1,6 +1,6 @@
 package com.jschool.reha.dao;
 
-import com.jschool.reha.entity.Person;
+import com.jschool.reha.entity.User;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface PersonDAO {
      * Fetches all person data from db
      * @return List of all persons data
      */
-    List<Person> getAllPersons();
+    List<User> getAllPersons();
 }

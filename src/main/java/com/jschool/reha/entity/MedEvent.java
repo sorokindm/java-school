@@ -24,6 +24,10 @@ public class MedEvent implements Serializable {
     @JoinColumn(name="id_assignment",nullable = false)
     private Assignment assignment;
 
+    @ManyToOne
+    @JoinColumn(name = "id_nurse",nullable=false)
+    private MedStaff nurse;
+
     @Column(name="starts",nullable = false)
     private LocalDateTime starts;
 
@@ -31,8 +35,8 @@ public class MedEvent implements Serializable {
     @Column(name = "status",columnDefinition = "enum('PENDING','SCHEDULED','DONE','CANCELED')",nullable = false)
     private EventStatus status;
 
-    @OneToOne
-    @JoinColumn(name = "id_nurse",referencedColumnName = "id_person")
-    private Person nurse;
+    @ManyToOne
+    @JoinColumn(name = "id_patient",nullable=false)
+    private Patient patient;
 
 }

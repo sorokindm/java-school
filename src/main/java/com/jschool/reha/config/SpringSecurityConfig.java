@@ -29,8 +29,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(encoder())
-                .usersByUsernameQuery("select username,password,enabled " + "from person " + "where username=?")
-                .authoritiesByUsernameQuery("select username,role " + "from person " + "where username=?");
+                .usersByUsernameQuery("select username,password,enabled " + "from user " + "where username=?")
+                .authoritiesByUsernameQuery("select username,role " + "from user " + "where username=?");
 
     }
 

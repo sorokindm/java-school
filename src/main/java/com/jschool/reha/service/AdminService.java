@@ -1,6 +1,7 @@
 package com.jschool.reha.service;
 
 import com.jschool.reha.dto.UserDto;
+import com.jschool.reha.entity.MedStaff;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface AdminService {
      * @return List of all users int the UserDto format
      */
     List<UserDto> getAllUserData();
+
+    void addNewMedStaff(MedStaff staff);
 }

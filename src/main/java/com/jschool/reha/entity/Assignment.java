@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * POJO Class to store every assignment in scope of treatment
+ * Entity Class to store every assignment in scope of treatment
  * @author Dmitry Sorokin
  */
 @Entity
@@ -33,6 +33,9 @@ public class Assignment implements Serializable {
     @Column(name = "name",nullable = false)
     private String name;
 
+    @Column(name = "dosage",nullable = false)
+    private String dosage;
+
     @Column(name="pattern_quantity",nullable = false)
     private int patternQuantity;
 
@@ -46,11 +49,11 @@ public class Assignment implements Serializable {
     @Column(name="started",nullable = false)
     private LocalDate assignmentStartDate;
 
-    @Column(name="expired")
+    @Column(name="ended")
     private LocalDate assignmentEndDate;
 
-    @Column(name = "comments")
-    private String comments;
+    @Column(name = "ended_comments")
+    private String endedComments;
 
     @OneToMany(mappedBy = "assignment")
     private List<MedEvent> medEvents;

@@ -27,19 +27,14 @@
     </div>
 </div>
 <br>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/admin">Admin</a>
 
-<form:form action="${pageContext.request.contextPath}/admin" method="GET">
-    <button class="btn btn-primary" type="submit">Admin</button>
-</form:form>
-<form:form action="${pageContext.request.contextPath}/doctor" method="GET">
-    <button class="btn btn-primary" type="submit">Doctor</button>
-</form:form>
-<form:form action="${pageContext.request.contextPath}/nurse" method="GET">
-    <button class="btn btn-primary" type="submit">Nurse</button>
-</form:form>
-<form:form action="${pageContext.request.contextPath}/patient" method="GET">
-    <button class="btn btn-primary" type="submit">Patient</button>
-</form:form>
+<br>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/doctor">Doctor</a>
+<br>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/nurse">Nurse</a>
+<br>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/patient">Patient</a>
 
 
 

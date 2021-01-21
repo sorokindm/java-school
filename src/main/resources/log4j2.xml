@@ -17,7 +17,7 @@
         <Root level="ALL">
             <AppenderRef ref="FileAppender"/>
         </Root>
-        <Logger name="org.hibernate.SQL" level="ALL">
+        <Logger name="org.hibernate" level="ALL">
             <AppenderRef ref="HibernateAppender"/>
         </Logger>
         <Logger name="org.springframework" level="TRACE">

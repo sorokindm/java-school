@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * POJO Class to store treatment data for a patient
+ * Entity Class to store treatment data for a patient
  * @author Dmitry Sorokin
  */
 @Entity
@@ -22,20 +22,26 @@ public class Treatment implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="id_doctor",nullable = false)
-    private Person doctor;
+    private MedStaff doctor;
 
     @ManyToOne
-    @JoinColumn(name="id_person",nullable = false)
-    private Person patient;
+    @JoinColumn(name="id_patient",nullable = false)
+    private Patient patient;
+
+    @Column(name="opened",nullable = false)
+    private LocalDate treatmentOpened;
 
     @Column(name="diagnosis")
     private String diagnosis;
 
-    @Column(name="started",nullable = false)
-    private LocalDate treatmentStartDate;
+    @Column(name="opened_comments",nullable = false)
+    private String openedComments;
 
-    @Column(name="ended")
-    private LocalDate treatmentEndDate;
+    @Column(name="closed")
+    private LocalDate treatmentClosed;
+
+    @Column(name="closed_comments")
+    private String closedComments;
 
     @OneToMany(mappedBy = "treatment")
     private List<Assignment> assignments;

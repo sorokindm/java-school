@@ -1,6 +1,6 @@
 package com.jschool.reha.dao;
 
-import com.jschool.reha.entity.Person;
+import com.jschool.reha.entity.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,13 +12,18 @@ import java.util.List;
  * @author Dmitry Sorokin
  */
 @Repository
-public class PersonDAOImpl implements PersonDAO{
+public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public List<Person> getAllPersons() {
-        return em.createQuery("select p from Person p").getResultList();
+    public List<User> getAllUsers() {
+        return em.createQuery("select p from User p").getResultList();
+    }
+
+    @Override
+    public void addNewUser(User user) {
+        em.persist(user);
     }
 }

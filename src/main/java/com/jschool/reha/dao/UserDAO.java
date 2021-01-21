@@ -8,11 +8,13 @@ import java.util.List;
  * DAO Interface for Person Entity
  * @author Dmitry Sorokin
  */
-public interface PersonDAO {
+public interface UserDAO {
 
     /**
      * Fetches all person data from db
      * @return List of all persons data
      */
-    List<User> getAllPersons();
+    List<User> getAllUsers();
+
+    void addNewUser(User user);
 }

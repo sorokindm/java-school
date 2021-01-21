@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `reha`.`med_staff` (
                                                   `last_name` VARCHAR(50) NOT NULL,
                                                   `gender` ENUM('MALE', 'FEMALE') NOT NULL,
                                                   `specialty` VARCHAR(50) NOT NULL,
-                                                  `biography` VARCHAR(300) NULL DEFAULT NULL,
                                                   `id_user` INT NOT NULL,
                                                   PRIMARY KEY (`id_med_staff`),
                                                   INDEX `fk_user_id_idx` (`id_user` ASC) VISIBLE,
@@ -69,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `reha`.`med_staff` (
 DROP TABLE IF EXISTS `reha`.`patient` ;
 
 CREATE TABLE IF NOT EXISTS `reha`.`patient` (
-                                                `id_patient` INT NOT NULL,
+                                                `id_patient` INT NOT NULL AUTO_INCREMENT,
                                                 `name` VARCHAR(50) NOT NULL,
                                                 `last_name` VARCHAR(50) NOT NULL,
                                                 `gender` ENUM('MALE', 'FEMALE') NOT NULL,

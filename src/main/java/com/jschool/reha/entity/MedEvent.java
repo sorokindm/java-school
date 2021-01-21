@@ -1,6 +1,6 @@
 package com.jschool.reha.entity;
 
-import com.jschool.reha.enums.EventStatus;
+import com.jschool.reha.enums.MedEventStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -33,7 +33,7 @@ public class MedEvent implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status",columnDefinition = "enum('PENDING','SCHEDULED','DONE','CANCELED')",nullable = false)
-    private EventStatus status;
+    private MedEventStatus status;
 
     @ManyToOne
     @JoinColumn(name = "id_patient",nullable=false)

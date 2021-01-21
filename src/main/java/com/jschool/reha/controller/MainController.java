@@ -1,11 +1,16 @@
 package com.jschool.reha.controller;
 
 import com.jschool.reha.dto.UserDto;
+import com.jschool.reha.entity.MedStaff;
 import com.jschool.reha.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -19,12 +24,12 @@ import java.util.List;
 public class MainController {
     private static final String HOME_PAGE = "home";
     private static final String ADMIN_PAGE = "admin";
-    private static final String DOCTOR_PAGE = "doctor";
     private static final String NURSE_PAGE = "nurse";
     private static final String PATIENT_PAGE = "patient";
 
     @Autowired
     private AdminService adminService;
+
 
     /**
      * Welcome page mapping
@@ -52,14 +57,28 @@ public class MainController {
     }
 
     /**
-     * Doctor page mapping
+     * Page for adding new mediacal staff
      *
-     * @return doctor page url
+     * @return model with UserDto List
      */
-    @GetMapping("/doctor")
-    public String doctorPage() {
-        return DOCTOR_PAGE;
+    @GetMapping("/admin/newMedStaff")
+    public String newMedStaffPage(Model model) {
+        model.addAttribute("medStaff",new MedStaff());
+        return "newMedStaff";
     }
+
+    /**
+     * Page for processing form to add new medStaff
+     *
+     * @return model with UserDto List
+     */
+    @PostMapping("/admin/newMedStaff/processForm")
+    public RedirectView processNewMedStaffForm(@ModelAttribute("medStaff") MedStaff staff) {
+        adminService.addNewMedStaff(staff);
+        return new RedirectView("/java_school/admin");
+    }
+
+
 
     /**
      * Nurse page mapping

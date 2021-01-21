@@ -2,6 +2,7 @@ package com.jschool.reha.entity;
 
 import com.jschool.reha.enums.Role;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user",nullable = false)
-    private int idPerson;
+    private int idUser;
 
     @Column(name = "username",nullable = false)
     private String username;
@@ -39,9 +40,11 @@ public class User implements Serializable {
     @Column(name="enabled", nullable = false)
     private boolean enabled;
 
+    @ToString.Exclude
     @OneToOne(mappedBy="user")
     private Patient patient;
 
+    @ToString.Exclude
     @OneToOne(mappedBy="user")
     private MedStaff medStaff;
 

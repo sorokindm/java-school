@@ -12,13 +12,18 @@ import java.util.List;
  * @author Dmitry Sorokin
  */
 @Repository
-public class PersonDAOImpl implements PersonDAO{
+public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public List<User> getAllPersons() {
+    public List<User> getAllUsers() {
         return em.createQuery("select p from User p").getResultList();
+    }
+
+    @Override
+    public void addNewUser(User user) {
+        em.persist(user);
     }
 }

@@ -18,7 +18,7 @@ public class MedStaff implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_med_staff",nullable = false)
-    private int idPatient;
+    private int idMedStaff;
 
     @Column(name = "name",nullable = false)
     private String name;
@@ -32,9 +32,6 @@ public class MedStaff implements Serializable {
 
     @Column(name="specialty",nullable = false)
     private String specialty;
-
-    @Column(name="biography")
-    private String biography;
 
     @OneToOne
     @JoinColumn(name="id_user",referencedColumnName = "id_user",nullable = false)

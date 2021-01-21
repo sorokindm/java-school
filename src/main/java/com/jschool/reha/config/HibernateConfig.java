@@ -96,6 +96,7 @@ public class HibernateConfig {
         properties.setProperty("hibernate.show_sql","true");
         properties.setProperty("hibernate.format_sql","true");
         properties.setProperty("hibernate.use_sql_comments","true");
+        properties.setProperty("hibernate.current_session_context_class","thread");
 
         return properties;
     }

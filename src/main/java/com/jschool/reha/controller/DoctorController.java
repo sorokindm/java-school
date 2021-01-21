@@ -1,5 +1,8 @@
 package com.jschool.reha.controller;
 
+import com.jschool.reha.dto.AssignmentDto;
+import com.jschool.reha.dto.PatientDto;
+import com.jschool.reha.dto.TreatmentDto;
 import com.jschool.reha.entity.Assignment;
 import com.jschool.reha.entity.Patient;
 import com.jschool.reha.entity.Treatment;
@@ -48,7 +51,7 @@ public class DoctorController {
      */
     @GetMapping("/doctor/newPatient")
     public String doctorNewPatientPage(Model model) {
-        model.addAttribute("patient",new Patient());
+        model.addAttribute("patient", new Patient());
         return "newPatient";
     }
 
@@ -58,8 +61,8 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newPatient/processForm")
-    public RedirectView processNewPatientForm(@ModelAttribute("patient") Patient patient) {
-        doctorService.addNewPatient(patient);
+    public RedirectView processNewPatientForm(@ModelAttribute("patient") PatientDto patientDto) {
+        doctorService.addNewPatient(patientDto);
         return new RedirectView(REDIRECT_DOCTOR_PAGE);
     }
 
@@ -70,7 +73,7 @@ public class DoctorController {
      */
     @GetMapping("/doctor/newTreatment")
     public String doctorNewTreatmentPage(Model model) {
-        model.addAttribute("treatment",new Treatment());
+        model.addAttribute("treatment", new Treatment());
         return "newTreatment";
     }
 
@@ -80,8 +83,8 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newTreatment/processForm")
-    public RedirectView processNewTreatmentForm(@ModelAttribute("treatment") Treatment treatment) {
-        doctorService.addNewTreatment(treatment);
+    public RedirectView processNewTreatmentForm(@ModelAttribute("treatment") TreatmentDto treatmentDto) {
+        doctorService.addNewTreatment(treatmentDto);
         return new RedirectView(REDIRECT_DOCTOR_PAGE);
     }
 
@@ -92,7 +95,7 @@ public class DoctorController {
      */
     @GetMapping("/doctor/newAssignment")
     public String doctorNewAssignmentPage(Model model) {
-        model.addAttribute("assignment",new Assignment());
+        model.addAttribute("assignment", new Assignment());
         return "newAssignment";
     }
 
@@ -102,8 +105,8 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newAssignment/processForm")
-    public RedirectView processNewAssignmentForm(@ModelAttribute("assignment") Assignment assignment) {
-        doctorService.addNewAssignment(assignment);
+    public RedirectView processNewAssignmentForm(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
+        doctorService.addNewAssignment(assignmentDto);
         return new RedirectView(REDIRECT_DOCTOR_PAGE);
     }
 }

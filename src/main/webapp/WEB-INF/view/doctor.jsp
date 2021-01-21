@@ -25,24 +25,16 @@
 </div>
 <br>
 
-<form class="text-center" action="${pageContext.request.contextPath}/doctor/newPatient"
-      method="GET">
-    <button type="submit" class="btn btn-primary">Add new patient</button>
-</form>
+
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/doctor/newPatient">New Patient</a>
 
 <br>
 
-<form class="text-center" action="${pageContext.request.contextPath}/doctor/newTreatment"
-      method="GET">
-    <button type="submit" class="btn btn-primary">Add new treatment</button>
-</form>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/doctor/newTreatment">New Treatment</a>
 
 <br>
 
-<form class="text-center" action="${pageContext.request.contextPath}/doctor/newAssignment"
-      method="GET">
-    <button type="submit" class="btn btn-primary">Add new assignment</button>
-</form>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/doctor/newAssignment">New Assignment</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"

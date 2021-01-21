@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * POJO Class to store treatment data for a patient
+ * Entity Class to store treatment data for a patient
  * @author Dmitry Sorokin
  */
 @Entity

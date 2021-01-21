@@ -1,9 +1,9 @@
 package com.jschool.reha.service;
 
-import com.jschool.reha.entity.Assignment;
-import com.jschool.reha.entity.MedEvent;
-import com.jschool.reha.entity.Patient;
-import com.jschool.reha.entity.Treatment;
+import com.jschool.reha.dto.AssignmentDto;
+import com.jschool.reha.dto.MedEventDto;
+import com.jschool.reha.dto.PatientDto;
+import com.jschool.reha.dto.TreatmentDto;
 
 /**
  * Service for doctor utilities
@@ -14,28 +14,28 @@ public interface DoctorService {
     /**
      * Adds new patient to db
      *
-     * @param patient - patient entity to add
+     * @param patientDto - patient data for entity to add
      */
-    void addNewPatient(Patient patient);
+    void addNewPatient(PatientDto patientDto);
 
     /**
      * Adds new treatment to db
      *
-     * @param treatment - treatment entity to add
+     * @param treatmentDto - treatment data for entity to add
      */
-    void addNewTreatment(Treatment treatment);
+    void addNewTreatment(TreatmentDto treatmentDto);
 
     /**
      * Adds new assignment to db
      *
-     * @param assignment - assignment entity to add
+     * @param assignmentDto - assignment data for entity to add
      */
-    void addNewAssignment(Assignment assignment);
+    void addNewAssignment(AssignmentDto assignmentDto);
 
     /**
      * Adds new medEvent to DB
      *
-     * @param medEvent - MedEvent entity to add
+     * @param medEventDto - MedEvent data for entity to add
      */
-    void addNewMedEvent(MedEvent medEvent);
+    void addNewMedEvent(MedEventDto medEventDto);
 }

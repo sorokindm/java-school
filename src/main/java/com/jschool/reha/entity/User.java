@@ -1,20 +1,20 @@
 package com.jschool.reha.entity;
 
 import com.jschool.reha.enums.Role;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * POJO Class to store every user data
+ * Entity Class to store every user data
  * @author Dmitry Sorokin
  */
 @Entity
 @Table(name = "user")
-@Data
+@Getter
+@Setter
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +40,9 @@ public class User implements Serializable {
     @Column(name="enabled", nullable = false)
     private boolean enabled;
 
-    @ToString.Exclude
     @OneToOne(mappedBy="user")
     private Patient patient;
 
-    @ToString.Exclude
     @OneToOne(mappedBy="user")
     private MedStaff medStaff;
 

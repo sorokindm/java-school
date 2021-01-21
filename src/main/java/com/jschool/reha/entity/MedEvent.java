@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * POJO Class to store medical event data
+ * Entity Class to store medical event data
  * @author Dmitry Sorokin
  */
 @Entity
@@ -25,7 +25,7 @@ public class MedEvent implements Serializable {
     private Assignment assignment;
 
     @ManyToOne
-    @JoinColumn(name = "id_nurse",nullable=false)
+    @JoinColumn(name = "id_nurse", nullable=false)
     private MedStaff nurse;
 
     @Column(name="starts",nullable = false)

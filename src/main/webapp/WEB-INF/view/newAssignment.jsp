@@ -44,7 +44,7 @@
             <label for="type">Type</label>
             <form:select class="custom-select d-block w-100" id="type" required="" path="type">
                 <option value="">Choose...</option>
-                <option value="<MEDICATION>">Medication</option>
+                <option value="MEDICATION">Medication</option>
                 <option value="PROCEDURE">Procedure</option>
             </form:select>
             <div class="invalid-feedback">
@@ -53,7 +53,8 @@
         </div>
         <div class="row">
             <div class="col-md-1 mb-3">
-                <form:input type="text" class="form-control" id="pattern_quantity" placeholder="" required="" path="patternQuantity"/>
+                <form:input type="number" class="form-control" id="pattern_quantity" placeholder="" required=""
+                            path="patternQuantity"/>
                 <div class="invalid-feedback">
                     Valid number required
                 </div>
@@ -75,7 +76,8 @@
                 For
             </div>
             <div class="col-md-1 mb-3">
-                <form:input type="text" class="form-control" id="patternHowlong" placeholder="" required="" path="patternHowlong"/>
+                <form:input type="number" class="form-control" id="patternHowlong" placeholder="" required=""
+                            path="patternHowlong"/>
                 <div class="invalid-feedback">
                     Valid number required
                 </div>

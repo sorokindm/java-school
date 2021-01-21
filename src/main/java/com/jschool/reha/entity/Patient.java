@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * POJO Class to store every patient data
+ * Entity Class to store every patient data
  * @author Dmitry Sorokin
  */
 @Entity

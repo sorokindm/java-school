@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * POJO Class to store every assignment in scope of treatment
+ * Entity Class to store every assignment in scope of treatment
  * @author Dmitry Sorokin
  */
 @Entity

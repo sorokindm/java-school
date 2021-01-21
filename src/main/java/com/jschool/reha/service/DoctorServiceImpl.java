@@ -1,8 +1,16 @@
 package com.jschool.reha.service;
 
 import com.jschool.reha.dao.*;
-import com.jschool.reha.entity.*;
-import com.jschool.reha.enums.*;
+import com.jschool.reha.dto.AssignmentDto;
+import com.jschool.reha.dto.MedEventDto;
+import com.jschool.reha.dto.PatientDto;
+import com.jschool.reha.dto.TreatmentDto;
+import com.jschool.reha.entity.Assignment;
+import com.jschool.reha.entity.MedEvent;
+import com.jschool.reha.entity.Patient;
+import com.jschool.reha.entity.Treatment;
+import com.jschool.reha.enums.MedEventStatus;
+import com.jschool.reha.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,43 +41,64 @@ public class DoctorServiceImpl implements DoctorService {
     MedEventDAO medEventDAO;
 
     @Override
-    public void addNewPatient(Patient patient) {
-        patient.getUser().setEnabled(true);
-        patient.getUser().setCreateTime(LocalDateTime.now());
-        patient.getUser().setRole(Role.ROLE_PATIENT);
-        userDAO.addNewUser(patient.getUser());
-        patientDAO.addNewPatient(patient);
+    public void addNewPatient(PatientDto patientDto) {
+        Patient patientEntity = new Patient();
+        patientEntity.setName(patientDto.getName());
+        patientEntity.setLastName(patientDto.getLastName());
+        patientEntity.setGender(patientDto.getGender());
+        patientEntity.setIdInsurance(patientDto.getIdInsurance());
+        patientEntity.setUser(patientDto.getUser());
+        patientEntity.getUser().setEnabled(true);
+        patientEntity.getUser().setCreateTime(LocalDateTime.now());
+        patientEntity.getUser().setRole(Role.ROLE_PATIENT);
+
+        userDAO.addNewUser(patientEntity.getUser());
+        patientDAO.addNewPatient(patientEntity);
     }
 
     @Override
-    public void addNewTreatment(Treatment treatment) {
-        treatment.setTreatmentOpened(LocalDate.now());
-        treatment.setPatient(patientDAO.getPatientById(1));
-        treatment.setDoctor(medStaffDAO.getMedStaffById(2));
-        treatmentDAO.addNewTreatment(treatment);
+    public void addNewTreatment(TreatmentDto treatmentDto) {
+        Treatment treatmentEntity = new Treatment();
+        treatmentEntity.setOpenedComments(treatmentDto.getOpenedComments());
+        treatmentEntity.setDiagnosis(treatmentDto.getDiagnosis());
+        treatmentEntity.setTreatmentOpened(LocalDate.now());
+        treatmentEntity.setPatient(patientDAO.getPatientById(1));
+        treatmentEntity.setDoctor(medStaffDAO.getMedStaffById(2));
+        treatmentDAO.addNewTreatment(treatmentEntity);
     }
 
     @Override
-    public void addNewAssignment(Assignment assignment) {
-        assignment.setAssignmentStartDate(LocalDate.now());
-        assignment.setDosage("1 pill");
-        assignment.setName("Happy pills");
-        assignment.setTreatment(treatmentDAO.getTreatmentById(1));
-        assignmentDAO.addNewAssignment(assignment);
+    public void addNewAssignment(AssignmentDto assignmentDto) {
+        Assignment assignmentEntity = new Assignment();
+        assignmentEntity.setAssignmentStartDate(LocalDate.now());
+        assignmentEntity.setDosage(assignmentDto.getDosage());
+        assignmentEntity.setName(assignmentDto.getName());
+        assignmentEntity.setType(assignmentDto.getType());
+        assignmentEntity.setPatternQuantity(assignmentDto.getPatternQuantity());
+        assignmentEntity.setPatternHowlong(assignmentDto.getPatternHowlong());
+        assignmentEntity.setTimeframe(assignmentDto.getTimeframe());
+        assignmentEntity.setTreatment(treatmentDAO.getTreatmentById(1));
+        assignmentDAO.addNewAssignment(assignmentEntity);
 
-        MedEvent medEvent = new MedEvent();
-        medEvent.setPatient(patientDAO.getPatientById(1));
-        medEvent.setAssignment(assignmentDAO.getAssignmentById(assignment.getIdAssignment()));
-        medEvent.setNurse(medStaffDAO.getMedStaffById(2));
-        medEvent.setStatus(MedEventStatus.PENDING);
-        medEvent.setStarts(LocalDateTime.now());
+        MedEventDto medEventDto = new MedEventDto();
+        medEventDto.setPatient(patientDAO.getPatientById(1));
+        medEventDto.setAssignment(assignmentDAO.getAssignmentById(assignmentEntity.getIdAssignment()));
+        medEventDto.setNurse(medStaffDAO.getMedStaffById(2));
+        medEventDto.setStatus(MedEventStatus.PENDING);
+        medEventDto.setStarts(LocalDateTime.now());
 
-        addNewMedEvent(medEvent);
+        addNewMedEvent(medEventDto);
     }
 
     @Override
-    public void addNewMedEvent(MedEvent medEvent) {
-        medEventDAO.addNewMedEvent(medEvent);
+    public void addNewMedEvent(MedEventDto medEventDto) {
+        MedEvent medEventEntity = new MedEvent();
+        medEventEntity.setStarts(medEventDto.getStarts());
+        medEventEntity.setAssignment(medEventDto.getAssignment());
+        medEventEntity.setNurse(medEventDto.getNurse());
+        medEventEntity.setPatient(medEventDto.getPatient());
+        medEventEntity.setStatus(medEventDto.getStatus());
+        medEventDAO.addNewMedEvent(medEventEntity);
     }
 
 }

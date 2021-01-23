@@ -1,7 +1,6 @@
 package com.jschool.reha.entity;
 
 import com.jschool.reha.enums.AssignmentType;
-import com.jschool.reha.enums.Timeframe;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -36,24 +35,21 @@ public class Assignment implements Serializable {
     @Column(name = "dosage",nullable = false)
     private String dosage;
 
-    @Column(name="pattern_quantity",nullable = false)
-    private int patternQuantity;
+    @Column(name="quantity",nullable = false)
+    private int quantity;
 
-    @Column(name="pattern_howlong",nullable = false)
-    private int patternHowlong;
+    @OneToOne
+    @JoinColumn(name="id_pattern",nullable = false)
+    Pattern pattern;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name="pattern_timeframe", columnDefinition = "enum('MALE','FEMALE')",nullable = false)
-    private Timeframe timeframe;
-
-    @Column(name="started",nullable = false)
+    @Column(name="assignment_opened",nullable = false)
     private LocalDate assignmentStartDate;
 
-    @Column(name="ended")
+    @Column(name="assignment_closed")
     private LocalDate assignmentEndDate;
 
-    @Column(name = "ended_comments")
-    private String endedComments;
+    @Column(name = "closed_comments")
+    private String closedComments;
 
     @OneToMany(mappedBy = "assignment")
     private List<MedEvent> medEvents;

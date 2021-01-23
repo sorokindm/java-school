@@ -1,12 +1,11 @@
 package com.jschool.reha.dto;
 
 import com.jschool.reha.entity.MedEvent;
+import com.jschool.reha.entity.Pattern;
 import com.jschool.reha.entity.Treatment;
 import com.jschool.reha.enums.AssignmentType;
-import com.jschool.reha.enums.Timeframe;
 import lombok.Data;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -29,11 +28,9 @@ public class AssignmentDto implements Serializable {
 
     private String dosage;
 
-    private int patternQuantity;
+    private int quantity;
 
-    private int patternHowlong;
-
-    private Timeframe timeframe;
+    private Pattern pattern;
 
     private LocalDate assignmentStartDate;
 

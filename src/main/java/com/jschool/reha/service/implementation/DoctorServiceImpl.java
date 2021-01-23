@@ -75,9 +75,8 @@ public class DoctorServiceImpl implements DoctorService {
         assignmentEntity.setDosage(assignmentDto.getDosage());
         assignmentEntity.setName(assignmentDto.getName());
         assignmentEntity.setType(assignmentDto.getType());
-        assignmentEntity.setPatternQuantity(assignmentDto.getPatternQuantity());
-        assignmentEntity.setPatternHowlong(assignmentDto.getPatternHowlong());
-        assignmentEntity.setTimeframe(assignmentDto.getTimeframe());
+        assignmentEntity.setQuantity(assignmentDto.getQuantity());
+        assignmentEntity.setPattern(assignmentDto.getPattern());
         assignmentEntity.setTreatment(treatmentDAO.getTreatmentById(1));
         assignmentDAO.addNewAssignment(assignmentEntity);
 

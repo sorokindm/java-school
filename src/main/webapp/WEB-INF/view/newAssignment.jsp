@@ -54,7 +54,7 @@
         <div class="row">
             <div class="col-md-1 mb-3">
                 <form:input type="number" class="form-control" id="pattern_quantity" placeholder="" required=""
-                            path="patternQuantity"/>
+                            path="quantity"/>
                 <div class="invalid-feedback">
                     Valid number required
                 </div>
@@ -62,27 +62,27 @@
             <div class="col-md-2 mb-3">
                 Times per
             </div>
-            <div class="col-md-2 mb-3">
-                <form:select class="custom-select d-block w-100" id="timeframe" required="" path="timeframe">
-                    <option value="DAY">Day</option>
-                    <option value="HOUR">Hour</option>
-                    <option value="WEEK">Week</option>
-                    <option value="MONTH">Month</option>
-                </form:select>
-                <div class="invalid-feedback">
-                </div>
-            </div>
+<%--            <div class="col-md-2 mb-3">--%>
+<%--                <form:select class="custom-select d-block w-100" id="timeframe" required="" path="timeframe">--%>
+<%--                    <option value="DAY">Day</option>--%>
+<%--                    <option value="HOUR">Hour</option>--%>
+<%--                    <option value="WEEK">Week</option>--%>
+<%--                    <option value="MONTH">Month</option>--%>
+<%--                </form:select>--%>
+<%--                <div class="invalid-feedback">--%>
+<%--                </div>--%>
+<%--            </div>--%>
             <div class="col-md-2 mb-3">
                 For
             </div>
-            <div class="col-md-1 mb-3">
-                <form:input type="number" class="form-control" id="patternHowlong" placeholder="" required=""
-                            path="patternHowlong"/>
-                <div class="invalid-feedback">
-                    Valid number required
-                </div>
-            </div>
-        </div>
+<%--            <div class="col-md-1 mb-3">--%>
+<%--                <form:input type="number" class="form-control" id="patternHowlong" placeholder="" required=""--%>
+<%--                            path="patternHowlong"/>--%>
+<%--                <div class="invalid-feedback">--%>
+<%--                    Valid number required--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
 
         <form:button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Add</form:button>
     </form:form>

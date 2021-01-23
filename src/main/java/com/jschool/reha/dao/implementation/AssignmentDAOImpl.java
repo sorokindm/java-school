@@ -1,5 +1,6 @@
-package com.jschool.reha.dao;
+package com.jschool.reha.dao.implementation;
 
+import com.jschool.reha.dao.interfaces.AssignmentDAO;
 import com.jschool.reha.entity.Assignment;
 import org.springframework.stereotype.Repository;
 

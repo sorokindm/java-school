@@ -1,11 +1,12 @@
-package com.jschool.reha.service;
+package com.jschool.reha.service.implementation;
 
-import com.jschool.reha.dao.MedStaffDAO;
-import com.jschool.reha.dao.UserDAO;
+import com.jschool.reha.dao.interfaces.MedStaffDAO;
+import com.jschool.reha.dao.interfaces.UserDAO;
 import com.jschool.reha.dto.UserDto;
 import com.jschool.reha.entity.MedStaff;
 import com.jschool.reha.entity.User;
 import com.jschool.reha.enums.Role;
+import com.jschool.reha.service.interfaces.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private UserDAO userDAO;

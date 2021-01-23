@@ -1,5 +1,6 @@
-package com.jschool.reha.dao;
+package com.jschool.reha.dao.implementation;
 
+import com.jschool.reha.dao.interfaces.UserDAO;
 import com.jschool.reha.entity.User;
 import org.springframework.stereotype.Repository;
 

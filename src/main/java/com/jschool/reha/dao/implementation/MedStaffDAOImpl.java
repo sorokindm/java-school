@@ -1,5 +1,6 @@
-package com.jschool.reha.dao;
+package com.jschool.reha.dao.implementation;
 
+import com.jschool.reha.dao.interfaces.MedStaffDAO;
 import com.jschool.reha.entity.MedStaff;
 import org.springframework.stereotype.Repository;
 

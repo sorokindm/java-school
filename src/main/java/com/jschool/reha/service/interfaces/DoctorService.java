@@ -1,4 +1,4 @@
-package com.jschool.reha.service;
+package com.jschool.reha.service.interfaces;
 
 import com.jschool.reha.dto.AssignmentDto;
 import com.jschool.reha.dto.MedEventDto;

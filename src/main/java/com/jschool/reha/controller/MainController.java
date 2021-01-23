@@ -2,7 +2,7 @@ package com.jschool.reha.controller;
 
 import com.jschool.reha.dto.UserDto;
 import com.jschool.reha.entity.MedStaff;
-import com.jschool.reha.service.AdminService;
+import com.jschool.reha.service.interfaces.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

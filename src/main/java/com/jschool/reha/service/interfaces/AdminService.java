@@ -1,4 +1,4 @@
-package com.jschool.reha.service;
+package com.jschool.reha.service.interfaces;
 
 import com.jschool.reha.dto.UserDto;
 import com.jschool.reha.entity.MedStaff;

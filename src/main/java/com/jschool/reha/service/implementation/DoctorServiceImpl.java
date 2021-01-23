@@ -1,6 +1,6 @@
-package com.jschool.reha.service;
+package com.jschool.reha.service.implementation;
 
-import com.jschool.reha.dao.*;
+import com.jschool.reha.dao.interfaces.*;
 import com.jschool.reha.dto.AssignmentDto;
 import com.jschool.reha.dto.MedEventDto;
 import com.jschool.reha.dto.PatientDto;
@@ -11,6 +11,7 @@ import com.jschool.reha.entity.Patient;
 import com.jschool.reha.entity.Treatment;
 import com.jschool.reha.enums.MedEventStatus;
 import com.jschool.reha.enums.Role;
+import com.jschool.reha.service.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

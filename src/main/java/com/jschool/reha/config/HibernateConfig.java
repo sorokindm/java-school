@@ -1,9 +1,12 @@
 package com.jschool.reha.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -23,7 +26,11 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.jschool.reha")
+@PropertySource("classpath:mysql.properties")
 public class HibernateConfig {
+
+    @Autowired
+    private Environment env;
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em
@@ -47,15 +54,15 @@ public class HibernateConfig {
     public DataSource dataSource() {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
-            dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
+            dataSource.setDriverClass(env.getProperty("jdbc.driver"));
         } catch (PropertyVetoException e) {
             //TODO Add logging and handling
             throw new RuntimeException(e);
         }
 
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/reha?useUnicode=true&serverTimezone=UTC");
-        dataSource.setUser("rehauser");
-        dataSource.setPassword("user1234");
+        dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+        dataSource.setUser(env.getProperty("jdbc.user"));
+        dataSource.setPassword(env.getProperty("jdbc.password"));
 
         dataSource.setInitialPoolSize(5);
         dataSource.setMinPoolSize(5);

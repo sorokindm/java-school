@@ -1,4 +1,4 @@
-package com.jschool.reha.dao;
+package com.jschool.reha.dao.interfaces;
 
 import com.jschool.reha.entity.MedEvent;
 

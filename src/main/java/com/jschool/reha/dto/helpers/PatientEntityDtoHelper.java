@@ -14,6 +14,7 @@ public final class PatientEntityDtoHelper {
      * @return dto - converted PatientDto
      */
     public static PatientDto entityToDto(Patient patient) {
+        if (patient==null) return null;
         PatientDto dto = new PatientDto();
         dto.setIdPatient(patient.getIdPatient());
         dto.setName(patient.getName());

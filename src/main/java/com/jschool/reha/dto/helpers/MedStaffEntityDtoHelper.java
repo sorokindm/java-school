@@ -14,6 +14,7 @@ public final class MedStaffEntityDtoHelper {
      * @return dto - converted MedStaffDto
      */
     public static MedStaffDto entityToDto(MedStaff medStaff) {
+        if (medStaff==null) return null;
         MedStaffDto dto = new MedStaffDto();
         dto.setIdMedStaff(medStaff.getIdMedStaff());
         dto.setName(medStaff.getName());

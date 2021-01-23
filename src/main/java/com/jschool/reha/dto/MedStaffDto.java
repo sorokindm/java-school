@@ -1,20 +1,18 @@
 package com.jschool.reha.dto;
 
-import com.jschool.reha.entity.MedEvent;
-import com.jschool.reha.entity.Treatment;
-import com.jschool.reha.entity.User;
+import com.jschool.reha.entity.MedStaff;
 import com.jschool.reha.enums.Gender;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Med Staff Dto
  * @author Dmitry Sorokin
  */
 @Data
+@NoArgsConstructor
 public class MedStaffDto implements Serializable {
 
     private int idMedStaff;
@@ -27,10 +25,12 @@ public class MedStaffDto implements Serializable {
 
     private String specialty;
 
-    private User user;
-
-    private List<Treatment> treatmentList;
-
-    private List<MedEvent> medEventsList;
-
+    public MedStaffDto(MedStaff medStaff)
+    {
+        idMedStaff=medStaff.getIdMedStaff();
+        name=medStaff.getName();
+        lastName=medStaff.getLastName();
+        gender=medStaff.getGender();
+        specialty=medStaff.getSpecialty();
+    }
 }

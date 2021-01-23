@@ -1,9 +1,6 @@
 package com.jschool.reha.service.interfaces;
 
-import com.jschool.reha.dto.AssignmentDto;
-import com.jschool.reha.dto.MedEventDto;
-import com.jschool.reha.dto.PatientDto;
-import com.jschool.reha.dto.TreatmentDto;
+import com.jschool.reha.dto.*;
 
 /**
  * Service for doctor utilities
@@ -11,12 +8,7 @@ import com.jschool.reha.dto.TreatmentDto;
  * @author Dmitry Sorokin
  */
 public interface DoctorService {
-    /**
-     * Adds new patient to db
-     *
-     * @param patientDto - patient data for entity to add
-     */
-    void addNewPatient(PatientDto patientDto);
+
 
     /**
      * Adds new treatment to db

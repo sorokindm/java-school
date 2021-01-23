@@ -1,18 +1,14 @@
 package com.jschool.reha.service.implementation;
 
 import com.jschool.reha.dao.interfaces.*;
-import com.jschool.reha.dto.AssignmentDto;
-import com.jschool.reha.dto.MedEventDto;
-import com.jschool.reha.dto.PatientDto;
-import com.jschool.reha.dto.TreatmentDto;
+import com.jschool.reha.dto.*;
 import com.jschool.reha.entity.Assignment;
 import com.jschool.reha.entity.MedEvent;
-import com.jschool.reha.entity.Patient;
 import com.jschool.reha.entity.Treatment;
 import com.jschool.reha.enums.MedEventStatus;
-import com.jschool.reha.enums.Role;
 import com.jschool.reha.service.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -41,21 +37,8 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     MedEventDAO medEventDAO;
 
-    @Override
-    public void addNewPatient(PatientDto patientDto) {
-        Patient patientEntity = new Patient();
-        patientEntity.setName(patientDto.getName());
-        patientEntity.setLastName(patientDto.getLastName());
-        patientEntity.setGender(patientDto.getGender());
-        patientEntity.setIdInsurance(patientDto.getIdInsurance());
-        patientEntity.setUser(patientDto.getUser());
-        patientEntity.getUser().setEnabled(true);
-        patientEntity.getUser().setCreateTime(LocalDateTime.now());
-        patientEntity.getUser().setRole(Role.ROLE_PATIENT);
-
-        userDAO.addNewUser(patientEntity.getUser());
-        patientDAO.addNewPatient(patientEntity);
-    }
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void addNewTreatment(TreatmentDto treatmentDto) {
@@ -77,7 +60,7 @@ public class DoctorServiceImpl implements DoctorService {
         assignmentEntity.setType(assignmentDto.getType());
         assignmentEntity.setQuantity(assignmentDto.getQuantity());
         assignmentEntity.setPattern(assignmentDto.getPattern());
-        assignmentEntity.setTreatment(treatmentDAO.getTreatmentById(1));
+        assignmentEntity.setTreatment(treatmentDAO.findTreatmentById(1));
         assignmentDAO.addNewAssignment(assignmentEntity);
 
         MedEventDto medEventDto = new MedEventDto();

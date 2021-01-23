@@ -1,27 +1,27 @@
 package com.jschool.reha.dto;
 
-import com.jschool.reha.entity.Assignment;
-import com.jschool.reha.entity.MedStaff;
-import com.jschool.reha.entity.Patient;
+import com.jschool.reha.entity.Treatment;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Treatment Dto
+ *
  * @author Dmitry Sorokin
  */
 
 @Data
+@NoArgsConstructor
 public class TreatmentDto implements Serializable {
 
     private int idTreatment;
 
-    private MedStaff doctor;
+    private MedStaffDto doctor;
 
-    private Patient patient;
+    private PatientDto patient;
 
     private LocalDate treatmentOpened;
 
@@ -33,6 +33,15 @@ public class TreatmentDto implements Serializable {
 
     private String closedComments;
 
-    private List<Assignment> assignments;
+    public TreatmentDto(Treatment treatment) {
+        idTreatment = treatment.getIdTreatment();
+        doctor = new MedStaffDto(treatment.getDoctor());
+        patient = new PatientDto(treatment.getPatient());
+        treatmentOpened = treatment.getTreatmentOpened();
+        diagnosis = treatment.getDiagnosis();
+        openedComments = treatment.getOpenedComments();
+        treatmentClosed = treatment.getTreatmentClosed();
+        closedComments = treatment.getClosedComments();
+    }
 
 }

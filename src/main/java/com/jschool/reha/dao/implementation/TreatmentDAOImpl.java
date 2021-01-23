@@ -19,7 +19,7 @@ public class TreatmentDAOImpl implements TreatmentDAO {
     }
 
     @Override
-    public Treatment getTreatmentById(int id) {
+    public Treatment findTreatmentById(int id) {
         return em.find(Treatment.class,id);
     }
 }

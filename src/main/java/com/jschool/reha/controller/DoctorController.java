@@ -3,9 +3,8 @@ package com.jschool.reha.controller;
 import com.jschool.reha.dto.AssignmentDto;
 import com.jschool.reha.dto.PatientDto;
 import com.jschool.reha.dto.TreatmentDto;
+import com.jschool.reha.dto.UserDto;
 import com.jschool.reha.entity.Assignment;
-import com.jschool.reha.entity.Patient;
-import com.jschool.reha.entity.Treatment;
 import com.jschool.reha.service.interfaces.AdminService;
 import com.jschool.reha.service.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.security.Principal;
 
 /**
  * Doctor controller
@@ -51,7 +53,8 @@ public class DoctorController {
      */
     @GetMapping("/doctor/newPatient")
     public String doctorNewPatientPage(Model model) {
-        model.addAttribute("patient", new Patient());
+        model.addAttribute("patient", new PatientDto());
+        model.addAttribute("user", new UserDto());
         return "newPatient";
     }
 
@@ -61,8 +64,9 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newPatient/processForm")
-    public RedirectView processNewPatientForm(@ModelAttribute("patient") PatientDto patientDto) {
-        doctorService.addNewPatient(patientDto);
+    public RedirectView processNewPatientForm(@ModelAttribute("patient") PatientDto patientDto,
+                                              @ModelAttribute("user") UserDto userDto) {
+        adminService.addNewPatient(userDto, patientDto);
         return new RedirectView(REDIRECT_DOCTOR_PAGE);
     }
 
@@ -72,8 +76,11 @@ public class DoctorController {
      * @return doctor page url
      */
     @GetMapping("/doctor/newTreatment")
-    public String doctorNewTreatmentPage(Model model) {
-        model.addAttribute("treatment", new Treatment());
+    public String doctorNewTreatmentPage(Principal principal, @RequestParam("patientId") int patientId, Model model) {
+        TreatmentDto dto = new TreatmentDto();
+        dto.setDoctor(adminService.findMedStaffByUsername(principal.getName()));
+        dto.setPatient(adminService.findPatientById(patientId));
+        model.addAttribute("treatment", dto);
         return "newTreatment";
     }
 

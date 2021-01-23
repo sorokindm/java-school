@@ -22,5 +22,5 @@ public interface TreatmentDAO {
      * @param id - treatment id in db
      * @return treatment entity from db
      */
-    Treatment getTreatmentById(int id);
+    Treatment findTreatmentById(int id);
 }

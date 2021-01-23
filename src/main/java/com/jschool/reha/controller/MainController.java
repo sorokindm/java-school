@@ -1,7 +1,7 @@
 package com.jschool.reha.controller;
 
+import com.jschool.reha.dto.MedStaffDto;
 import com.jschool.reha.dto.UserDto;
-import com.jschool.reha.entity.MedStaff;
 import com.jschool.reha.service.interfaces.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,7 +63,8 @@ public class MainController {
      */
     @GetMapping("/admin/newMedStaff")
     public String newMedStaffPage(Model model) {
-        model.addAttribute("medStaff",new MedStaff());
+        model.addAttribute("user", new UserDto());
+        model.addAttribute("medStaff", new MedStaffDto());
         return "newMedStaff";
     }
 
@@ -73,11 +74,11 @@ public class MainController {
      * @return model with UserDto List
      */
     @PostMapping("/admin/newMedStaff/processForm")
-    public RedirectView processNewMedStaffForm(@ModelAttribute("medStaff") MedStaff staff) {
-        adminService.addNewMedStaff(staff);
+    public RedirectView processNewMedStaffForm(@ModelAttribute("medStaff") MedStaffDto medStaffDto,
+                                               @ModelAttribute("user") UserDto userDto) {
+        adminService.addNewMedStaff(userDto, medStaffDto);
         return new RedirectView("/java_school/admin");
     }
-
 
 
     /**

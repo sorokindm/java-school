@@ -33,15 +33,4 @@ public class TreatmentDto implements Serializable {
 
     private String closedComments;
 
-    public TreatmentDto(Treatment treatment) {
-        idTreatment = treatment.getIdTreatment();
-        doctor = new MedStaffDto(treatment.getDoctor());
-        patient = new PatientDto(treatment.getPatient());
-        treatmentOpened = treatment.getTreatmentOpened();
-        diagnosis = treatment.getDiagnosis();
-        openedComments = treatment.getOpenedComments();
-        treatmentClosed = treatment.getTreatmentClosed();
-        closedComments = treatment.getClosedComments();
-    }
-
 }

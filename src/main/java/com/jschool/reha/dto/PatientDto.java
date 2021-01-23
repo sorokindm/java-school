@@ -25,13 +25,4 @@ public class PatientDto implements Serializable {
 
     private String idInsurance;
 
-    public PatientDto(Patient patient)
-    {
-        idPatient=patient.getIdPatient();
-        name=patient.getName();
-        lastName=patient.getLastName();
-        gender=patient.getGender();
-        idInsurance=patient.getIdInsurance();
-    }
-
 }

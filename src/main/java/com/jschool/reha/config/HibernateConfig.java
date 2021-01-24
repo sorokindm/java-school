@@ -1,6 +1,7 @@
 package com.jschool.reha.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,9 @@ import java.util.Properties;
 @PropertySource("classpath:mysql.properties")
 public class HibernateConfig {
 
+    @Autowired
+    Environment env;
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em
@@ -48,7 +52,7 @@ public class HibernateConfig {
      * @return dataSource
      */
     @Bean
-    public DataSource dataSource(Environment env) {
+    public DataSource dataSource() {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
             dataSource.setDriverClass(env.getProperty("jdbc.driver"));

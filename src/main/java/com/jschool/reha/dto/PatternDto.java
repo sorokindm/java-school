@@ -39,18 +39,4 @@ public class PatternDto implements Serializable {
 
     private Boolean evening;
 
-    public PatternDto(Pattern pattern) {
-        idPattern = pattern.getIdPattern();
-        monday = pattern.getMonday();
-        tuesday = pattern.getTuesday();
-        wednesday = pattern.getWednesday();
-        thursday = pattern.getThursday();
-        friday = pattern.getFriday();
-        saturday = pattern.getSaturday();
-        sunday = pattern.getSunday();
-        morning = pattern.getMorning();
-        day = pattern.getDay();
-        evening = pattern.getEvening();
-    }
-
 }

@@ -1,6 +1,5 @@
 package com.jschool.reha.dto;
 
-import com.jschool.reha.entity.Pattern;
 import com.jschool.reha.enums.AssignmentType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +30,7 @@ public class AssignmentDto implements Serializable {
 
     private int quantity;
 
-    private Pattern pattern;
+    private PatternDto pattern;
 
     private LocalDate assignmentStartDate;
 

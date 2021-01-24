@@ -5,7 +5,9 @@ import com.jschool.reha.dto.AssignmentDto;
 import com.jschool.reha.dto.MedEventDto;
 import com.jschool.reha.dto.PatientDto;
 import com.jschool.reha.dto.TreatmentDto;
+import com.jschool.reha.dto.helpers.AssignmentEntityDtoHelper;
 import com.jschool.reha.dto.helpers.PatientEntityDtoHelper;
+import com.jschool.reha.dto.helpers.PatternEntityDtoHelper;
 import com.jschool.reha.dto.helpers.TreatmentEntityDtoHelper;
 import com.jschool.reha.entity.Assignment;
 import com.jschool.reha.entity.MedEvent;
@@ -65,7 +67,7 @@ public class DoctorServiceImpl implements DoctorService {
         assignmentEntity.setName(assignmentDto.getName());
         assignmentEntity.setType(assignmentDto.getType());
         assignmentEntity.setQuantity(assignmentDto.getQuantity());
-        assignmentEntity.setPattern(assignmentDto.getPattern());
+        assignmentEntity.setPattern(PatternEntityDtoHelper.dtoToEntity(assignmentDto.getPattern()));
         assignmentEntity.setTreatment(treatmentDAO.findTreatmentById(assignmentDto.getIdAssignment()));
         assignmentDAO.addNewAssignment(assignmentEntity);
 
@@ -105,6 +107,16 @@ public class DoctorServiceImpl implements DoctorService {
             patientDtos.add(PatientEntityDtoHelper.entityToDto(patient));
         }
         return patientDtos;
+    }
+
+    @Override
+    public List<AssignmentDto> getAssignmentsForTreatment(int treatmentId) {
+        ArrayList<AssignmentDto> assignmentDtos = new ArrayList<>();
+        List<Assignment> assignments = assignmentDAO.getAssignmentsForTreatment(treatmentId);
+        for (Assignment assignment : assignments) {
+            assignmentDtos.add(AssignmentEntityDtoHelper.entityToDto(assignment));
+        }
+        return assignmentDtos;
     }
 
 }

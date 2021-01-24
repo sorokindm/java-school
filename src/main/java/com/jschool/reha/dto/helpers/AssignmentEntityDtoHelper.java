@@ -21,12 +21,13 @@ public final class AssignmentEntityDtoHelper {
         dto.setName(assignment.getName());
         dto.setDosage(assignment.getDosage());
         dto.setQuantity(assignment.getQuantity());
-        dto.setPattern(assignment.getPattern());
+        dto.setPattern(PatternEntityDtoHelper.entityToDto(assignment.getPattern()));
         dto.setAssignmentEndDate(assignment.getAssignmentStartDate());
         dto.setAssignmentEndDate(assignment.getAssignmentEndDate());
         dto.setClosedComments(assignment.getClosedComments());
         return dto;
     }
 
-    private AssignmentEntityDtoHelper(){}
+    private AssignmentEntityDtoHelper() {
+    }
 }

@@ -57,4 +57,11 @@ public interface DoctorService {
      * @return List with all patients data
      */
     List<PatientDto> getAllPatients();
+
+    /**
+     * Fetches all assignments for given treatmentId
+     * @param treatmentId - treatment id
+     * @return List of all assignments dto for given treatment
+     */
+    List<AssignmentDto> getAssignmentsForTreatment(int treatmentId);
 }

@@ -124,8 +124,7 @@ public class DoctorController {
      */
     @GetMapping("/doctor/assignment")
     public String assignments(@RequestParam("idTreatment") int idTreatment, Model model) {
-        //TODO doctor service method to fetch all assignments, add them to model, send to view
-        List<AssignmentDto> assignments = null;
+        List<AssignmentDto> assignments = doctorService.getAssignmentsForTreatment(idTreatment);
         model.addAttribute("assignments", assignments);
         return "assignments";
     }
@@ -137,7 +136,7 @@ public class DoctorController {
      */
     @GetMapping("/doctor/newAssignment/create")
     public String doctorNewAssignmentPage(Model model) {
-        model.addAttribute("assignment", new Assignment());
+        model.addAttribute("assignment", new AssignmentDto());
         return "newAssignment";
     }
 

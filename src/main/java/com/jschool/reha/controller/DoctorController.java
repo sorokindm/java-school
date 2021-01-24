@@ -1,7 +1,6 @@
 package com.jschool.reha.controller;
 
 import com.jschool.reha.dto.AssignmentDto;
-import com.jschool.reha.dto.PatientDto;
 import com.jschool.reha.dto.TreatmentDto;
 import com.jschool.reha.dto.UserDto;
 import com.jschool.reha.entity.Assignment;
@@ -29,6 +28,7 @@ public class DoctorController {
 
     private static final String DOCTOR_PAGE = "doctor";
     private static final String REDIRECT_DOCTOR_PAGE = "/java_school/doctor";
+    private static final String REDIRECT_TREATMENTS_PAGE = "/java_school/doctor/treatments";
 
     @Autowired
     private AdminService adminService;
@@ -54,7 +54,6 @@ public class DoctorController {
      */
     @GetMapping("/doctor/newPatient")
     public String doctorNewPatientPage(Model model) {
-        model.addAttribute("patient", new PatientDto());
         model.addAttribute("user", new UserDto());
         return "newPatient";
     }
@@ -72,12 +71,13 @@ public class DoctorController {
 
     /**
      * Page with all treatments
+     *
      * @return treatments page
      */
     @GetMapping("/doctor/treatments")
-    public String treatmentsPage(Model model){
-        List<TreatmentDto> treatments=doctorService.findAllTreatments();
-        model.addAttribute("treatments",treatments);
+    public String treatmentsPage(Model model) {
+        List<TreatmentDto> treatments = doctorService.getAllTreatments();
+        model.addAttribute("treatments", treatments);
         return "treatments";
     }
 
@@ -87,7 +87,8 @@ public class DoctorController {
      * @return selectPatient page url
      */
     @GetMapping("/doctor/newTreatment/selectPatient")
-    public String selectPatientForTreatment() {
+    public String selectPatientForTreatment(Model model) {
+        model.addAttribute("patients", doctorService.getAllPatients());
         return "selectPatient";
     }
 
@@ -113,20 +114,22 @@ public class DoctorController {
     @PostMapping("/doctor/newTreatment/processForm")
     public RedirectView processNewTreatmentForm(@ModelAttribute("treatment") TreatmentDto treatmentDto) {
         doctorService.addNewTreatment(treatmentDto);
-        return new RedirectView(REDIRECT_DOCTOR_PAGE);
+        return new RedirectView(REDIRECT_TREATMENTS_PAGE);
     }
 
     /**
      * Page with all assignments for selected treatment
+     *
      * @return treatments page
      */
     @GetMapping("/doctor/assignment")
-    public String assignments(@RequestParam("idTreatment") int idTreatment, Model model){
+    public String assignments(@RequestParam("idTreatment") int idTreatment, Model model) {
         //TODO doctor service method to fetch all assignments, add them to model, send to view
-        List<AssignmentDto> assignments=null;
-        model.addAttribute("assignments",assignments);
+        List<AssignmentDto> assignments = null;
+        model.addAttribute("assignments", assignments);
         return "assignments";
     }
+
     /**
      * New Assignment page mapping
      *

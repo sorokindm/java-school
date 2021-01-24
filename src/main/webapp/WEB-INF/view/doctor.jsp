@@ -1,8 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Doctor</title>
     <!-- Bootstrap CSS file -->
@@ -25,17 +26,13 @@
 </div>
 <br>
 
-
 <a class="btn btn-primary" href="${pageContext.request.contextPath}/doctor/newPatient">New Patient</a>
 
 <br>
 
-<a class="btn btn-primary" href="${pageContext.request.contextPath}/doctor/newTreatment">New Treatment</a>
+<a class="btn btn-primary" href="${pageContext.request.contextPath}/doctor/treatments">Treatments</a>
 
 <br>
-
-<a class="btn btn-primary" href="${pageContext.request.contextPath}/doctor/newAssignment">New Assignment</a>
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

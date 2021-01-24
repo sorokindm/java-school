@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin</title>
+    <title>Treatments</title>
     <!-- Bootstrap CSS file -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -29,38 +29,32 @@
 </div>
 <br>
 
-<%--USER:<security:authentication property="principal.username"></security:authentication>--%>
-<%--ROLE:<security:authentication property="principal.authorities"></security:authentication>--%>
 <div class="container-fluid">
-    <h2>Users</h2>
+    <h2>Treatments</h2>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
             <tr>
-                <th scope="colgroup">Username</th>
-                <th scope="colgroup">Name/LastName</th>
-                <th scope="colgroup">Role</th>
-                <th scope="colgroup">Email</th>
-                <th scope="colgroup">Create Time</th>
+                <th scope="colgroup">Patient</th>
+                <th scope="colgroup">Doctor</th>
+                <th scope="colgroup">Anamnesis</th>
+                <th scope="colgroup">Diagnosis</th>
+                <th scope="colgroup">Assignments</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${users}" var="user">
+            <c:forEach items="${treatments}" var="treatment">
                 <tr>
-                    <td>${user.username}</td>
-                    <c:if test="${user.role=='ROLE_PATIENT'}">
-                        <td>
-                                ${user.patient.name}/${user.patient.lastName}
-                        </td>
-                    </c:if>
-                    <c:if test="${user.role!='ROLE_PATIENT'}">
-                        <td>
-                                ${user.medStaff.name}/${user.medStaff.lastName}
-                        </td>
-                    </c:if>
-                    <td>${user.role}</td>
-                    <td>${user.email}</td>
-                    <td>${user.createTime}</td>
+                    <td>${treatment.patient.name} ${treatment.patient.lastName}</td>
+                    <td>${treatment.doctor.name} ${treatment.doctor.lastName} (${treatment.doctor.specialty})</td>
+                    <td>${treatment.openedComments}</td>
+                    <td>${treatment.diagnosis}</td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/doctor/assignment" method="GET">
+                            <input class="btn btn-primary" type="submit" value="View">
+                            <input type="hidden" value="${treatment.idTreatment}">
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
 
@@ -68,9 +62,8 @@
         </table>
     </div>
     <br>
-    <a href="${pageContext.request.contextPath}/admin/newMedStaff" class="btn btn-primary">New Med Staff</a>
+    <a href="${pageContext.request.contextPath}/doctor/newTreatment/selectPatient" class="btn btn-primary">New Treatment</a>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

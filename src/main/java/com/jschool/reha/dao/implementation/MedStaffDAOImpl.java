@@ -19,7 +19,7 @@ public class MedStaffDAOImpl implements MedStaffDAO {
     }
 
     @Override
-    public MedStaff getMedStaffById(int id) {
+    public MedStaff findMedStaffById(int id) {
         return em.find(MedStaff.class, id);
     }
 }

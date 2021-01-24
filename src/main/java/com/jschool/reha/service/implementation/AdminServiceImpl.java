@@ -12,6 +12,7 @@ import com.jschool.reha.dto.helpers.UserEntityDtoHelper;
 import com.jschool.reha.entity.MedStaff;
 import com.jschool.reha.entity.Patient;
 import com.jschool.reha.entity.User;
+import com.jschool.reha.enums.Role;
 import com.jschool.reha.service.interfaces.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -76,12 +77,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public MedStaffDto findMedStaffById(int id) {
-        return MedStaffEntityDtoHelper.entityToDto(userDAO.findUserById(id).getMedStaff());
+        return MedStaffEntityDtoHelper.entityToDto(medStaffDAO.findMedStaffById(id));
     }
 
     @Override
     public PatientDto findPatientById(int id) {
-        return PatientEntityDtoHelper.entityToDto(userDAO.findUserById(id).getPatient());
+        return PatientEntityDtoHelper.entityToDto(patientDAO.findPatientById(id));
     }
 
     @Override
@@ -112,6 +113,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Patient addNewPatient(UserDto userDto) {
+        userDto.setRole(Role.ROLE_PATIENT);
         Patient patientEntity = new Patient();
         patientEntity.setName(userDto.getPatient().getName());
         patientEntity.setLastName(userDto.getPatient().getLastName());

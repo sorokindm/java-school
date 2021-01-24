@@ -21,12 +21,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAllUsers() {
-        return em.createQuery("select p from User p").getResultList();
+        return em.createQuery("select user from User user").getResultList();
     }
 
     @Override
     public User findUserByUsername(String username) {
-        return (User) em.createQuery("select u from User u where u.username = :username").getSingleResult();
+        return (User) em.createQuery("select user from User user where user.username= :username").setParameter("username",username).getSingleResult();
     }
 
     @Override

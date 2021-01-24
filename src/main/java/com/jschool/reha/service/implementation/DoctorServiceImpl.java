@@ -3,10 +3,13 @@ package com.jschool.reha.service.implementation;
 import com.jschool.reha.dao.interfaces.*;
 import com.jschool.reha.dto.AssignmentDto;
 import com.jschool.reha.dto.MedEventDto;
+import com.jschool.reha.dto.PatientDto;
 import com.jschool.reha.dto.TreatmentDto;
+import com.jschool.reha.dto.helpers.PatientEntityDtoHelper;
 import com.jschool.reha.dto.helpers.TreatmentEntityDtoHelper;
 import com.jschool.reha.entity.Assignment;
 import com.jschool.reha.entity.MedEvent;
+import com.jschool.reha.entity.Patient;
 import com.jschool.reha.entity.Treatment;
 import com.jschool.reha.service.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +52,8 @@ public class DoctorServiceImpl implements DoctorService {
         treatmentEntity.setOpenedComments(treatmentDto.getOpenedComments());
         treatmentEntity.setDiagnosis(treatmentDto.getDiagnosis());
         treatmentEntity.setTreatmentOpened(LocalDate.now());
-        treatmentEntity.setPatient(patientDAO.getPatientById(treatmentDto.getPatient().getIdPatient()));
-        treatmentEntity.setDoctor(medStaffDAO.getMedStaffById(treatmentDto.getDoctor().getIdMedStaff()));
+        treatmentEntity.setPatient(patientDAO.findPatientById(treatmentDto.getPatient().getIdPatient()));
+        treatmentEntity.setDoctor(medStaffDAO.findMedStaffById(treatmentDto.getDoctor().getIdMedStaff()));
         treatmentDAO.addNewTreatment(treatmentEntity);
     }
 
@@ -85,13 +88,23 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public List<TreatmentDto> findAllTreatments() {
+    public List<TreatmentDto> getAllTreatments() {
         ArrayList<TreatmentDto> treatmentDtos = new ArrayList<>();
         List<Treatment> treatments = treatmentDAO.findAllTreatments();
         for (Treatment treatment : treatments) {
             treatmentDtos.add(TreatmentEntityDtoHelper.entityToDto(treatment));
         }
         return treatmentDtos;
+    }
+
+    @Override
+    public List<PatientDto> getAllPatients() {
+        ArrayList<PatientDto> patientDtos = new ArrayList<>();
+        List<Patient> patients = patientDAO.getAllPatients();
+        for (Patient patient : patients) {
+            patientDtos.add(PatientEntityDtoHelper.entityToDto(patient));
+        }
+        return patientDtos;
     }
 
 }

@@ -22,5 +22,5 @@ public interface MedStaffDAO {
      * @param id - medStaff id in db
      * @return MedStaff entity from db
      */
-    MedStaff getMedStaffById(int id);
+    MedStaff findMedStaffById(int id);
 }

@@ -1,7 +1,6 @@
 package com.jschool.reha.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +13,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 /**
  * Hibernate Spring configuration
+ *
  * @author Dmitry Sorokin
  */
 @Configuration
@@ -29,8 +28,6 @@ import java.util.Properties;
 @PropertySource("classpath:mysql.properties")
 public class HibernateConfig {
 
-    @Autowired
-    private Environment env;
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em
@@ -51,7 +48,7 @@ public class HibernateConfig {
      * @return dataSource
      */
     @Bean
-    public DataSource dataSource() {
+    public DataSource dataSource(Environment env) {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
             dataSource.setDriverClass(env.getProperty("jdbc.driver"));
@@ -96,14 +93,17 @@ public class HibernateConfig {
                 "hibernate.hbm2ddl.auto", "validate");
         properties.setProperty(
                 "hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-        properties.setProperty("hibernate.c3p0.initialPoolSize","5");
-        properties.setProperty("hibernate.c3p0.min_size","5");
-        properties.setProperty("hibernate.c3p0.max_size","30");
-        properties.setProperty("hibernate.c3p0.timeout","2000");
-        properties.setProperty("hibernate.show_sql","true");
-        properties.setProperty("hibernate.format_sql","true");
-        properties.setProperty("hibernate.use_sql_comments","true");
-        properties.setProperty("hibernate.current_session_context_class","thread");
+        properties.setProperty("hibernate.c3p0.initialPoolSize", "5");
+        properties.setProperty("hibernate.c3p0.min_size", "5");
+        properties.setProperty("hibernate.c3p0.max_size", "30");
+        properties.setProperty("hibernate.c3p0.timeout", "2000");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty("hibernate.use_sql_comments", "true");
+        properties.setProperty("hibernate.current_session_context_class", "thread");
+        properties.setProperty("hibernate.connection.characterEncoding", "utf8");
+        properties.setProperty("hibernate.connection.useUnicode", "true");
+        properties.setProperty("hibernate.connection.charSet", "utf8");
 
         return properties;
     }

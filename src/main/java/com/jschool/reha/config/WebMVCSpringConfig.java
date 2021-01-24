@@ -12,6 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * Spring Web MVC Config
+ *
  * @author Dmitry Sorokin
  */
 @Configuration
@@ -30,12 +31,14 @@ public class WebMVCSpringConfig implements WebMvcConfigurer {
 
     /**
      * Spring mvc view resolver
+     *
      * @return view resolver
      */
     @Bean
     public ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 
+        viewResolver.setContentType("text/html; charset=UTF-8");
         viewResolver.setPrefix("/WEB-INF/view/");
         viewResolver.setSuffix(".jsp");
 

@@ -6,6 +6,9 @@ import com.jschool.reha.dao.interfaces.UserDAO;
 import com.jschool.reha.dto.MedStaffDto;
 import com.jschool.reha.dto.PatientDto;
 import com.jschool.reha.dto.UserDto;
+import com.jschool.reha.dto.helpers.MedStaffEntityDtoHelper;
+import com.jschool.reha.dto.helpers.PatientEntityDtoHelper;
+import com.jschool.reha.dto.helpers.UserEntityDtoHelper;
 import com.jschool.reha.entity.MedStaff;
 import com.jschool.reha.entity.Patient;
 import com.jschool.reha.entity.User;
@@ -45,7 +48,7 @@ public class AdminServiceImpl implements AdminService {
         ArrayList<UserDto> userData = new ArrayList<>();
         List<User> users = userDAO.getAllUsers();
         for (User user : users) {
-            UserDto dto = new UserDto(user);
+            UserDto dto = UserEntityDtoHelper.entityToDto(user);
             userData.add(dto);
         }
         return userData;
@@ -53,32 +56,32 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public UserDto findUserByUsername(String username) {
-        return new UserDto(userDAO.findUserByUsername(username));
+        return UserEntityDtoHelper.entityToDto(userDAO.findUserByUsername(username));
     }
 
     @Override
     public MedStaffDto findMedStaffByUsername(String username) {
-        return new MedStaffDto(userDAO.findUserByUsername(username).getMedStaff());
+        return MedStaffEntityDtoHelper.entityToDto(userDAO.findUserByUsername(username).getMedStaff());
     }
 
     @Override
     public PatientDto findPatientByUsername(String username) {
-        return new PatientDto(userDAO.findUserByUsername(username).getPatient());
+        return PatientEntityDtoHelper.entityToDto(userDAO.findUserByUsername(username).getPatient());
     }
 
     @Override
     public UserDto findUserById(int id) {
-        return new UserDto(userDAO.findUserById(id));
+        return UserEntityDtoHelper.entityToDto(userDAO.findUserById(id));
     }
 
     @Override
     public MedStaffDto findMedStaffById(int id) {
-        return new MedStaffDto(userDAO.findUserById(id).getMedStaff());
+        return MedStaffEntityDtoHelper.entityToDto(userDAO.findUserById(id).getMedStaff());
     }
 
     @Override
     public PatientDto findPatientById(int id) {
-        return new PatientDto(userDAO.findUserById(id).getPatient());
+        return PatientEntityDtoHelper.entityToDto(userDAO.findUserById(id).getPatient());
     }
 
     @Override
@@ -95,12 +98,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public MedStaff addNewMedStaff(UserDto userDto, MedStaffDto medStaffDto) {
+    public MedStaff addNewMedStaff(UserDto userDto) {
         MedStaff medStaffEntity = new MedStaff();
-        medStaffEntity.setName(medStaffDto.getName());
-        medStaffEntity.setLastName(medStaffDto.getLastName());
-        medStaffEntity.setGender(medStaffDto.getGender());
-        medStaffEntity.setSpecialty(medStaffDto.getSpecialty());
+        medStaffEntity.setName(userDto.getMedStaff().getName());
+        medStaffEntity.setLastName(userDto.getMedStaff().getLastName());
+        medStaffEntity.setGender(userDto.getMedStaff().getGender());
+        medStaffEntity.setSpecialty(userDto.getMedStaff().getSpecialty());
         medStaffEntity.setUser(addNewUser(userDto));
 
         medStaffDAO.addNewMedStaff(medStaffEntity);
@@ -108,12 +111,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Patient addNewPatient(UserDto userDto, PatientDto patientDto) {
+    public Patient addNewPatient(UserDto userDto) {
         Patient patientEntity = new Patient();
-        patientEntity.setName(patientDto.getName());
-        patientEntity.setLastName(patientDto.getLastName());
-        patientEntity.setGender(patientDto.getGender());
-        patientEntity.setIdInsurance(patientDto.getIdInsurance());
+        patientEntity.setName(userDto.getPatient().getName());
+        patientEntity.setLastName(userDto.getPatient().getLastName());
+        patientEntity.setGender(userDto.getPatient().getGender());
+        patientEntity.setIdInsurance(userDto.getPatient().getIdInsurance());
         patientEntity.setUser(addNewUser(userDto));
         patientDAO.addNewPatient(patientEntity);
         return patientEntity;

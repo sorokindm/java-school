@@ -76,7 +76,7 @@ public interface AdminService {
      * @param userDto - user and medStaff data to add
      * @return Managed MedStaff entity
      */
-    MedStaff addNewMedStaff(UserDto userDto, MedStaffDto medStaffDto);
+    MedStaff addNewMedStaff(UserDto userDto);
 
     /**
      * Adds new patient and user to db
@@ -84,7 +84,7 @@ public interface AdminService {
      * @param userDto - patient and user data for entity to add
      * @return Managed Patient entity
      */
-    Patient addNewPatient(UserDto userDto, PatientDto patientDto);
+    Patient addNewPatient(UserDto userDto);
 
     /**
      * Adds new user to db

@@ -2,6 +2,8 @@ package com.jschool.reha.dao.interfaces;
 
 import com.jschool.reha.entity.Treatment;
 
+import java.util.List;
+
 /**
  * DAO Interface for Treatment Entity
  *
@@ -12,9 +14,9 @@ public interface TreatmentDAO {
     /**
      * Adds new Treatment entity to db
      *
-     * @param treament - entity to add
+     * @param treatment - entity to add
      */
-    void addNewTreatment(Treatment treament);
+    void addNewTreatment(Treatment treatment);
 
     /**
      * Fetches treatment from db
@@ -23,4 +25,11 @@ public interface TreatmentDAO {
      * @return treatment entity from db
      */
     Treatment findTreatmentById(int id);
+
+    /**
+     * Fetches all treatments entities from db
+     *
+     * @return List with all treatment entities
+     */
+    List<Treatment> findAllTreatments();
 }

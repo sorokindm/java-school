@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Doctor controller
@@ -64,18 +65,38 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newPatient/processForm")
-    public RedirectView processNewPatientForm(@ModelAttribute("patient") PatientDto patientDto,
-                                              @ModelAttribute("user") UserDto userDto) {
-        adminService.addNewPatient(userDto, patientDto);
+    public RedirectView processNewPatientForm(@ModelAttribute("user") UserDto userDto) {
+        adminService.addNewPatient(userDto);
         return new RedirectView(REDIRECT_DOCTOR_PAGE);
     }
 
     /**
-     * New Treatment page mapping
+     * Page with all treatments
+     * @return treatments page
+     */
+    @GetMapping("/doctor/treatments")
+    public String treatmentsPage(Model model){
+        List<TreatmentDto> treatments=doctorService.findAllTreatments();
+        model.addAttribute("treatments",treatments);
+        return "treatments";
+    }
+
+    /**
+     * Select patient page mapping
+     *
+     * @return selectPatient page url
+     */
+    @GetMapping("/doctor/newTreatment/selectPatient")
+    public String selectPatientForTreatment() {
+        return "selectPatient";
+    }
+
+    /**
+     * New Treatment form page mapping
      *
      * @return doctor page url
      */
-    @GetMapping("/doctor/newTreatment")
+    @GetMapping("/doctor/newTreatment/create")
     public String doctorNewTreatmentPage(Principal principal, @RequestParam("patientId") int patientId, Model model) {
         TreatmentDto dto = new TreatmentDto();
         dto.setDoctor(adminService.findMedStaffByUsername(principal.getName()));
@@ -96,11 +117,22 @@ public class DoctorController {
     }
 
     /**
+     * Page with all assignments for selected treatment
+     * @return treatments page
+     */
+    @GetMapping("/doctor/assignment")
+    public String assignments(@RequestParam("idTreatment") int idTreatment, Model model){
+        //TODO doctor service method to fetch all assignments, add them to model, send to view
+        List<AssignmentDto> assignments=null;
+        model.addAttribute("assignments",assignments);
+        return "assignments";
+    }
+    /**
      * New Assignment page mapping
      *
      * @return doctor page url
      */
-    @GetMapping("/doctor/newAssignment")
+    @GetMapping("/doctor/newAssignment/create")
     public String doctorNewAssignmentPage(Model model) {
         model.addAttribute("assignment", new Assignment());
         return "newAssignment";

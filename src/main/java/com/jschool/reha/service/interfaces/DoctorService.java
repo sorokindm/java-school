@@ -1,6 +1,9 @@
 package com.jschool.reha.service.interfaces;
 
 import com.jschool.reha.dto.*;
+import com.jschool.reha.entity.Assignment;
+
+import java.util.List;
 
 /**
  * Service for doctor utilities
@@ -30,4 +33,16 @@ public interface DoctorService {
      * @param medEventDto - MedEvent data for entity to add
      */
     void addNewMedEvent(MedEventDto medEventDto);
+
+    /**
+     * Generates medEvents based on new assignment
+     * @param assignment - assignment to generate from
+     */
+    public void generateMedEvents(Assignment assignment);
+
+    /**
+     * Fetches all treatments data from db
+     * @return List with all treatment data
+     */
+    List<TreatmentDto> findAllTreatments();
 }

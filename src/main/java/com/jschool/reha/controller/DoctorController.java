@@ -137,7 +137,7 @@ public class DoctorController {
     }
 
     @PostMapping("/doctor/closeTreatment")
-    public RedirectView processCloseTreatment(@ModelAttribute("treatment") TreatmentDto treatmentDto,@RequestParam("close") boolean close) {
+    public RedirectView processCloseTreatment(@ModelAttribute("treatment") TreatmentDto treatmentDto) {
         doctorService.closeTreatment(treatmentDto);
         return new RedirectView(REDIRECT_TREATMENTS_PAGE);
     }
@@ -176,6 +176,31 @@ public class DoctorController {
     @PostMapping("/doctor/newAssignment/processForm")
     public RedirectView processNewAssignmentForm(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
         doctorService.addNewAssignment(assignmentDto);
+        return new RedirectView("/java_school/doctor/assignment?idTreatment=" + assignmentDto.getTreatment().getIdTreatment());
+    }
+
+    @GetMapping("/doctor/editAssignment")
+    public String editAssignmentPage(@RequestParam("idAssignment") int idAssignment, Model model) {
+        model.addAttribute("assignment",doctorService.getAssignmentById(idAssignment));
+        return "editAssignment";
+    }
+
+    @PostMapping("/doctor/editAssignment")
+    public RedirectView editAssignmentProcess(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
+        doctorService.editAssignment(assignmentDto);
+        return new RedirectView("/java_school/doctor/assignment?idTreatment=" + assignmentDto.getTreatment().getIdTreatment());
+    }
+
+    @GetMapping("/doctor/closeAssignment")
+    public String closeAssignmentPage(@RequestParam("idAssignment") int idAssignment, Model model,@RequestParam("close") boolean close) {
+        model.addAttribute("assignment", doctorService.getAssignmentById(idAssignment));
+        model.addAttribute("close", close);
+        return "editAssignment";
+    }
+
+    @PostMapping("/doctor/closeAssignment")
+    public RedirectView closeAssignmentProcess(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
+        doctorService.closeAssignment(assignmentDto);
         return new RedirectView("/java_school/doctor/assignment?idTreatment=" + assignmentDto.getTreatment().getIdTreatment());
     }
 

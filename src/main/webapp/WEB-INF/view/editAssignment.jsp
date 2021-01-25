@@ -25,42 +25,41 @@
     </div>
 </div>
 <div class="container-fluid">
-    <h2 class="text-center">Add new assignment</h2>
+    <h2 class="text-center">
+        <c:if test="${close!=null}">
+            Close Assignment
+            <c:set var="action" scope="page" value="${pageContext.request.contextPath}/doctor/closeAssignment"/>
+        </c:if>
+        <c:if test="${close==null}">
+            Close Assignment
+            <c:set var="action" scope="page" value="${pageContext.request.contextPath}/doctor/editAssignment"/>
+        </c:if></h2>
+    <p>
+        AssignmentId:${assignment.idAssignment}
+        <br>
+        Type:${assignment.type}
+        <br>
+        Name:${assignment.name}
+        <br>
+    </p>
+    <hr class="mb-4">
     <div class="col-md-8 mx-auto">
-        <form:form action="${pageContext.request.contextPath}/doctor/newAssignment/processForm" method="POST"
+        <form:form action="${pageContext.request.contextPath}/doctor/editAssignment" method="POST"
                    modelAttribute="assignment" class="needs-validation" novalidate="">
-            <div class="row justify-content-md-center">
-                <div class="col-sm-auto">
-                    <form:radiobutton id="medication" name="type" class="radio-inline" path="type" value="MEDICATION" checked="checked"/>
-                    <label class="custom-control-label" for="medication">Medication</label>
-                </div>
-                <div class="col-sm-auto">
-                    <form:radiobutton id="procedure" name="type" class="radio-inline" path="type" value="PROCEDURE"/>
-                    <label class="custom-control-label" for="procedure">Procedure</label>
-                </div>
-            </div>
-
-            <hr class="mb-4">
-
-            <div class="mb-3">
-                <label for="name">Name</label>
-                <form:input type="text" class="form-control" id="name" path="name"/>
-                <div class="invalid-feedback">
-                    Valid field required
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-sm">
                     <label for="dosage">Dosage</label>
-                    <form:input type="text" class="form-control" id="dosage" path="dosage"/>
+                    <form:input type="text" class="form-control" id="dosage" path="dosage"
+                                value="${assignment.dosage}"/>
                     <div class="invalid-feedback">
                         Valid field required
                     </div>
                 </div>
                 <div class="col-sm">
-                    <label for="quantity">Amount of weeks</label>
-                    <form:input type="number" class="form-control" id="quantity" path="quantity"/>
+                    <label for="quantity">Quantity</label>
+                    <form:input type="number" class="form-control" id="quantity" path="quantity"
+                                value="${assignment.quantity}"/>
                     <div class="invalid-feedback">
                         Valid field required
                     </div>
@@ -106,12 +105,28 @@
 
             </div>
 
-            <form:input type="hidden" path="treatment.idTreatment" value="${idTreatment}"/>
+            <c:if test="${close!=null}">
+                <div class="col-md-6 mb-3">
+                    <label for="closed_comments">Please write closing comments</label>
+                    <form:textarea type="text" class="form-control" id="closed_comments" path="closedComments"/>
+                    <div class="invalid-feedback">
+                        Invalid field
+                    </div>
+                </div>
+            </c:if>
+            <form:input type="hidden" path="idAssignment" value="${assignment.idAssignment}"/>
             <div class="row">
-                <form:button class="btn btn-primary text-center" type="submit">Add</form:button>
+                <form:button class="btn btn-primary text-center" type="submit">Edit</form:button>
             </div>
         </form:form>
     </div>
+    <c:if test="${close==null}">
+        <form action="${pageContext.request.contextPath}/doctor/closeAssignment" method="GET">
+            <input class="btn btn-danger" type="submit" value="Close treatment"/>
+            <input type="hidden" name="idAssignment" value="${assignment.idAssignment}"/>
+            <input type="hidden" name="close" value="true"/>
+        </form>
+    </c:if>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"

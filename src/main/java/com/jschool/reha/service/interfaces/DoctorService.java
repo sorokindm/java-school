@@ -42,7 +42,7 @@ public interface DoctorService {
      *
      * @param assignment - assignment to generate from
      */
-    void generateMedEvents(Assignment assignment);
+    void generateMedEventsForNewAssingment(Assignment assignment);
 
     /**
      * Fetches all treatments data from db
@@ -75,6 +75,13 @@ public interface DoctorService {
     List<AssignmentDto> getAssignmentsForTreatment(int treatmentId);
 
     /**
+     * Fetches assignment dto from db by id
+     * @param idAssignment - assignment id
+     * @return AssignmentDto
+     */
+    AssignmentDto getAssignmentById(int idAssignment);
+
+    /**
      * Edits treatment data
      *
      * @param treatmentDto - dto with data to edit
@@ -87,6 +94,13 @@ public interface DoctorService {
      * @param treatmentDto - treatment data to close
      */
     void closeTreatment(TreatmentDto treatmentDto);
+
+    /**
+     * Edits assignment data
+     *
+     * @param assignmentDto - dto with data to edit
+     */
+    void editAssignment(AssignmentDto assignmentDto);
 
     /**
      * Closes assignment

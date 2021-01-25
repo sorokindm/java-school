@@ -18,14 +18,15 @@ import java.util.List;
 public class MedEventCalendarImpl implements MedEventCalendar {
 
     @Override
-    public List<LocalDateTime> getTimeForEvents(int quantity, Pattern pattern, LocalDateTime start) {
+    public List<LocalDateTime> getTimeForEvents(int quantityDays, Pattern pattern, LocalDateTime start) {
         ArrayList<LocalDateTime> events = new ArrayList<>();
         LocalDateTime time = start;
 
         //All events are planned for the next day minimum
         time = time.plusDays(1).withHour(0);
 
-        for (int i = 0; i < quantity; i++) {
+        int quantityEvents=getNumberOfEvents(start.toLocalDate(),quantityDays,pattern);
+        for (int i = 0; i < quantityEvents; i++) {
             time = findNextEventTimeFromNow(pattern, time);
             events.add(time);
         }
@@ -105,5 +106,27 @@ public class MedEventCalendarImpl implements MedEventCalendar {
         if (Boolean.TRUE.equals(pattern.getSunday())) days.add(DayOfWeek.SUNDAY);
 
         return days;
+    }
+    @Override
+    public int getNumberOfEvents(LocalDate start,int quantityDays,Pattern pattern) {
+        int days=0;
+        int eventsPerDay=0;
+
+        for (int i=0;i<quantityDays;i++) {
+            LocalDate day=start.plusDays(i);
+            if (day.getDayOfWeek()==DayOfWeek.MONDAY && pattern.getMonday()) days++;
+            if (day.getDayOfWeek()==DayOfWeek.TUESDAY && pattern.getTuesday()) days++;
+            if (day.getDayOfWeek()==DayOfWeek.WEDNESDAY && pattern.getWednesday()) days++;
+            if (day.getDayOfWeek()==DayOfWeek.THURSDAY && pattern.getThursday()) days++;
+            if (day.getDayOfWeek()==DayOfWeek.FRIDAY && pattern.getFriday()) days++;
+            if (day.getDayOfWeek()==DayOfWeek.SATURDAY && pattern.getSaturday()) days++;
+            if (day.getDayOfWeek()==DayOfWeek.SUNDAY && pattern.getSunday()) days++;
+        }
+
+        if (Boolean.TRUE.equals(pattern.getMorning())) eventsPerDay++;
+        if (Boolean.TRUE.equals(pattern.getDay())) eventsPerDay++;
+        if (Boolean.TRUE.equals(pattern.getEvening())) eventsPerDay++;
+
+        return eventsPerDay*days;
     }
 }

@@ -30,4 +30,9 @@ public class AssignmentDAOImpl implements AssignmentDAO {
                 "where assignment.treatment.idTreatment= :treatmentId").setParameter("treatmentId", treatmentId)
                 .getResultList();
     }
+
+    @Override
+    public Assignment update(Assignment assignment) {
+        return em.merge(assignment);
+    }
 }

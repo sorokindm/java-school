@@ -28,4 +28,9 @@ public class TreatmentDAOImpl implements TreatmentDAO {
     public List<Treatment> findAllTreatments() {
         return em.createQuery("select t from Treatment t").getResultList();
     }
+
+    @Override
+    public Treatment update(Treatment treatment) {
+        return em.merge(treatment);
+    }
 }

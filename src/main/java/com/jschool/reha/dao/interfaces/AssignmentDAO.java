@@ -34,5 +34,11 @@ public interface AssignmentDAO {
      */
     List<Assignment> getAssignmentsForTreatment(int treatmentId);
 
+    /**
+     * Updates entity in db
+     * @param assignment - Entity with update
+     * @return updated Entity
+     */
+    Assignment update(Assignment assignment);
 
 }

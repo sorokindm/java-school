@@ -37,7 +37,9 @@
                 <th scope="colgroup">Doctor</th>
                 <th scope="colgroup">Anamnesis</th>
                 <th scope="colgroup">Diagnosis</th>
+                <th scope="colgroup">Status</th>
                 <th scope="colgroup">Assignments</th>
+                <th scope="colgroup">Edit</th>
             </tr>
             </thead>
             <tbody>
@@ -48,8 +50,22 @@
                     <td>${treatment.openedComments}</td>
                     <td>${treatment.diagnosis}</td>
                     <td>
+                        <c:if test="${treatment.treatmentClosed==null}">Active</c:if>
+                         <c:if test="${treatment.treatmentClosed!=null}">
+                             Closed
+                             <br>
+                             Reason:${treatment.closedComments}
+                         </c:if>
+                    </td>
+                    <td>
                         <form action="${pageContext.request.contextPath}/doctor/assignment" method="GET">
                             <input class="btn btn-primary" type="submit" value="View"/>
+                            <input type="hidden" name="idTreatment" value="${treatment.idTreatment}"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/doctor/editTreatment" method="GET">
+                            <input class="btn btn-primary" type="submit" value="Edit"/>
                             <input type="hidden" name="idTreatment" value="${treatment.idTreatment}"/>
                         </form>
                     </td>

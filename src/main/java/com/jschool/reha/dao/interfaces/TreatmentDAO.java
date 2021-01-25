@@ -32,4 +32,11 @@ public interface TreatmentDAO {
      * @return List with all treatment entities
      */
     List<Treatment> findAllTreatments();
+
+    /**
+     * Updates entity in db
+     * @param treatment - Entity with update
+     * @return updated Entity
+     */
+    Treatment update(Treatment treatment);
 }

@@ -5,10 +5,7 @@ import com.jschool.reha.dto.AssignmentDto;
 import com.jschool.reha.dto.MedEventDto;
 import com.jschool.reha.dto.PatientDto;
 import com.jschool.reha.dto.TreatmentDto;
-import com.jschool.reha.dto.helpers.AssignmentEntityDtoHelper;
-import com.jschool.reha.dto.helpers.PatientEntityDtoHelper;
-import com.jschool.reha.dto.helpers.PatternEntityDtoHelper;
-import com.jschool.reha.dto.helpers.TreatmentEntityDtoHelper;
+import com.jschool.reha.dto.helpers.*;
 import com.jschool.reha.entity.*;
 import com.jschool.reha.enums.MedEventStatus;
 import com.jschool.reha.service.helpers.MedEventCalendar;
@@ -108,9 +105,9 @@ public class DoctorServiceImpl implements DoctorService {
     public void addNewMedEvent(MedEventDto medEventDto) {
         MedEvent medEventEntity = new MedEvent();
         medEventEntity.setStarts(medEventDto.getStarts());
-        medEventEntity.setAssignment(medEventDto.getAssignment());
-        medEventEntity.setNurse(medEventDto.getNurse());
-        medEventEntity.setPatient(medEventDto.getPatient());
+        medEventEntity.setAssignment(assignmentDAO.getAssignmentById(medEventDto.getAssignment().getIdAssignment()));
+        medEventEntity.setNurse(medStaffDAO.findMedStaffById(medEventDto.getNurse().getIdMedStaff()));
+        medEventEntity.setPatient(patientDAO.findPatientById(medEventDto.getPatient().getIdPatient()));
         medEventEntity.setStatus(medEventDto.getStatus());
         medEventDAO.addNewMedEvent(medEventEntity);
     }
@@ -123,6 +120,11 @@ public class DoctorServiceImpl implements DoctorService {
             treatmentDtos.add(TreatmentEntityDtoHelper.entityToDto(treatment));
         }
         return treatmentDtos;
+    }
+
+    @Override
+    public TreatmentDto getTreatmentById(int idTreatment) {
+        return TreatmentEntityDtoHelper.entityToDto(treatmentDAO.findTreatmentById(idTreatment));
     }
 
     @Override
@@ -143,6 +145,71 @@ public class DoctorServiceImpl implements DoctorService {
             assignmentDtos.add(AssignmentEntityDtoHelper.entityToDto(assignment));
         }
         return assignmentDtos;
+    }
+
+    @Override
+    public void editTreatment(TreatmentDto treatmentDto) {
+        Treatment treatment=treatmentDAO.findTreatmentById(treatmentDto.getIdTreatment());
+        treatment.setDiagnosis(treatmentDto.getDiagnosis());
+        treatment.setOpenedComments(treatmentDto.getOpenedComments());
+        treatmentDAO.update(treatment);
+    }
+
+    @Override
+    public void closeTreatment(TreatmentDto treatmentDto) {
+        Treatment treatment=treatmentDAO.findTreatmentById(treatmentDto.getIdTreatment());
+        treatment.setDiagnosis(treatmentDto.getDiagnosis());
+        treatment.setOpenedComments(treatmentDto.getOpenedComments());
+        treatment.setTreatmentClosed(LocalDate.now());
+        treatment.setClosedComments(treatmentDto.getClosedComments());
+        treatmentDAO.update(treatment);
+
+        for(Assignment assignment:treatment.getAssignments()) {
+            if (assignment.getAssignmentEndDate()==null) {
+                assignment.setClosedComments("Treatment closed");
+                assignment.setAssignmentEndDate(LocalDate.now());
+                closeAssignment(AssignmentEntityDtoHelper.entityToDto(assignment));
+            }
+        }
+    }
+
+    @Override
+    public void closeAssignment(AssignmentDto assignmentDto) {
+        Assignment assignment=assignmentDAO.getAssignmentById(assignmentDto.getIdAssignment());
+        assignment.setClosedComments(assignmentDto.getClosedComments());
+        assignment.setAssignmentEndDate(assignmentDto.getAssignmentEndDate());
+        assignmentDAO.update(assignment);
+
+        for(MedEvent medEvent:assignment.getMedEvents()) {
+             {
+                medEvent.setClosedComments("Assignment closed");
+                medEvent.setStatus(MedEventStatus.CANCELED);
+
+                closeMedEvent(MedEventEntityDtoHelper.entityToDto(medEvent));
+            }
+        }
+    }
+
+    @Override
+    public void closeMedEvent(MedEventDto medEventDto) {
+        MedEvent medEvent=medEventDAO.getMedEventById(medEventDto.getIdMedEvent());
+        if (medEvent.getStatus()==MedEventStatus.SCHEDULED||medEvent.getStatus()==MedEventStatus.PENDING) {
+            medEvent.setStatus(medEventDto.getStatus());
+            medEvent.setClosedComments(medEventDto.getClosedComments());
+
+            medEventDAO.update(medEvent);
+        }
+    }
+
+
+    @Override
+    public List<MedEventDto> getAllMedEventsForAssignment(int assignmentId) {
+        ArrayList<MedEventDto> medEventDtos=new ArrayList<>();
+        List<MedEvent> medEvents=medEventDAO.getAllMedEventsForAssignment(assignmentId);
+        for (MedEvent medEvent:medEvents) {
+            medEventDtos.add(MedEventEntityDtoHelper.entityToDto(medEvent));
+        }
+        return medEventDtos;
     }
 
 }

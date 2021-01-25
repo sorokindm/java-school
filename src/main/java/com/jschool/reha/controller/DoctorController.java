@@ -1,9 +1,9 @@
 package com.jschool.reha.controller;
 
 import com.jschool.reha.dto.AssignmentDto;
+import com.jschool.reha.dto.MedEventDto;
 import com.jschool.reha.dto.TreatmentDto;
 import com.jschool.reha.dto.UserDto;
-import com.jschool.reha.entity.Assignment;
 import com.jschool.reha.service.interfaces.AdminService;
 import com.jschool.reha.service.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,6 +117,31 @@ public class DoctorController {
         return new RedirectView(REDIRECT_TREATMENTS_PAGE);
     }
 
+    @GetMapping("/doctor/editTreatment")
+    public String editTreatmentPage(@RequestParam("idTreatment") int idTreatment, Model model) {
+        model.addAttribute("treatment",doctorService.getTreatmentById(idTreatment));
+        return "editTreatment";
+    }
+
+    @PostMapping("/doctor/editTreatment")
+    public RedirectView editTreatmentPage(@ModelAttribute("treatment") TreatmentDto treatmentDto) {
+        doctorService.editTreatment(treatmentDto);
+        return new RedirectView(REDIRECT_TREATMENTS_PAGE);
+    }
+
+    @GetMapping("/doctor/closeTreatment")
+    public String editTreatmentPage(@RequestParam("idTreatment") int idTreatment, @RequestParam("close") boolean close, Model model) {
+        model.addAttribute("treatment",doctorService.getTreatmentById(idTreatment));
+        model.addAttribute("close",close);
+        return "editTreatment";
+    }
+
+    @PostMapping("/doctor/closeTreatment")
+    public RedirectView processCloseTreatment(@ModelAttribute("treatment") TreatmentDto treatmentDto,@RequestParam("close") boolean close) {
+        doctorService.closeTreatment(treatmentDto);
+        return new RedirectView(REDIRECT_TREATMENTS_PAGE);
+    }
+
     /**
      * Page with all assignments for selected treatment
      *
@@ -126,7 +151,7 @@ public class DoctorController {
     public String assignments(@RequestParam("idTreatment") int idTreatment, Model model) {
         List<AssignmentDto> assignments = doctorService.getAssignmentsForTreatment(idTreatment);
         model.addAttribute("assignments", assignments);
-        model.addAttribute("idTreatment",idTreatment);
+        model.addAttribute("idTreatment", idTreatment);
         return "assignments";
     }
 
@@ -137,9 +162,9 @@ public class DoctorController {
      */
     @GetMapping("/doctor/newAssignment/create")
     public String doctorNewAssignmentPage(@RequestParam("idTreatment") int idTreatment, Model model) {
-        AssignmentDto dto=new AssignmentDto();
+        AssignmentDto dto = new AssignmentDto();
         model.addAttribute("assignment", dto);
-        model.addAttribute("idTreatment",idTreatment);
+        model.addAttribute("idTreatment", idTreatment);
         return "newAssignment";
     }
 
@@ -149,8 +174,15 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newAssignment/processForm")
-    public RedirectView processNewAssignmentForm(@ModelAttribute("assignment") AssignmentDto assignmentDto, Model model) {
+    public RedirectView processNewAssignmentForm(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
         doctorService.addNewAssignment(assignmentDto);
-        return new RedirectView("/java_school/doctor/assignment?idTreatment="+assignmentDto.getTreatment().getIdTreatment());
+        return new RedirectView("/java_school/doctor/assignment?idTreatment=" + assignmentDto.getTreatment().getIdTreatment());
+    }
+
+    @GetMapping("/doctor/medEvents")
+    public String doctorMedEventsPage(@RequestParam("idAssignment") int idAssignment, Model model) {
+        List<MedEventDto> medEventDtoList = doctorService.getAllMedEventsForAssignment(idAssignment);
+        model.addAttribute("medEvents", medEventDtoList);
+        return "medEvents";
     }
 }

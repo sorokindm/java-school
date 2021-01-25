@@ -182,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `reha`.`med_event` (
                                                   `starts` DATETIME NOT NULL,
                                                   `status` ENUM('PENDING', 'SCHEDULED', 'DONE', 'CANCELED') NOT NULL DEFAULT 'SCHEDULED',
                                                   `id_patient` INT NOT NULL,
+                                                  `closed_comments` VARCHAR(100) NULL DEFAULT NULL,
                                                   PRIMARY KEY (`id_med_event`),
                                                   INDEX `id_assignment` (`id_assignment` ASC) VISIBLE,
                                                   INDEX `fk_med_event_nurse_idx` (`id_nurse` ASC) VISIBLE,

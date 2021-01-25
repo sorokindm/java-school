@@ -11,8 +11,10 @@ public interface NurseService {
 
     /**
      * Finds nurse for given time, possibly depending on schedule
+     *
      * @param time - time when nurse is needed
      * @return MedStaff entity
      */
     MedStaff findNurseForEvent(LocalDateTime time);
+
 }

@@ -39,6 +39,7 @@
                 <th scope="colgroup">Quantity</th>
                 <th scope="colgroup">Pattern</th>
                 <th scope="colgroup">Started</th>
+                <th scope="colgroup">Status</th>
                 <th scope="colgroup">Med Events</th>
             </tr>
             </thead>
@@ -64,9 +65,17 @@
                     </td>
                     <td>${assignment.assignmentStartDate}</td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/doctor/medEvent" method="GET">
+                        <c:if test="${assignment.assignmentEndDate==null}">Active</c:if>
+                        <c:if test="${assignment.assignmentEndDate!=null}">
+                            Ended
+                            <br>
+                            Reason:${assignment.closedComments}
+                        </c:if>
+                    </td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/doctor/medEvents" method="GET">
                             <input class="btn btn-primary" type="submit" value="View">
-                            <input type="hidden" value="${assignment.idAssignment}">
+                            <input type="hidden" value="${assignment.idAssignment}" name="idAssignment">
                         </form>
                     </td>
                 </tr>

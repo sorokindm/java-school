@@ -21,13 +21,12 @@ public class MedEventCalendarImpl implements MedEventCalendar {
     public List<LocalDateTime> getTimeForEvents(int quantity, Pattern pattern, LocalDateTime start) {
         ArrayList<LocalDateTime> events = new ArrayList<>();
         LocalDateTime time = start;
-        List<DayOfWeek> days = getListFromPattern(pattern);
 
         //All events are planned for the next day minimum
         time = time.plusDays(1).withHour(0);
 
         for (int i = 0; i < quantity; i++) {
-            time = findNextEventTimeFromNow(days, time);
+            time = findNextEventTimeFromNow(pattern, time);
             events.add(time);
         }
         return events;
@@ -47,8 +46,9 @@ public class MedEventCalendarImpl implements MedEventCalendar {
     }
 
 
-    private LocalDateTime findNextEventTimeFromNow(List<DayOfWeek> daysPattern, LocalDateTime now) {
+    private LocalDateTime findNextEventTimeFromNow(Pattern pattern, LocalDateTime now) {
 
+        List<DayOfWeek> daysPattern = getListFromPattern(pattern);
         LocalDateTime nextEvent = null;
         for (int i = 0; i < 7; i++) {
             DayOfWeek day = now.plusDays(i).getDayOfWeek();
@@ -61,7 +61,7 @@ public class MedEventCalendarImpl implements MedEventCalendar {
                 if (isEvening(hour)) {
                     nextDate = findNextPossibleDay(daysPattern, nextDate);
                 }
-                hour = findNextPossibleHour(hour);
+                hour = findNextPossibleHour(hour,pattern);
                 nextEvent = LocalDateTime.of(nextDate, LocalTime.of(hour, 0));
             }
         }
@@ -83,11 +83,14 @@ public class MedEventCalendarImpl implements MedEventCalendar {
         return currentDay.with(TemporalAdjusters.next(daysPattern.get(index)));
     }
 
-    private int findNextPossibleHour(int hour) {
-        if (isEvening(hour)) return 9;
-        if (isMorning(hour)) return 13;
-        if (isDay(hour)) return 17;
-        throw new IllegalArgumentException("hour argument must be from 0 to 24");
+    public int findNextPossibleHour(int hour, Pattern pattern) {
+        if (isEvening(hour)) hour=0;
+        if (isMorning(hour)&& pattern.getDay()) return 13;
+        if (isDay(hour)&&pattern.getEvening()) return 17;
+        if (pattern.getMorning()) return 9;
+        if (pattern.getDay()) return 13;
+        if (pattern.getEvening()) return 17;
+        throw new IllegalArgumentException("Hour is out of range [0.24] or Pattern is empty");
     }
 
     private List<DayOfWeek> getListFromPattern(Pattern pattern) {

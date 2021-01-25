@@ -28,7 +28,7 @@
 <br>
 
 <div class="container-fluid">
-    <h2>Patients</h2>
+    <h2>Please select a patient</h2>
 
     <div class="table-responsive">
         <table class="table table-striped table-sm">

@@ -28,7 +28,7 @@
 <br>
 
 <div class="container-fluid">
-    <h2>MedEvents</h2>
+    <h2>Cancel event</h2>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -37,13 +37,10 @@
                 <th scope="colgroup">Nurse</th>
                 <th scope="colgroup">Starts</th>
                 <th scope="colgroup">Status</th>
-                <th scope="colgroup">Closed Comments</th>
-                <th scope="colgroup">Cancel</th>
-                <th scope="colgroup">Done</th>
+                <th scope="colgroup">Please enter cancelling comments</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${medEvents}" var="medEvent">
                 <tr>
                     <td>
                         Name:${medEvent.patient.name}
@@ -57,21 +54,14 @@
                     </td>
                     <td>${medEvent.starts}</td>
                     <td>${medEvent.status}</td>
-                    <td>${medEvent.closedComments}</td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/nurse/cancel" method="GET">
-                            <input class="btn btn-danger" type="submit" value="Cancel"/>
-                            <input type="hidden" name="idMedEvent" value="${medEvent.idMedEvent}"/>
-                        </form>
-                    </td>
-                    <td>
-                        <form:form action="${pageContext.request.contextPath}/nurse/done" method="POST">
-                            <input class="btn btn-success" type="submit" value="Done"/>
-                            <input type="hidden" name="idMedEvent" value="${medEvent.idMedEvent}"/>
+                        <form:form action="${pageContext.request.contextPath}/nurse/cancel" method="POST" modelAttribute="medEvent">
+                            <form:textarea path="closedComments" type="text"/>
+                            <form:input type="hidden" name="idMedEvent" value="${medEvent.idMedEvent}" path="idMedEvent"/>
+                            <form:button class="btn btn-danger" type="submit" value="Submit">Submit</form:button>
                         </form:form>
                     </td>
                 </tr>
-            </c:forEach>
 
             </tbody>
         </table>

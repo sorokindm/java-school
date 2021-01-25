@@ -23,7 +23,6 @@ import java.util.List;
 public class MainController {
     private static final String HOME_PAGE = "home";
     private static final String ADMIN_PAGE = "admin";
-    private static final String NURSE_PAGE = "nurse";
     private static final String PATIENT_PAGE = "patient";
 
     @Autowired
@@ -77,16 +76,6 @@ public class MainController {
         return new RedirectView("/java_school/admin");
     }
 
-
-    /**
-     * Nurse page mapping
-     *
-     * @return nurse page url
-     */
-    @GetMapping("/nurse")
-    public String nursePage() {
-        return NURSE_PAGE;
-    }
 
     /**
      * Patient page mapping

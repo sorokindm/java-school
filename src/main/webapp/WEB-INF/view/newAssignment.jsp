@@ -1,10 +1,10 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>New Assignment</title>
     <!-- Bootstrap CSS file -->
@@ -14,78 +14,104 @@
 </head>
 <body>
 <div class="container-fluid navbar">
-    <div class="row"></div>
-    <div class="col"><a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-    <div class="col"></div>
+    <div class="row">
+        <div class="col"><a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
+        <div class="col">
+            <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
+                       method="POST">
+                <button type="submit" class="btn btn-primary">Logout</button>
+            </form:form>
+        </div>
+    </div>
 </div>
-<h1 align="center">Add new assignment</h1>
-<div class="col-md-8 mx-auto">
-    <form:form action="${pageContext.request.contextPath}/doctor/newAssignment/processForm" method="POST"
-               modelAttribute="assignment" class="needs-validation" novalidate="">
-
-        <div class="mb-3">
-            <label for="name">Medicine or procedure name</label>
-            <form:input type="text" class="form-control" id="name" placeholder="" value="" required=""
-                        path="name"/>
-            <div class="invalid-feedback">
-                Valid field required
-            </div>
-        </div>
-        <div class=mb-3">
-            <label for="dosage">Dosage</label>
-            <form:input type="text" class="form-control" id="dosage" placeholder="" value="" required=""
-                        path="dosage"/>
-            <div class="invalid-feedback">
-                Valid field required
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="type">Type</label>
-            <form:select class="custom-select d-block w-100" id="type" required="" path="type">
-                <option value="">Choose...</option>
-                <option value="MEDICATION">Medication</option>
-                <option value="PROCEDURE">Procedure</option>
-            </form:select>
-            <div class="invalid-feedback">
-                Valid field required
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1 mb-3">
-                <form:input type="number" class="form-control" id="pattern_quantity" placeholder="" required=""
-                            path="quantity"/>
-                <div class="invalid-feedback">
-                    Valid number required
+<div class="container-fluid">
+    <h2 class="text-center">Add new assignment</h2>
+    <div class="col-md-8 mx-auto">
+        <form:form action="${pageContext.request.contextPath}/doctor/newAssignment/processForm" method="POST"
+                   modelAttribute="assignment" class="needs-validation" novalidate="">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-auto">
+                    <form:radiobutton id="medication" name="type" class="radio-inline" path="type" value="MEDICATION" checked="checked"/>
+                    <label class="custom-control-label" for="medication">Medication</label>
+                </div>
+                <div class="col-sm-auto">
+                    <form:radiobutton id="procedure" name="type" class="radio-inline" path="type" value="PROCEDURE"/>
+                    <label class="custom-control-label" for="procedure">Procedure</label>
                 </div>
             </div>
-            <div class="col-md-2 mb-3">
-                Times per
-            </div>
-<%--            <div class="col-md-2 mb-3">--%>
-<%--                <form:select class="custom-select d-block w-100" id="timeframe" required="" path="timeframe">--%>
-<%--                    <option value="DAY">Day</option>--%>
-<%--                    <option value="HOUR">Hour</option>--%>
-<%--                    <option value="WEEK">Week</option>--%>
-<%--                    <option value="MONTH">Month</option>--%>
-<%--                </form:select>--%>
-<%--                <div class="invalid-feedback">--%>
-<%--                </div>--%>
-<%--            </div>--%>
-            <div class="col-md-2 mb-3">
-                For
-            </div>
-<%--            <div class="col-md-1 mb-3">--%>
-<%--                <form:input type="number" class="form-control" id="patternHowlong" placeholder="" required=""--%>
-<%--                            path="patternHowlong"/>--%>
-<%--                <div class="invalid-feedback">--%>
-<%--                    Valid number required--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
 
-        <form:button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Add</form:button>
-    </form:form>
+            <hr class="mb-4">
+
+            <div class="mb-3">
+                <label for="name">Name</label>
+                <form:input type="text" class="form-control" id="name" path="name"/>
+                <div class="invalid-feedback">
+                    Valid field required
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <label for="dosage">Dosage</label>
+                    <form:input type="text" class="form-control" id="dosage" path="dosage"/>
+                    <div class="invalid-feedback">
+                        Valid field required
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label for="quantity">Quantity</label>
+                    <form:input type="number" class="form-control" id="quantity" path="quantity"/>
+                    <div class="invalid-feedback">
+                        Valid field required
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mb-4">
+
+            <h3 class="text-center">Pattern</h3>
+            <div class="row">
+                <div class="col-sm">
+                    <form:checkbox id="monday" path="pattern.monday" value="true"/>
+                    <label for="monday">Monday</label>
+                    <br>
+                    <form:checkbox id="tuesday" path="pattern.tuesday" value="true"/>
+                    <label for="tuesday">Tuesday</label>
+                    <br>
+                    <form:checkbox id="wednesday" path="pattern.wednesday" value="true"/>
+                    <label for="wednesday">Wednesday</label>
+                    <br>
+                    <form:checkbox id="thursday" path="pattern.thursday" value="true"/>
+                    <label for="thursday">Thursday</label>
+                    <br>
+                    <form:checkbox id="friday" path="pattern.friday" value="true"/>
+                    <label for="friday">Friday</label>
+                    <br>
+                    <form:checkbox id="saturday" path="pattern.saturday" value="true"/>
+                    <label for="saturday">Saturday</label>
+                    <br>
+                    <form:checkbox id="sunday" path="pattern.sunday" value="true"/>
+                    <label for="sunday">Sunday</label>
+                </div>
+                <div class="col-sm">
+                    <form:checkbox id="morning" path="pattern.morning" value="true"/>
+                    <label for="morning">Morning</label>
+                    <br>
+                    <form:checkbox id="day" path="pattern.day" value="true"/>
+                    <label for="day">Day</label>
+                    <br>
+                    <form:checkbox id="evening" path="pattern.evening" value="true"/>
+                    <label for="evening">Evening</label>
+                </div>
+
+            </div>
+
+            <form:input type="hidden" path="treatment.idTreatment" value="${idTreatment}"/>
+            <div class="row">
+                <form:button class="btn btn-primary text-center" type="submit">Add</form:button>
+            </div>
+        </form:form>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"

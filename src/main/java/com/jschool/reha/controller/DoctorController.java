@@ -126,6 +126,7 @@ public class DoctorController {
     public String assignments(@RequestParam("idTreatment") int idTreatment, Model model) {
         List<AssignmentDto> assignments = doctorService.getAssignmentsForTreatment(idTreatment);
         model.addAttribute("assignments", assignments);
+        model.addAttribute("idTreatment",idTreatment);
         return "assignments";
     }
 
@@ -135,8 +136,10 @@ public class DoctorController {
      * @return doctor page url
      */
     @GetMapping("/doctor/newAssignment/create")
-    public String doctorNewAssignmentPage(Model model) {
-        model.addAttribute("assignment", new AssignmentDto());
+    public String doctorNewAssignmentPage(@RequestParam("idTreatment") int idTreatment, Model model) {
+        AssignmentDto dto=new AssignmentDto();
+        model.addAttribute("assignment", dto);
+        model.addAttribute("idTreatment",idTreatment);
         return "newAssignment";
     }
 
@@ -146,8 +149,8 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newAssignment/processForm")
-    public RedirectView processNewAssignmentForm(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
+    public RedirectView processNewAssignmentForm(@ModelAttribute("assignment") AssignmentDto assignmentDto, Model model) {
         doctorService.addNewAssignment(assignmentDto);
-        return new RedirectView(REDIRECT_DOCTOR_PAGE);
+        return new RedirectView("/java_school/doctor/assignment?idTreatment="+assignmentDto.getTreatment().getIdTreatment());
     }
 }

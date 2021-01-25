@@ -9,17 +9,19 @@ import com.jschool.reha.dto.helpers.AssignmentEntityDtoHelper;
 import com.jschool.reha.dto.helpers.PatientEntityDtoHelper;
 import com.jschool.reha.dto.helpers.PatternEntityDtoHelper;
 import com.jschool.reha.dto.helpers.TreatmentEntityDtoHelper;
-import com.jschool.reha.entity.Assignment;
-import com.jschool.reha.entity.MedEvent;
-import com.jschool.reha.entity.Patient;
-import com.jschool.reha.entity.Treatment;
+import com.jschool.reha.entity.*;
+import com.jschool.reha.enums.MedEventStatus;
+import com.jschool.reha.service.helpers.MedEventCalendar;
 import com.jschool.reha.service.interfaces.DoctorService;
+import com.jschool.reha.service.interfaces.NurseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +48,16 @@ public class DoctorServiceImpl implements DoctorService {
     MedEventDAO medEventDAO;
 
     @Autowired
+    PatternDAO patternDAO;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    MedEventCalendar medEventCalendar;
+
+    @Autowired
+    NurseService nurseService;
 
     @Override
     public void addNewTreatment(TreatmentDto treatmentDto) {
@@ -67,15 +78,30 @@ public class DoctorServiceImpl implements DoctorService {
         assignmentEntity.setName(assignmentDto.getName());
         assignmentEntity.setType(assignmentDto.getType());
         assignmentEntity.setQuantity(assignmentDto.getQuantity());
-        assignmentEntity.setPattern(PatternEntityDtoHelper.dtoToEntity(assignmentDto.getPattern()));
-        assignmentEntity.setTreatment(treatmentDAO.findTreatmentById(assignmentDto.getIdAssignment()));
+        assignmentEntity.setTreatment(treatmentDAO.findTreatmentById(assignmentDto.getTreatment().getIdTreatment()));
+
+        Pattern pattern=patternDAO.addNewPattern(PatternEntityDtoHelper.dtoToEntity(assignmentDto.getPattern()));
+        assignmentEntity.setPattern(pattern);
         assignmentDAO.addNewAssignment(assignmentEntity);
 
         generateMedEvents(assignmentEntity);
     }
 
+    @Override
     public void generateMedEvents(Assignment assignment) {
-        //TODO add medEvents generation from assignment
+        int counter=assignment.getQuantity();
+        List<LocalDateTime> eventsTime=medEventCalendar.getTimeForEvents(counter,assignment.getPattern(),
+                assignment.getAssignmentStartDate().atTime(LocalTime.of(0,0)));
+        for (int i=0;i<counter;i++){
+            MedEvent medEvent=new MedEvent();
+            medEvent.setAssignment(assignment);
+            medEvent.setStarts(eventsTime.get(i));
+            medEvent.setStatus(MedEventStatus.SCHEDULED);
+            medEvent.setPatient(assignment.getTreatment().getPatient());
+            medEvent.setNurse(nurseService.findNurseForEvent(eventsTime.get(i)));
+
+            medEventDAO.addNewMedEvent(medEvent);
+        }
     }
 
     @Override

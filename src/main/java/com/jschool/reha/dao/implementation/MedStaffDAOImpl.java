@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class MedStaffDAOImpl implements MedStaffDAO {
@@ -21,5 +22,10 @@ public class MedStaffDAOImpl implements MedStaffDAO {
     @Override
     public MedStaff findMedStaffById(int id) {
         return em.find(MedStaff.class, id);
+    }
+
+    @Override
+    public List<MedStaff> getAllNurses() {
+        return em.createQuery("select n from MedStaff n where n.user.role='ROLE_NURSE'").getResultList();
     }
 }

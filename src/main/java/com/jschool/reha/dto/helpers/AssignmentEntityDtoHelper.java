@@ -22,7 +22,7 @@ public final class AssignmentEntityDtoHelper {
         dto.setDosage(assignment.getDosage());
         dto.setQuantity(assignment.getQuantity());
         dto.setPattern(PatternEntityDtoHelper.entityToDto(assignment.getPattern()));
-        dto.setAssignmentEndDate(assignment.getAssignmentStartDate());
+        dto.setAssignmentStartDate(assignment.getAssignmentStartDate());
         dto.setAssignmentEndDate(assignment.getAssignmentEndDate());
         dto.setClosedComments(assignment.getClosedComments());
         return dto;

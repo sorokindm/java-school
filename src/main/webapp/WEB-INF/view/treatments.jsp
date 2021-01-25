@@ -21,11 +21,9 @@
             <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
                        method="POST">
                 <button type="submit" class="btn btn-primary">Logout</button>
-
             </form:form>
         </div>
     </div>
-
 </div>
 <br>
 

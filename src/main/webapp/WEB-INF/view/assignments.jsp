@@ -46,10 +46,22 @@
             <c:forEach items="${assignments}" var="assignment">
                 <tr>
                     <td>${assignment.type}</td>
-                    <td>${assignment.name})</td>
+                    <td>${assignment.name}</td>
                     <td>${assignment.dosage}</td>
                     <td>${assignment.quantity}</td>
-                    <td>${assignment.pattern}</td>
+                    <td>
+                        <c:if test="${assignment.pattern.morning==true}">Morning </c:if>
+                        <c:if test="${assignment.pattern.day==true}">Day </c:if>
+                        <c:if test="${assignment.pattern.evening==true}">Evening </c:if>
+                        <br>
+                        <c:if test="${assignment.pattern.monday==true}">Monday </c:if>
+                        <c:if test="${assignment.pattern.tuesday==true}">Tuesday </c:if>
+                        <c:if test="${assignment.pattern.wednesday==true}">Wednesday </c:if>
+                        <c:if test="${assignment.pattern.thursday==true}">Thursday </c:if>
+                        <c:if test="${assignment.pattern.friday==true}">Friday </c:if>
+                        <c:if test="${assignment.pattern.saturday==true}">Saturday </c:if>
+                        <c:if test="${assignment.pattern.sunday==true}">Sunday </c:if>
+                    </td>
                     <td>${assignment.assignmentStartDate}</td>
                     <td>
                         <form action="${pageContext.request.contextPath}/doctor/medEvent" method="GET">
@@ -64,8 +76,10 @@
         </table>
     </div>
     <br>
-    <a href="${pageContext.request.contextPath}/doctor/newAssignment/create" class="btn btn-primary">New
-        Assignment</a>
+    <form action="${pageContext.request.contextPath}/doctor/newAssignment/create" method="GET">
+        <input class="btn btn-primary" type="submit" value="New Assignment"/>
+        <input type="hidden" name="idTreatment" value="${idTreatment}"/>
+    </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"

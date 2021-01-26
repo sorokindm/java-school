@@ -25,7 +25,7 @@ public class MedEventCalendarImpl implements MedEventCalendar {
         //All events are planned for the next day minimum
         time = time.plusDays(1).withHour(0);
 
-        int quantityEvents=getNumberOfEvents(start.toLocalDate(),quantityDays,pattern);
+        int quantityEvents = getNumberOfEvents(start.toLocalDate(), quantityDays, pattern);
         for (int i = 0; i < quantityEvents; i++) {
             time = findNextEventTimeFromNow(pattern, time);
             events.add(time);
@@ -35,15 +35,19 @@ public class MedEventCalendarImpl implements MedEventCalendar {
 
 
     private boolean isMorning(int hour) {
-        return (hour >= 6 && hour <= 13);
+        return (hour >= 6 && hour < 13);
     }
 
     private boolean isDay(int hour) {
-        return (hour > 13 && hour < 17);
+        return (hour >= 13 && hour < 17);
     }
 
     private boolean isEvening(int hour) {
         return (hour >= 17);
+    }
+
+    private boolean isDayStart(int hour) {
+        return (hour >= 0 && hour < 6);
     }
 
 
@@ -58,20 +62,19 @@ public class MedEventCalendarImpl implements MedEventCalendar {
                 LocalDate nextDate = now.toLocalDate().plusDays(i);
                 int hour = now.getHour();
 
-                //If now is evening find next possible day from pattern
-                if (isEvening(hour)) {
+                hour = findNextPossibleHour(hour, pattern);
+                //If need new day from pattern
+                if (hour == 0) {
                     nextDate = findNextPossibleDay(daysPattern, nextDate);
+                    hour = findNextPossibleHour(hour, pattern);
                 }
-                hour = findNextPossibleHour(hour,pattern);
                 nextEvent = LocalDateTime.of(nextDate, LocalTime.of(hour, 0));
+                return nextEvent;
             }
         }
 
-        if (nextEvent == null) {
-            throw new RuntimeException();
-            //TODO Should never happen. Add logging
-        }
-        return nextEvent;
+        throw new RuntimeException();
+        //TODO Should never happen. Add logging
     }
 
     private LocalDate findNextPossibleDay(List<DayOfWeek> daysPattern, LocalDate currentDay) {
@@ -85,12 +88,23 @@ public class MedEventCalendarImpl implements MedEventCalendar {
     }
 
     public int findNextPossibleHour(int hour, Pattern pattern) {
-        if (isEvening(hour)) hour=0;
-        if (isMorning(hour)&& pattern.getDay()) return 13;
-        if (isDay(hour)&&pattern.getEvening()) return 17;
-        if (pattern.getMorning()) return 9;
-        if (pattern.getDay()) return 13;
-        if (pattern.getEvening()) return 17;
+        if (isDayStart(hour)) {
+            if (pattern.getMorning()) return 9;
+            if (pattern.getDay()) return 13;
+            if (pattern.getEvening()) return 17;
+        }
+        if (isMorning(hour)) {
+            if (pattern.getDay()) return 13;
+            if (pattern.getEvening()) return 17;
+            return 0;
+        }
+        if (isDay(hour)) {
+            if (pattern.getEvening()) return 17;
+            return 0;
+        }
+        if (isEvening(hour)) {
+            return 0;
+        }
         throw new IllegalArgumentException("Hour is out of range [0.24] or Pattern is empty");
     }
 
@@ -107,26 +121,27 @@ public class MedEventCalendarImpl implements MedEventCalendar {
 
         return days;
     }
-    @Override
-    public int getNumberOfEvents(LocalDate start,int quantityDays,Pattern pattern) {
-        int days=0;
-        int eventsPerDay=0;
 
-        for (int i=0;i<quantityDays;i++) {
-            LocalDate day=start.plusDays(i);
-            if (day.getDayOfWeek()==DayOfWeek.MONDAY && pattern.getMonday()) days++;
-            if (day.getDayOfWeek()==DayOfWeek.TUESDAY && pattern.getTuesday()) days++;
-            if (day.getDayOfWeek()==DayOfWeek.WEDNESDAY && pattern.getWednesday()) days++;
-            if (day.getDayOfWeek()==DayOfWeek.THURSDAY && pattern.getThursday()) days++;
-            if (day.getDayOfWeek()==DayOfWeek.FRIDAY && pattern.getFriday()) days++;
-            if (day.getDayOfWeek()==DayOfWeek.SATURDAY && pattern.getSaturday()) days++;
-            if (day.getDayOfWeek()==DayOfWeek.SUNDAY && pattern.getSunday()) days++;
+    @Override
+    public int getNumberOfEvents(LocalDate start, int quantityDays, Pattern pattern) {
+        int days = 0;
+        int eventsPerDay = 0;
+
+        for (int i = 0; i < quantityDays; i++) {
+            LocalDate day = start.plusDays(i);
+            if (day.getDayOfWeek() == DayOfWeek.MONDAY && pattern.getMonday()) days++;
+            if (day.getDayOfWeek() == DayOfWeek.TUESDAY && pattern.getTuesday()) days++;
+            if (day.getDayOfWeek() == DayOfWeek.WEDNESDAY && pattern.getWednesday()) days++;
+            if (day.getDayOfWeek() == DayOfWeek.THURSDAY && pattern.getThursday()) days++;
+            if (day.getDayOfWeek() == DayOfWeek.FRIDAY && pattern.getFriday()) days++;
+            if (day.getDayOfWeek() == DayOfWeek.SATURDAY && pattern.getSaturday()) days++;
+            if (day.getDayOfWeek() == DayOfWeek.SUNDAY && pattern.getSunday()) days++;
         }
 
         if (Boolean.TRUE.equals(pattern.getMorning())) eventsPerDay++;
         if (Boolean.TRUE.equals(pattern.getDay())) eventsPerDay++;
         if (Boolean.TRUE.equals(pattern.getEvening())) eventsPerDay++;
 
-        return eventsPerDay*days;
+        return eventsPerDay * days;
     }
 }

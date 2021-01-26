@@ -181,14 +181,16 @@ public class DoctorServiceImpl implements DoctorService {
     public void editAssignment(AssignmentDto assignmentDto) {
         Assignment assignment = assignmentDAO.getAssignmentById(assignmentDto.getIdAssignment());
         int prevQuantity = assignment.getQuantity();
-        PatternDto pattern = PatternEntityDtoHelper.entityToDto(assignment.getPattern());
+        Pattern prevPattern=assignment.getPattern();
+        Pattern newPattern=PatternEntityDtoHelper.dtoToEntity(assignmentDto.getPattern());
+        if (!newPattern.equals(prevPattern)) patternDAO.addNewPattern(newPattern);
         assignment.setDosage(assignmentDto.getDosage());
-        assignment.setPattern(PatternEntityDtoHelper.dtoToEntity(assignmentDto.getPattern()));
+        assignment.setPattern(newPattern);
         assignment.setQuantity(assignmentDto.getQuantity());
 
         assignmentDAO.update(assignment);
 
-        alterMedEventsOnAssignmentEdit(assignment, prevQuantity, PatternEntityDtoHelper.dtoToEntity(pattern));
+        alterMedEventsOnAssignmentEdit(assignment, prevQuantity, prevPattern);
 
     }
 
@@ -239,15 +241,18 @@ public class DoctorServiceImpl implements DoctorService {
      */
     private void alterMedEventsOnAssignmentEdit(Assignment assignment, int prevQuantity, Pattern prevPattern) {
         int diff = assignment.getQuantity() - prevQuantity;
-        boolean patternChanged = !assignment.getPattern().equals(prevPattern);
+        boolean patternChanged = !PatternEntityDtoHelper.isSamePattern(assignment.getPattern(),prevPattern);
         if (diff == 0 && !patternChanged) return;
         if (diff < 0) {
             LocalDate closeAfter = assignment.getAssignmentStartDate().plusWeeks(assignment.getQuantity());
             for (MedEvent medEvent : assignment.getMedEvents()) {
                 if (medEvent.getStarts().toLocalDate().isAfter(closeAfter)) {
-                    if (medEvent.getStatus() != MedEventStatus.CANCELED)
+                    if (medEvent.getStatus() != MedEventStatus.CANCELED||medEvent.getStatus()!=MedEventStatus.DONE)
+                    {
                         medEvent.setClosedComments("Assignment edited");
-                    closeMedEvent(MedEventEntityDtoHelper.entityToDto(medEvent));
+                        medEvent.setStatus(MedEventStatus.CANCELED);
+                        closeMedEvent(MedEventEntityDtoHelper.entityToDto(medEvent));
+                    }
                 }
             }
         }
@@ -255,9 +260,12 @@ public class DoctorServiceImpl implements DoctorService {
             LocalDateTime closeAfter = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
             for (MedEvent medEvent : assignment.getMedEvents()) {
                 if (medEvent.getStarts().isAfter(closeAfter)) {
-                    if (medEvent.getStatus() != MedEventStatus.CANCELED)
+                    if (medEvent.getStatus() != MedEventStatus.CANCELED||medEvent.getStatus()!=MedEventStatus.DONE)
+                    {
                         medEvent.setClosedComments("Assignment edited");
-                    closeMedEvent(MedEventEntityDtoHelper.entityToDto(medEvent));
+                        medEvent.setStatus(MedEventStatus.CANCELED);
+                        closeMedEvent(MedEventEntityDtoHelper.entityToDto(medEvent));
+                    }
                 }
             }
         }

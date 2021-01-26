@@ -51,9 +51,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>systems.manifold</groupId>
-            <artifactId>manifold</artifactId>
-            <version>2020.1.45</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>7.0.0.Final</version>
         </dependency>
         <!--Log4j-->
         <dependency>

@@ -39,7 +39,7 @@
                 <th scope="colgroup">Diagnosis</th>
                 <th scope="colgroup">Status</th>
                 <th scope="colgroup">Assignments</th>
-                <th scope="colgroup">Edit</th>
+                <th scope="colgroup"></th>
             </tr>
             </thead>
             <tbody>

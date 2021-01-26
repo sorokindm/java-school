@@ -188,7 +188,7 @@ public class DoctorController {
     @PostMapping("/doctor/editAssignment")
     public RedirectView editAssignmentProcess(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
         doctorService.editAssignment(assignmentDto);
-        return new RedirectView("/java_school/doctor/assignment?idTreatment=" + assignmentDto.getTreatment().getIdTreatment());
+        return new RedirectView("/java_school/doctor/assignment?idTreatment=" + doctorService.getAssignmentById(assignmentDto.getIdAssignment()).getTreatment().getIdTreatment());
     }
 
     @GetMapping("/doctor/closeAssignment")

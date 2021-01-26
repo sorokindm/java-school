@@ -40,8 +40,8 @@
                 <th scope="colgroup">Pattern</th>
                 <th scope="colgroup">Started</th>
                 <th scope="colgroup">Status</th>
-                <th scope="colgroup">Edit</th>
                 <th scope="colgroup">Med Events</th>
+                <th scope="colgroup"></th>
             </tr>
             </thead>
             <tbody>
@@ -74,14 +74,14 @@
                         </c:if>
                     </td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/doctor/editAssignment" method="GET">
+                        <form action="${pageContext.request.contextPath}/doctor/medEvents" method="GET">
                             <input class="btn btn-primary" type="submit" value="View">
                             <input type="hidden" value="${assignment.idAssignment}" name="idAssignment">
                         </form>
                     </td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/doctor/medEvents" method="GET">
-                            <input class="btn btn-primary" type="submit" value="View">
+                        <form action="${pageContext.request.contextPath}/doctor/editAssignment" method="GET">
+                            <input class="btn btn-primary" type="submit" value="Edit">
                             <input type="hidden" value="${assignment.idAssignment}" name="idAssignment">
                         </form>
                     </td>

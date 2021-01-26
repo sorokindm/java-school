@@ -31,7 +31,7 @@
             <c:set var="action" scope="page" value="${pageContext.request.contextPath}/doctor/closeAssignment"/>
         </c:if>
         <c:if test="${close==null}">
-            Close Assignment
+            Edit Assignment
             <c:set var="action" scope="page" value="${pageContext.request.contextPath}/doctor/editAssignment"/>
         </c:if></h2>
     <p>
@@ -116,13 +116,14 @@
             </c:if>
             <form:input type="hidden" path="idAssignment" value="${assignment.idAssignment}"/>
             <div class="row">
-                <form:button class="btn btn-primary text-center" type="submit">Edit</form:button>
+                <c:if test="${close==null}"><form:button class="btn btn-primary text-center" type="submit">Edit</form:button></c:if>
+                <c:if test="${close!=null}"><form:button class="btn btn-danger text-center" type="submit">Close assignment</form:button></c:if>
             </div>
         </form:form>
     </div>
     <c:if test="${close==null}">
         <form action="${pageContext.request.contextPath}/doctor/closeAssignment" method="GET">
-            <input class="btn btn-danger" type="submit" value="Close treatment"/>
+            <input class="btn btn-danger" type="submit" value="Close assignment"/>
             <input type="hidden" name="idAssignment" value="${assignment.idAssignment}"/>
             <input type="hidden" name="close" value="true"/>
         </form>

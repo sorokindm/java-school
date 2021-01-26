@@ -35,7 +35,7 @@ public final class PatternEntityDtoHelper {
      * @param patternDto - dto to convert
      * @return patter - converted Pattern entity
      */
-    public static Pattern dtoToEntity(PatternDto patternDto){
+    public static Pattern dtoToEntity(PatternDto patternDto) {
         Pattern pattern = new Pattern();
         pattern.setMorning(patternDto.getMorning());
         pattern.setDay(patternDto.getDay());
@@ -50,5 +50,21 @@ public final class PatternEntityDtoHelper {
         return pattern;
     }
 
-    private PatternEntityDtoHelper(){}
+    public static boolean isSamePattern(Pattern pattern1, Pattern pattern2) {
+        if (pattern1.getMonday().equals(pattern2.getMonday())) return false;
+        if (pattern1.getTuesday().equals(pattern2.getTuesday())) return false;
+        if (pattern1.getWednesday().equals(pattern2.getWednesday())) return false;
+        if (pattern1.getThursday().equals(pattern2.getThursday())) return false;
+        if (pattern1.getFriday().equals(pattern2.getFriday())) return false;
+        if (pattern1.getSaturday().equals(pattern2.getSaturday())) return false;
+        if (pattern1.getSunday().equals(pattern2.getSunday())) return false;
+        if (pattern1.getMorning().equals(pattern2.getMorning())) return false;
+        if (pattern1.getDay().equals(pattern2.getDay())) return false;
+        if (pattern1.getEvening().equals(pattern2.getEvening())) return false;
+
+        return true;
+    }
+
+    private PatternEntityDtoHelper() {
+    }
 }

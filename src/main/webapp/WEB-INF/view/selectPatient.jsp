@@ -36,7 +36,7 @@
             <c:forEach items="${patients}" var="patient">
                 <tr>
                     <td>${patient.idPatient}</td>
-                    <td>${patient.name} ${patient.lastName})</td>
+                    <td>${patient.name} ${patient.lastName}</td>
                     <td>${patient.gender}</td>
                     <td>${patient.idInsurance}</td>
                     <td>

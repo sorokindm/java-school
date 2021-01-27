@@ -30,8 +30,6 @@
                 <th scope="colgroup">Starts</th>
                 <th scope="colgroup">Status</th>
                 <th scope="colgroup">Closed Comments</th>
-                <th scope="colgroup">Cancel</th>
-                <th scope="colgroup">Done</th>
             </tr>
             </thead>
             <tbody>
@@ -50,18 +48,6 @@
                     <td>${medEvent.starts}</td>
                     <td>${medEvent.status}</td>
                     <td>${medEvent.closedComments}</td>
-                    <td>
-                        <form action="${pageContext.request.contextPath}/nurse/cancel" method="GET">
-                            <input class="btn btn-danger" type="submit" value="Cancel"/>
-                            <input type="hidden" name="idMedEvent" value="${medEvent.idMedEvent}"/>
-                        </form>
-                    </td>
-                    <td>
-                        <form:form action="${pageContext.request.contextPath}/nurse/done" method="POST">
-                            <input class="btn btn-success" type="submit" value="Done"/>
-                            <input type="hidden" name="idMedEvent" value="${medEvent.idMedEvent}"/>
-                        </form:form>
-                    </td>
                 </tr>
             </c:forEach>
 

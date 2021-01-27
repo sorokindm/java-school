@@ -35,7 +35,10 @@ public class NurseController {
 
     @Autowired
     DoctorService doctorService;
+
     private static final String NURSE_PAGE = "nurse";
+    private static final String NURSE_VIEW_EVENTS_PAGE = "nurseViewEvents";
+
 
     /**
      * Nurse page mapping
@@ -48,6 +51,32 @@ public class NurseController {
         List<MedEventDto> list=nurseService.findMedEventsForNurse(medStaffDto.getIdMedStaff());
         model.addAttribute("medEvents",list);
         return NURSE_PAGE;
+    }
+
+    @GetMapping("/nurse/events/all")
+    public String nurseEventsAllPage(Model model) {
+        model.addAttribute("medEvents",nurseService.getAllMedEvents());
+        return NURSE_VIEW_EVENTS_PAGE;
+    }
+
+    @GetMapping("/nurse/events/myEvents")
+    public String nurseEventsMyEventsPage(Principal principal, Model model) {
+        MedStaffDto medStaffDto=adminService.findMedStaffByUsername(principal.getName());
+        List<MedEventDto> list=nurseService.findMedEventsForNurse(medStaffDto.getIdMedStaff());
+        model.addAttribute("medEvents",list);
+        return NURSE_VIEW_EVENTS_PAGE;
+    }
+
+    @GetMapping("/nurse/events/patient")
+    public String nurseSelectPatient(Model model) {
+        model.addAttribute("patients", doctorService.getAllPatients());
+        return "forward:/selectPatient";
+    }
+
+    @PostMapping("/nurse/events/patient")
+    public String nurseEventsForPatientPage(@RequestParam ("patientId") int patientId,Model model) {
+        model.addAttribute("medEvents",nurseService.getAllMedEventsForPatient(patientId));
+        return NURSE_VIEW_EVENTS_PAGE;
     }
 
     @GetMapping("/nurse/cancel")

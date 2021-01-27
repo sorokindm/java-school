@@ -47,6 +47,11 @@ public class DoctorController {
     }
 
 
+    @GetMapping("/selectPatient")
+    public String selectPatientPage(Model model) {
+        return "selectPatient";
+    }
+
     /**
      * New Patient page mapping
      *
@@ -82,22 +87,17 @@ public class DoctorController {
     }
 
     /**
-     * Select patient page mapping
-     *
-     * @return selectPatient page url
-     */
-    @GetMapping("/doctor/newTreatment/selectPatient")
-    public String selectPatientForTreatment(Model model) {
-        model.addAttribute("patients", doctorService.getAllPatients());
-        return "selectPatient";
-    }
-
-    /**
      * New Treatment form page mapping
      *
      * @return doctor page url
      */
     @GetMapping("/doctor/newTreatment/create")
+    public String doctorNewTreatmentSelectPatient(Model model) {
+        model.addAttribute("patients", doctorService.getAllPatients());
+        return "forward:/selectPatient";
+    }
+
+    @PostMapping("/doctor/newTreatment/create")
     public String doctorNewTreatmentPage(Principal principal, @RequestParam("patientId") int patientId, Model model) {
         TreatmentDto dto = new TreatmentDto();
         dto.setDoctor(adminService.findMedStaffByUsername(principal.getName()));

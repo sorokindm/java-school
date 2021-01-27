@@ -1,27 +1,26 @@
 package com.jschool.reha.dto;
 
-import com.jschool.reha.entity.MedEvent;
-import com.jschool.reha.entity.Treatment;
 import com.jschool.reha.enums.AssignmentType;
-import com.jschool.reha.enums.Timeframe;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Asignment DTO
  *
  * @author Dmitry Sorokin
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class AssignmentDto implements Serializable {
 
     private int idAssignment;
 
-    private Treatment treatment;
+    private TreatmentDto treatment;
 
     private AssignmentType type;
 
@@ -29,18 +28,14 @@ public class AssignmentDto implements Serializable {
 
     private String dosage;
 
-    private int patternQuantity;
+    private int quantity;
 
-    private int patternHowlong;
-
-    private Timeframe timeframe;
+    private PatternDto pattern;
 
     private LocalDate assignmentStartDate;
 
     private LocalDate assignmentEndDate;
 
-    private String endedComments;
-
-    private List<MedEvent> medEvents;
+    private String closedComments;
 
 }

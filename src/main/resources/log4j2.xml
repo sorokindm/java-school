@@ -4,10 +4,10 @@
         <File name="FileAppender" fileName="mylog.log" immediateFlush="false" append="true">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
-        <File name="HibernateAppender" fileName="hibernate.log" immediateFlush="true" append="true">
+        <File name="HibernateAppender" fileName="hibernate.log" immediateFlush="true" append="false">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
-        <File name="SpringAppender" fileName="spring.log" immediateFlush="false" append="true">
+        <File name="SpringAppender" fileName="spring.log" immediateFlush="false" append="false">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
         <Console name="Console" target="SYSTEM_OUT">

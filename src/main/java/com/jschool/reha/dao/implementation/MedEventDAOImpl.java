@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class MedEventDAOImpl implements MedEventDAO {
@@ -21,5 +22,27 @@ public class MedEventDAOImpl implements MedEventDAO {
     @Override
     public MedEvent getMedEventById(int id) {
         return em.find(MedEvent.class, id);
+    }
+
+    @Override
+    public List<MedEvent> getAllMedEventsForAssignment(int assignmentId) {
+        return em.createQuery("select medEvent from MedEvent medEvent where medEvent.assignment.idAssignment= :assignmentId")
+                .setParameter("assignmentId",assignmentId).getResultList();
+    }
+
+    @Override
+    public List<MedEvent> getAllMedEventsForPatient(int patientId) {
+        return em.createQuery("select medEvent from MedEvent medEvent where medEvent.patient.idPatient = :patientId")
+                .setParameter("patientId",patientId).getResultList();
+    }
+
+    @Override
+    public MedEvent update(MedEvent medEvent) {
+        return em.merge(medEvent);
+    }
+
+    @Override
+    public List<MedEvent> getAllMedEvents() {
+        return em.createQuery("select medEvent from MedEvent medEvent").getResultList();
     }
 }

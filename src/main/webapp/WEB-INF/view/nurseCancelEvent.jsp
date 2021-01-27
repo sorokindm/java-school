@@ -56,7 +56,7 @@
                     <td>${medEvent.status}</td>
                     <td>
                         <form:form action="${pageContext.request.contextPath}/nurse/cancel" method="POST" modelAttribute="medEvent">
-                            <form:textarea path="closedComments" type="text"/>
+                            <form:textarea path="closedComments" type="text" required="true"/>
                             <form:input type="hidden" name="idMedEvent" value="${medEvent.idMedEvent}" path="idMedEvent"/>
                             <form:button class="btn btn-danger" type="submit" value="Submit">Submit</form:button>
                         </form:form>

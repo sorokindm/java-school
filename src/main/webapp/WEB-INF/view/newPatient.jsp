@@ -28,75 +28,56 @@
     <h2 class="text-center">Add new patient</h2>
     <div class="col-md-8 mx-auto">
         <form:form action="${pageContext.request.contextPath}/doctor/newPatient/processForm" method="POST"
-                   modelAttribute="user" class="needs-validation" novalidate="">
+                   modelAttribute="user">
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="firstName">First name</label>
-                    <form:input type="text" class="form-control" id="firstName" placeholder="" value="" required=""
-                                path="patient.name"/>
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
+                    <form:errors path="patient.name" cssClass="style"/>
+                    <form:input type="text" class="form-control" id="firstName" path="patient.name" required="true"/>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="lastName">Last name</label>
-                    <form:input type="text" class="form-control" id="lastName" placeholder="" value="" required=""
-                                path="patient.lastName"/>
-                    <div class="invalid-feedback">
-                        Valid last name is required.
-                    </div>
+                    <form:errors path="patient.lastName" cssClass="style"/>
+                    <form:input type="text" class="form-control" id="lastName" path="patient.lastName" required="true"/>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="username">Username</label>
+                <form:errors path="username" cssClass="style"/>
                 <div class="input-group">
-                    <form:input type="text" class="form-control" id="username" placeholder="Username" required=""
-                                path="username"/>
-                    <div class="invalid-feedback" style="width: 100%;">
-                        Your username is required.
-                    </div>
+                    <form:input type="text" class="form-control" id="username" placeholder="Username" required="true" path="username"/>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="email">Email </label>
-                <form:input type="email" class="form-control" id="email" placeholder="you@example.com" required=""
-                            path="email"/>
-                <div class="invalid-feedback">
-                    Please enter a valid email.
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="password">Password</label>
-                <form:input type="text" class="form-control" id="password" placeholder="Password" required=""
-                            path="password"/>
-                <div class="invalid-feedback">
-                    Please enter your password.
-                </div>
+                <form:errors path="email" cssClass="style"/>
+                <form:input type="email" class="form-control" id="email" placeholder="patient@example.com" required="true" path="email"/>
             </div>
 
             <div class="row">
                 <div class="col-md-5 mb-3">
                     <label for="gender">Gender</label>
-                    <form:select class="custom-select d-block w-100" id="gender" required="" path="patient.gender">
+                    <form:errors path="patient.gender" cssClass="style"/>
+                    <form:select class="custom-select d-block w-100" id="gender" required="true" path="patient.gender">
                         <option value="">Choose...</option>
                         <option value="MALE">Male</option>
                         <option value="FEMALE">Female</option>
                     </form:select>
                     <div class="invalid-feedback">
-                        Please provide a valid gender.
+                        Please provide a gender
                     </div>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="id_insurance">Insurance ID</label>
-                <form:input type="text" class="form-control" id="id_insurance" required=""
+                <form:errors path="patient" cssClass="style"/>
+                <form:input type="text" class="form-control" id="id_insurance" required="true"
                             path="patient.idInsurance"/>
             </div>
-
+            <form:input type="hidden" value="1" path="password"/>
             <form:button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Add</form:button>
         </form:form>
     </div>

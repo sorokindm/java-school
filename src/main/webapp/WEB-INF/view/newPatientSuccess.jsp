@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>New Treatment</title>
+    <title>New Patient</title>
     <!-- Bootstrap CSS file -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -25,32 +25,11 @@
     </div>
 </div>
 <div class="container-fluid">
-    <h2 class="text-center">Add new Treatment</h2>
-    <div class="col-md-8 mx-auto">
-        <form:form action="${pageContext.request.contextPath}/doctor/newTreatment/processForm" method="POST"
-                   modelAttribute="treatment" class="needs-validation" novalidate="">
-            <div class="col-md-6 mb-3">
-                <label for="opened_comments">Anamnesis</label>
-                <form:textarea type="text" class="form-control" id="opened_comments" placeholder="" value="" required="true"
-                            path="openedComments"/>
-                <div class="invalid-feedback">
-                    Invalid field
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="diagnosis">Diagnosis</label>
-                <form:textarea type="text" class="form-control" id="diagnosis" placeholder="" value="" required="true"
-                            path="diagnosis"/>
-                <div class="invalid-feedback">
-                    Invalid field
-                </div>
-            </div>
-            <form:input type="hidden" value="${treatment.patient.idPatient}" path="patient.idPatient"/>
-            <form:input type="hidden" value="${treatment.doctor.idMedStaff}" path="doctor.idMedStaff"/>
+    <h2 class="text-center">Succesfully added patient</h2>
+    <strong>Patient temporary password:</strong><span>${tempPassword}</span>
+    <br>
+    <a class="btn btn-primary"href="${pageContext.request.contextPath}/">Done</a>
 
-            <form:button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Add</form:button>
-        </form:form>
-    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"

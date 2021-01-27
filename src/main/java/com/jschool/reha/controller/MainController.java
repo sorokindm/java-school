@@ -5,12 +5,13 @@ import com.jschool.reha.service.interfaces.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -38,18 +39,18 @@ public class MainController {
      */
     @GetMapping("/")
     public String homePage(Principal principal) {
-        UserDto user=adminService.findUserByUsername(principal.getName());
+        UserDto user = adminService.findUserByUsername(principal.getName());
         switch (user.getRole()) {
-            case ROLE_ADMIN:{
+            case ROLE_ADMIN: {
                 return REDIRECT_ADMIN_PAGE;
             }
-            case ROLE_PATIENT:{
+            case ROLE_PATIENT: {
                 return REDIRECT_PATIENT_PAGE;
             }
-            case ROLE_NURSE:{
+            case ROLE_NURSE: {
                 return REDIRECT_NURSE_PAGE;
             }
-            case ROLE_DOCTOR:{
+            case ROLE_DOCTOR: {
                 return REDIRECT_DOCTOR_PAGE;
             }
         }
@@ -88,9 +89,12 @@ public class MainController {
      * @return model with UserDto List
      */
     @PostMapping("/admin/newMedStaff/processForm")
-    public RedirectView processNewMedStaffForm(@ModelAttribute("user") UserDto userDto) {
+    public String processNewMedStaffForm(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "newMedStaff";
+        }
         adminService.addNewMedStaff(userDto);
-        return new RedirectView("/java_school/admin");
+        return "redirect:/admin";
     }
 
 }

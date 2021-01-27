@@ -9,12 +9,14 @@ import com.jschool.reha.service.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -27,7 +29,6 @@ import java.util.List;
 public class DoctorController {
 
     private static final String DOCTOR_PAGE = "doctor";
-    private static final String REDIRECT_DOCTOR_PAGE = "/java_school/doctor";
     private static final String REDIRECT_TREATMENTS_PAGE = "/java_school/doctor/treatments";
 
     @Autowired
@@ -48,7 +49,7 @@ public class DoctorController {
 
 
     @GetMapping("/selectPatient")
-    public String selectPatientPage(Model model) {
+    public String selectPatientPage() {
         return "selectPatient";
     }
 
@@ -69,9 +70,13 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newPatient/processForm")
-    public RedirectView processNewPatientForm(@ModelAttribute("user") UserDto userDto) {
-        adminService.addNewPatient(userDto);
-        return new RedirectView(REDIRECT_DOCTOR_PAGE);
+    public String processNewPatientForm(@ModelAttribute("user") @Valid UserDto user, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "newPatient";
+        }
+        String tempPassword = adminService.addNewPatient(user);
+        model.addAttribute("tempPassword", tempPassword);
+        return "newPatientSuccess";
     }
 
     /**
@@ -119,7 +124,7 @@ public class DoctorController {
 
     @GetMapping("/doctor/editTreatment")
     public String editTreatmentPage(@RequestParam("idTreatment") int idTreatment, Model model) {
-        model.addAttribute("treatment",doctorService.getTreatmentById(idTreatment));
+        model.addAttribute("treatment", doctorService.getTreatmentById(idTreatment));
         return "editTreatment";
     }
 
@@ -131,8 +136,8 @@ public class DoctorController {
 
     @GetMapping("/doctor/closeTreatment")
     public String editTreatmentPage(@RequestParam("idTreatment") int idTreatment, @RequestParam("close") boolean close, Model model) {
-        model.addAttribute("treatment",doctorService.getTreatmentById(idTreatment));
-        model.addAttribute("close",close);
+        model.addAttribute("treatment", doctorService.getTreatmentById(idTreatment));
+        model.addAttribute("close", close);
         return "editTreatment";
     }
 
@@ -174,25 +179,31 @@ public class DoctorController {
      * @return doctor page url
      */
     @PostMapping("/doctor/newAssignment/processForm")
-    public RedirectView processNewAssignmentForm(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
+    public String processNewAssignmentForm(@ModelAttribute("assignment") @Valid AssignmentDto assignmentDto, BindingResult result) {
+        if (result.hasErrors()) {
+            return "newAssignment";
+        }
         doctorService.addNewAssignment(assignmentDto);
-        return new RedirectView("/java_school/doctor/assignment?idTreatment=" + assignmentDto.getTreatment().getIdTreatment());
+        return "redirect:/doctor/assignment" + "?idTreatment=" + assignmentDto.getTreatment().getIdTreatment();
     }
 
     @GetMapping("/doctor/editAssignment")
     public String editAssignmentPage(@RequestParam("idAssignment") int idAssignment, Model model) {
-        model.addAttribute("assignment",doctorService.getAssignmentById(idAssignment));
+        model.addAttribute("assignment", doctorService.getAssignmentById(idAssignment));
         return "editAssignment";
     }
 
     @PostMapping("/doctor/editAssignment")
-    public RedirectView editAssignmentProcess(@ModelAttribute("assignment") AssignmentDto assignmentDto) {
+    public String editAssignmentProcess(@ModelAttribute("assignment") @Valid AssignmentDto assignmentDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editAssignment";
+        }
         doctorService.editAssignment(assignmentDto);
-        return new RedirectView("/java_school/doctor/assignment?idTreatment=" + doctorService.getAssignmentById(assignmentDto.getIdAssignment()).getTreatment().getIdTreatment());
+        return "redirect:/doctor/assignment" + "?idTreatment=" + doctorService.getAssignmentById(assignmentDto.getIdAssignment()).getTreatment().getIdTreatment();
     }
 
     @GetMapping("/doctor/closeAssignment")
-    public String closeAssignmentPage(@RequestParam("idAssignment") int idAssignment, Model model,@RequestParam("close") boolean close) {
+    public String closeAssignmentPage(@RequestParam("idAssignment") int idAssignment, Model model, @RequestParam("close") boolean close) {
         model.addAttribute("assignment", doctorService.getAssignmentById(idAssignment));
         model.addAttribute("close", close);
         return "editAssignment";

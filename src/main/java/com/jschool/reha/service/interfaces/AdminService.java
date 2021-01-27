@@ -82,9 +82,9 @@ public interface AdminService {
      * Adds new patient and user to db
      *
      * @param userDto - patient and user data for entity to add
-     * @return Managed Patient entity
+     * @return String - temporary password
      */
-    Patient addNewPatient(UserDto userDto);
+    String addNewPatient(UserDto userDto);
 
     /**
      * Adds new user to db

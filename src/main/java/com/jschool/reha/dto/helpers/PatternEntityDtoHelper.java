@@ -65,6 +65,26 @@ public final class PatternEntityDtoHelper {
         return true;
     }
 
+    public static boolean isValid(PatternDto pattern) {
+        boolean flag1 = false;
+        boolean flag2 = false;
+
+        if (pattern.getMorning()) flag1 = true;
+        if (pattern.getDay()) flag1 = true;
+        if (pattern.getEvening()) flag1 = true;
+
+        if (pattern.getMonday()) flag2 = true;
+        if (pattern.getTuesday()) flag2 = true;
+        if (pattern.getWednesday()) flag2 = true;
+        if (pattern.getThursday()) flag2 = true;
+        if (pattern.getFriday()) flag2 = true;
+        if (pattern.getSaturday()) flag2 = true;
+        if (pattern.getSunday()) flag2 = true;
+
+        return flag1&&flag2;
+
+    }
+
     private PatternEntityDtoHelper() {
     }
 }

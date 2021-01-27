@@ -28,4 +28,17 @@ public class PatientDAOImpl implements PatientDAO {
     public List<Patient> getAllPatients() {
         return em.createQuery("select p from Patient p").getResultList();
     }
+
+
+    @Override
+    public Patient findPatientByInsuranceId(String insuranceId) {
+        return (Patient) em.createQuery("select p from Patient p where p.id_insurance = :insuranceId").setParameter("insuranceId",insuranceId).getSingleResult();
+    }
+
+    @Override
+    public boolean isPatientExistWithInsuranceId(String insuranceId) {
+        List<Patient> list= em.createQuery("select p from Patient p where p.idInsurance = :insuranceId").setParameter("insuranceId",insuranceId).getResultList();
+        if (list.isEmpty()) return false;
+        return true;
+    }
 }

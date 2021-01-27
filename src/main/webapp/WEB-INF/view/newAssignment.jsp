@@ -44,7 +44,7 @@
 
             <div class="mb-3">
                 <label for="name">Name</label>
-                <form:input type="text" class="form-control" id="name" path="name"/>
+                <form:input type="text" class="form-control" id="name" path="name" required="true"/>
                 <div class="invalid-feedback">
                     Valid field required
                 </div>
@@ -53,23 +53,22 @@
             <div class="row">
                 <div class="col-sm">
                     <label for="dosage">Dosage</label>
-                    <form:input type="text" class="form-control" id="dosage" path="dosage"/>
+                    <form:input type="text" class="form-control" id="dosage" path="dosage" required="true"/>
                     <div class="invalid-feedback">
                         Valid field required
                     </div>
                 </div>
                 <div class="col-sm">
                     <label for="quantity">Amount of weeks</label>
-                    <form:input type="number" class="form-control" id="quantity" path="quantity"/>
-                    <div class="invalid-feedback">
-                        Valid field required
-                    </div>
+                    <form:errors path="quantity" cssClass="style"/>
+                    <form:input type="number" class="form-control" id="quantity" path="quantity" required="true"/>
                 </div>
             </div>
 
             <hr class="mb-4">
 
             <h3 class="text-center">Pattern</h3>
+            <form:errors path="pattern" cssClass="style"/>
             <div class="row">
                 <div class="col-sm">
                     <form:checkbox id="monday" path="pattern.monday" value="true"/>

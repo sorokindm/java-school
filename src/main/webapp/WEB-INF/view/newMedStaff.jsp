@@ -29,62 +29,46 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="firstName">First name</label>
-                    <form:input type="text" class="form-control" id="firstName" path="medStaff.name"/>
-                    <div class="invalid-feedback">
-                        Valid first name is required.
-                    </div>
+                    <form:input type="text" class="form-control" id="firstName" path="medStaff.name" required="true"/>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="lastName">Last name</label>
-                    <form:input type="text" class="form-control" id="lastName" path="medStaff.lastName"/>
-                    <div class="invalid-feedback">
-                        Valid last name is required.
-                    </div>
+                    <form:input type="text" class="form-control" id="lastName" path="medStaff.lastName" required="true"/>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="username">Username</label>
+                <form:errors path="username" cssClass="style"/>
                 <div class="input-group">
-                    <form:input type="text" class="form-control" id="username" path="username"/>
-                    <div class="invalid-feedback" style="width: 100%;">
-                        Your username is required.
-                    </div>
+                    <form:input type="text" class="form-control" id="username" path="username" required="true"/>
+
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="email">Email</label>
-                <form:input type="email" class="form-control" id="email" placeholder="you@example.com" path="email"/>
-                <div class="invalid-feedback">
-                    Please enter a valid email.
-                </div>
+                <form:input type="email" class="form-control" id="email" placeholder="you@example.com" path="email" required="true"/>
             </div>
 
             <div class="mb-3">
                 <label for="password">Password</label>
-                <form:input type="text" class="form-control" id="password" placeholder="Password" path="password"/>
-                <div class="invalid-feedback">
-                    Please enter your password.
-                </div>
+                <form:input type="text" class="form-control" id="password" placeholder="Password" path="password" required="true"/>
             </div>
 
             <div class="row">
                 <div class="col-md-5 mb-3">
                     <label for="role">Role</label>
-                    <form:select class="custom-select d-block w-100" id="role" path="role">
+                    <form:select class="custom-select d-block w-100" id="role" path="role" required="true">
                         <option value="">Choose...</option>
                         <option value="ROLE_ADMIN">Admin</option>
                         <option value="ROLE_DOCTOR">Doctor</option>
                         <option value="ROLE_NURSE">Nurse</option>
                     </form:select>
-                    <div class="invalid-feedback">
-                        Please select a valid role.
-                    </div>
                 </div>
                 <div class="col-md-5 mb-3">
                     <label for="gender">Gender</label>
-                    <form:select class="custom-select d-block w-100" id="gender" path="medStaff.gender">
+                    <form:select class="custom-select d-block w-100" id="gender" path="medStaff.gender" required="true">
                         <option value="">Choose...</option>
                         <option value="MALE">Male</option>
                         <option value="FEMALE">Female</option>
@@ -98,7 +82,7 @@
             <div class="mb-3">
                 <label for="specialty">Specialty</label>
                 <form:input type="text" class="form-control" id="specialty" placeholder="Surgeon"
-                            path="medStaff.specialty"/>
+                            path="medStaff.specialty" required="true"/>
             </div>
             <button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Add</button>
         </form:form>

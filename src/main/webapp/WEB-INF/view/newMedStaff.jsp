@@ -16,11 +16,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid logo">
-    <div class="row"></div>
-    <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-    <div class="col"></div>
-</div>
+
+<%@include file="/resources/emptyNavbar.html"%>
+
 <div class="container-fluid">
     <h2 class="text-center">Add new med staff</h2>
     <div class="col-md-8 mx-auto">
@@ -88,6 +86,8 @@
         </form:form>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

@@ -4,7 +4,7 @@ body{
     background-color:#f1f1f1;
 }
 .logo {
-    background-color:darkred;
+    background-image: linear-gradient(15deg, #8e0909 0%, #d7904d  100%);
     font-size:20px;
 }
 .logo-link{

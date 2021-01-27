@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<nav class="logo navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Nurse navbar">
+<nav class="logo navbar navbar-expand-sm navbar-dark" aria-label="Nurse navbar">
     <div class="container-xl">
         <a class="logo-link navbar-brand" href="${pageContext.request.contextPath}/">Reha</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarControls" aria-controls="navbarControls" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,12 +50,7 @@
                     </li>
                 </ul>
             </div>
-
-
-
         </div>
-
-
     </div>
 </nav>
 <br>

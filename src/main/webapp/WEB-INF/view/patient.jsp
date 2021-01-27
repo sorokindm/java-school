@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: moonlyer
@@ -5,7 +6,7 @@
   Time: 1:28
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +18,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid navbar">
+<div class="container-fluid logo">
     <div class="row">
-        <div class="col"><a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
+        <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
         <div class="col">
             <form:form  class="login text-center" action="${pageContext.request.contextPath}/logout"
                         method="POST">

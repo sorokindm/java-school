@@ -14,9 +14,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid navbar">
+<div class="container-fluid logo">
     <div class="row">
-        <div class="col"><a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
+        <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
         <div class="col">
             <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
                        method="POST">
@@ -29,7 +29,6 @@
 
 <div class="container-fluid">
     <h2>Please select a patient</h2>
-
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -49,10 +48,10 @@
                     <td>${patient.gender}</td>
                     <td>${patient.idInsurance}</td>
                     <td>
-                        <form action="${pageContext.request.contextPath}/doctor/newTreatment/create" method="GET">
+                        <form:form action="${requestScope['javax.servlet.forward.request_uri']}" method="POST">
                             <input class="btn btn-primary" type="submit" value="Select">
                             <input type="hidden" name="patientId" value="${patient.idPatient}">
-                        </form>
+                        </form:form>
                     </td>
                 </tr>
             </c:forEach>

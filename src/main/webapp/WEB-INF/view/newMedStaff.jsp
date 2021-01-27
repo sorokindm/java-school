@@ -16,9 +16,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid navbar">
+<div class="container-fluid logo">
     <div class="row"></div>
-    <div class="col"><a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
+    <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
     <div class="col"></div>
 </div>
 <div class="container-fluid">

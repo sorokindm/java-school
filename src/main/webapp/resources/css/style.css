@@ -3,17 +3,18 @@ body{
     font-family: Arial, serif;
     background-color:#f1f1f1;
 }
-.navbar {
+.logo {
     background-color:darkred;
+    font-size:20px;
 }
-.navbar-link{
+.logo-link{
     color:white;
     background-color: transparent;
-    font-size:64px;
+    font-size:48px;
     margin-left:5%;
     text-decoration: none;
 }
-.navbar-link:hover{
+.logo-link:hover{
     color:lightgrey;
 }
 .login {

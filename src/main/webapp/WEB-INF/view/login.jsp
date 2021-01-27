@@ -13,11 +13,12 @@
 </head>
 <body>
 
-<div class="container-fluid navbar">
+<div class="container-fluid logo">
     <div class="row"></div>
-        <div class="col"> <a class="navbar-link" href="${pageContext.request.contextPath}/">Reha</a></div>
+        <div class="col"> <a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
         <div class="col"></div>
 </div>
+<br>
 <br>
     <form:form  class="login text-center" action="${pageContext.request.contextPath}/doLogin"
                method="POST">
@@ -25,8 +26,12 @@
             <h3>Invalid username or password</h3>
         </c:if>
 
+        <label for="idUsername">Username</label>
         <input type="text" id="idUsername" class="form-control" value="admin"  name="username" placeholder="Username">
+        <label for="idPassword">Password</label>
         <input type="password" id="idPassword" class="form-control" value="admin"  name="password" placeholder="Password">
+
+        <br>
 
         <button type="submit" class="btn btn-primary w-100">Log in</button>
 

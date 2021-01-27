@@ -45,6 +45,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/doctor/**").hasRole("DOCTOR")
+                .antMatchers("/nurse/**").hasRole("NURSE")
+                .antMatchers("/patient/**").hasRole("PATIENT")
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/error").permitAll()
                 .anyRequest().authenticated()
@@ -54,6 +57,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/doLogin")
                     .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+        .and()
+        .exceptionHandling().accessDeniedPage("/403");
     }
 }

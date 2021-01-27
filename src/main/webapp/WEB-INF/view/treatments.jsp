@@ -49,13 +49,13 @@
                     </td>
                     <td>
                         <form action="${pageContext.request.contextPath}/doctor/assignment" method="GET">
-                            <input class="btn btn-primary" type="submit" value="View"/>
+                            <input class="btn btn-dark" type="submit" value="View"/>
                             <input type="hidden" name="idTreatment" value="${treatment.idTreatment}"/>
                         </form>
                     </td>
                     <td>
                         <form action="${pageContext.request.contextPath}/doctor/editTreatment" method="GET">
-                            <input class="btn btn-primary" type="submit" value="Edit"/>
+                            <input class="btn btn-dark" type="submit" value="Edit"/>
                             <input type="hidden" name="idTreatment" value="${treatment.idTreatment}"/>
                         </form>
                     </td>
@@ -66,7 +66,7 @@
         </table>
     </div>
     <br>
-    <a href="${pageContext.request.contextPath}/doctor/newTreatment/create" class="btn btn-primary">New
+    <a href="${pageContext.request.contextPath}/doctor/newTreatment/create" class="btn btn-dark">New
         Treatment</a>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"

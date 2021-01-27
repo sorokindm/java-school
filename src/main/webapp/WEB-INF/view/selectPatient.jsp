@@ -41,7 +41,7 @@
                     <td>${patient.idInsurance}</td>
                     <td>
                         <form:form action="${requestScope['javax.servlet.forward.request_uri']}" method="POST">
-                            <input class="btn btn-primary" type="submit" value="Select">
+                            <input class="btn btn-dark" type="submit" value="Select">
                             <input type="hidden" name="patientId" value="${patient.idPatient}">
                         </form:form>
                     </td>

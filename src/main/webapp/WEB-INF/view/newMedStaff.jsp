@@ -37,7 +37,7 @@
 
             <div class="mb-3">
                 <label for="username">Username</label>
-                <form:errors path="username" cssClass="style"/>
+                <form:errors path="username" cssClass="error"/>
                 <div class="input-group">
                     <form:input type="text" class="form-control" id="username" path="username" required="true"/>
 

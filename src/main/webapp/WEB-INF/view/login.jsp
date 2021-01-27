@@ -13,7 +13,21 @@
 </head>
 <body>
 
-<%@include file="/resources/emptyNavbar.html"%>
+<nav class="logo navbar navbar-expand-sm navbar-dark" aria-label="Nurse navbar">
+    <div class="container-xl">
+        <a class="logo-link navbar-brand" href="${pageContext.request.contextPath}/">Reha</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarControls" aria-controls="navbarControls" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarControls">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
 
 <br>
 <br>

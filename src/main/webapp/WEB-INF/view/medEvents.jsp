@@ -23,9 +23,9 @@
     <c:if test="${medEvents.size()!=0}">
         <h2>Assignment</h2>
         <p>
-            Type:${medEvents.get(0).assignment.type}<br>
-            Name:${medEvents.get(0).assignment.name}<br>
-            Dosage:${medEvents.get(0).assignment.dosage}<br>
+            <strong>Type:</strong>${medEvents.get(0).assignment.type}<br>
+            <strong>Medication/Procedure name:</strong>${medEvents.get(0).assignment.name}<br>
+            <strong>Dosage/Duration:</strong>${medEvents.get(0).assignment.dosage}<br>
         </p>
         <hr class="mb-4">
     </c:if>
@@ -46,16 +46,19 @@
             <c:forEach items="${medEvents}" var="medEvent">
                 <tr>
                     <td>
-                            Name:${medEvent.patient.name}
+                        <strong>Name:</strong>${medEvent.patient.name}
                         <br>
-                        LastName:${medEvent.patient.lastName}
+                            <strong>LastName:</strong>${medEvent.patient.lastName}
                     </td>
                     <td>
-                          Name:${medEvent.nurse.name}
+                        <strong>Name:</strong>${medEvent.nurse.name}
                         <br>
-                        Last Name:${medEvent.nurse.lastName}
+                        <strong>Last Name:</strong>${medEvent.nurse.lastName}
                     </td>
-                    <td>${medEvent.starts}</td>
+                    <td>
+                            ${medEvent.starts.toLocalDate()}
+                            ${medEvent.starts.toLocalTime()}
+                    </td>
                     <td>${medEvent.status}</td>
                     <td>${medEvent.closedComments}</td>
                 </tr>

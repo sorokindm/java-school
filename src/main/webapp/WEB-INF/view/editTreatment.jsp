@@ -28,58 +28,52 @@
         </c:if>
     </h2>
     <p>
-        Doctor:${treatment.doctor.name} ${treatment.doctor.lastName}<br>
-        Patient:${treatment.patient.name} ${treatment.patient.lastName}<br>
-        Opened on:${treatment.treatmentOpened}<br>
+        <strong>Doctor:</strong>${treatment.doctor.name} ${treatment.doctor.lastName}<br>
+        <strong>Patient:</strong>${treatment.patient.name} ${treatment.patient.lastName}<br>
+        <strong>Opened on:</strong>${treatment.treatmentOpened}<br>
     </p>
     <hr class="mb-4">
     <div class="col-md-8 mx-auto">
         <form:form method="POST" action="${action}" modelAttribute="treatment">
 
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3 mx-auto">
                 <label for="opened_comments">Anamnesis</label>
 
                 <form:textarea type="text" class="form-control" id="opened_comments" path="openedComments" required="true"
                                value="${treatment.openedComments}"/>
-                <div class="invalid-feedback">
-                    Invalid field
-                </div>
             </div>
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3 mx-auto">
                 <label for="diagnosis">Diagnosis</label>
                 <form:textarea type="text" class="form-control" id="diagnosis" value="${treatment.diagnosis}" required="true"
                                path="diagnosis"/>
-                <div class="invalid-feedback">
-                    Invalid field
-                </div>
             </div>
 
-            <c:if test="${close!=null}">
-                <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3 mx-auto text-center">
+                <c:if test="${close!=null}">
                     <label for="closed_comments">Please write closing comments</label>
                     <form:textarea type="text" class="form-control" id="closed_comments" path="closedComments" required="true"/>
-                    <div class="invalid-feedback">
-                        Invalid field
-                    </div>
-                </div>
-            </c:if>
+                    <br>
+                </c:if>
+                <form:input type="hidden" value="${treatment.idTreatment}" path="idTreatment"/>
+                <c:if test="${close==null}">
+                    <form:button class="btn btn-dark btn-lg btn-block mb-2" type="submit">Edit</form:button>
+                </c:if>
+                <c:if test="${close!=null}">
+                    <input type="hidden" value="${true}" name="close"/>
+                    <form:button class="btn btn-danger" type="submit">Close treatment</form:button>
+                </c:if>
+            </div>
 
-            <form:input type="hidden" value="${treatment.idTreatment}" path="idTreatment"/>
-            <c:if test="${close==null}">
-                <form:button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Edit</form:button>
-            </c:if>
-            <c:if test="${close!=null}">
-                <input type="hidden" value="${true}" name="close"/>
-                <form:button class="btn btn-danger" type="submit">Close treatment</form:button>
-            </c:if>
         </form:form>
     </div>
     <c:if test="${close==null}">
+    <div class="col-md-6 mb-3 mx-auto text-center">
         <form action="${pageContext.request.contextPath}/doctor/closeTreatment" method="GET">
             <input class="btn btn-danger" type="submit" value="Close treatment"/>
             <input type="hidden" name="idTreatment" value="${treatment.idTreatment}"/>
             <input type="hidden" name="close" value="true"/>
         </form>
+    </div>
     </c:if>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"

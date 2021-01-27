@@ -58,7 +58,7 @@
         </table>
     </div>
     <br>
-    <a href="${pageContext.request.contextPath}/admin/newMedStaff" class="btn btn-primary">New Med Staff</a>
+    <a href="${pageContext.request.contextPath}/admin/newMedStaff" class="btn btn-dark">New Med Staff</a>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"

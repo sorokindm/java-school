@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -22,12 +23,13 @@ import java.util.List;
 @Controller
 public class MainController {
     private static final String HOME_PAGE = "home";
-    private static final String ADMIN_PAGE = "admin";
-    private static final String PATIENT_PAGE = "patient";
+    private static final String REDIRECT_ADMIN_PAGE = "redirect:/admin";
+    private static final String REDIRECT_PATIENT_PAGE = "redirect:/patient";
+    private static final String REDIRECT_DOCTOR_PAGE = "redirect:/doctor";
+    private static final String REDIRECT_NURSE_PAGE = "redirect:/nurse";
 
     @Autowired
     private AdminService adminService;
-
 
     /**
      * Welcome page mapping
@@ -35,7 +37,22 @@ public class MainController {
      * @return home page ULR
      */
     @GetMapping("/")
-    public String homePage() {
+    public String homePage(Principal principal) {
+        UserDto user=adminService.findUserByUsername(principal.getName());
+        switch (user.getRole()) {
+            case ROLE_ADMIN:{
+                return REDIRECT_ADMIN_PAGE;
+            }
+            case ROLE_PATIENT:{
+                return REDIRECT_PATIENT_PAGE;
+            }
+            case ROLE_NURSE:{
+                return REDIRECT_NURSE_PAGE;
+            }
+            case ROLE_DOCTOR:{
+                return REDIRECT_DOCTOR_PAGE;
+            }
+        }
         return HOME_PAGE;
     }
 
@@ -50,7 +67,7 @@ public class MainController {
 
         ModelAndView model = new ModelAndView();
         model.addObject("users", users);
-        model.setViewName(ADMIN_PAGE);
+        model.setViewName("admin");
         return model;
     }
 
@@ -74,17 +91,6 @@ public class MainController {
     public RedirectView processNewMedStaffForm(@ModelAttribute("user") UserDto userDto) {
         adminService.addNewMedStaff(userDto);
         return new RedirectView("/java_school/admin");
-    }
-
-
-    /**
-     * Patient page mapping
-     *
-     * @return patient page url
-     */
-    @GetMapping("/patient")
-    public String patientPage() {
-        return PATIENT_PAGE;
     }
 
 }

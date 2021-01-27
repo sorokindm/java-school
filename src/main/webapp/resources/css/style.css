@@ -28,5 +28,10 @@ body{
     background-color: lightgrey;
 }
 
+.error{
+    color: red;
+    font-style: italic;
+}
+
 
 

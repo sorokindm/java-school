@@ -41,4 +41,11 @@ public interface UserDAO {
      */
     void addNewUser(User user);
 
+    /**
+     * Checks if user exists in db
+     * @param username - username of user to check
+     * @return true if exists
+     */
+    boolean isUserExist(String username);
+
 }

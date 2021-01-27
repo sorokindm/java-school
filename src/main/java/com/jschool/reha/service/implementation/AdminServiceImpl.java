@@ -14,6 +14,7 @@ import com.jschool.reha.entity.Patient;
 import com.jschool.reha.entity.User;
 import com.jschool.reha.enums.Role;
 import com.jschool.reha.service.interfaces.AdminService;
+import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -112,8 +113,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Patient addNewPatient(UserDto userDto) {
+    public String addNewPatient(UserDto userDto) {
         userDto.setRole(Role.ROLE_PATIENT);
+        RandomStringGenerator pwdGenerator = new RandomStringGenerator.Builder().withinRange(50, 99)
+                .build();
+        String tempPassword=pwdGenerator.generate(10);
+        userDto.setPassword(tempPassword);
         Patient patientEntity = new Patient();
         patientEntity.setName(userDto.getPatient().getName());
         patientEntity.setLastName(userDto.getPatient().getLastName());
@@ -121,6 +126,6 @@ public class AdminServiceImpl implements AdminService {
         patientEntity.setIdInsurance(userDto.getPatient().getIdInsurance());
         patientEntity.setUser(addNewUser(userDto));
         patientDAO.addNewPatient(patientEntity);
-        return patientEntity;
+        return tempPassword;
     }
 }

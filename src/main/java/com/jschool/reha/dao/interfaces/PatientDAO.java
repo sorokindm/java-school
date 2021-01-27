@@ -32,4 +32,19 @@ public interface PatientDAO {
      * @return List of all Patient entities
      */
     List<Patient> getAllPatients();
+
+    /**
+     * Fetches Patient from db by insurance Id
+     *
+     * @param insuranceId - insurance id
+     * @return Patient entity
+     */
+    Patient findPatientByInsuranceId(String insuranceId);
+
+    /**
+     * Checks if patient exists with current insurance Id
+     *
+     * @param insuranceId
+     */
+    boolean isPatientExistWithInsuranceId(String insuranceId);
 }

@@ -47,7 +47,7 @@
             <div class="col-md-6 mb-3">
                 <label for="opened_comments">Anamnesis</label>
 
-                <form:textarea type="text" class="form-control" id="opened_comments" path="openedComments"
+                <form:textarea type="text" class="form-control" id="opened_comments" path="openedComments" required="true"
                                value="${treatment.openedComments}"/>
                 <div class="invalid-feedback">
                     Invalid field
@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-6 mb-3">
                 <label for="diagnosis">Diagnosis</label>
-                <form:textarea type="text" class="form-control" id="diagnosis" value="${treatment.diagnosis}"
+                <form:textarea type="text" class="form-control" id="diagnosis" value="${treatment.diagnosis}" required="true"
                                path="diagnosis"/>
                 <div class="invalid-feedback">
                     Invalid field
@@ -65,7 +65,7 @@
             <c:if test="${close!=null}">
                 <div class="col-md-6 mb-3">
                     <label for="closed_comments">Please write closing comments</label>
-                    <form:textarea type="text" class="form-control" id="closed_comments" path="closedComments"/>
+                    <form:textarea type="text" class="form-control" id="closed_comments" path="closedComments" required="true"/>
                     <div class="invalid-feedback">
                         Invalid field
                     </div>
@@ -74,7 +74,7 @@
 
             <form:input type="hidden" value="${treatment.idTreatment}" path="idTreatment"/>
             <c:if test="${close==null}">
-                <form:button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Add</form:button>
+                <form:button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Edit</form:button>
             </c:if>
             <c:if test="${close!=null}">
                 <input type="hidden" value="${true}" name="close"/>

@@ -30,6 +30,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public boolean isUserExist(String username) {
+        List<User> list=em.createQuery("select user from User user where user.username= :username").setParameter("username",username).getResultList();
+        if (list.isEmpty()) return false;
+        return true;
+    }
+
+    @Override
     public User findUserById(int id) {
         return em.find(User.class, id);
     }

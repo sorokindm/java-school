@@ -50,25 +50,21 @@
             <div class="row">
                 <div class="col-sm">
                     <label for="dosage">Dosage</label>
-                    <form:input type="text" class="form-control" id="dosage" path="dosage"
+                    <form:input type="text" class="form-control" id="dosage" path="dosage" required="true"
                                 value="${assignment.dosage}"/>
-                    <div class="invalid-feedback">
-                        Valid field required
-                    </div>
                 </div>
                 <div class="col-sm">
                     <label for="quantity">Quantity</label>
-                    <form:input type="number" class="form-control" id="quantity" path="quantity"
+                    <form:errors path="quantity" cssClass="style"/>
+                    <form:input type="number" class="form-control" id="quantity" path="quantity" required="true"
                                 value="${assignment.quantity}"/>
-                    <div class="invalid-feedback">
-                        Valid field required
-                    </div>
                 </div>
             </div>
 
             <hr class="mb-4">
 
             <h3 class="text-center">Pattern</h3>
+            <form:errors path="pattern" cssClass="style"/>
             <div class="row">
                 <div class="col-sm">
                     <form:checkbox id="monday" path="pattern.monday" value="true"/>
@@ -108,10 +104,7 @@
             <c:if test="${close!=null}">
                 <div class="col-md-6 mb-3">
                     <label for="closed_comments">Please write closing comments</label>
-                    <form:textarea type="text" class="form-control" id="closed_comments" path="closedComments"/>
-                    <div class="invalid-feedback">
-                        Invalid field
-                    </div>
+                    <form:textarea type="text" class="form-control" id="closed_comments" path="closedComments" required="true"/>
                 </div>
             </c:if>
             <form:input type="hidden" path="idAssignment" value="${assignment.idAssignment}"/>

@@ -35,10 +35,25 @@ public interface MedEventDAO {
     List<MedEvent> getAllMedEventsForAssignment(int assignmentId);
 
     /**
+     * Fetches all MedEvents for given patientId
+     *
+     * @param patientId - patient id
+     * @return List of Patient entities for given assignment
+     */
+    List<MedEvent> getAllMedEventsForPatient(int patientId);
+
+    /**
      * Updates entity in db
      *
      * @param medEvent - Entity with update
      * @return updated Entity
      */
     MedEvent update(MedEvent medEvent);
+
+    /**
+     * Fetches all MedEvents
+     *
+     * @return List of MedEvent entities
+     */
+    List<MedEvent> getAllMedEvents();
 }

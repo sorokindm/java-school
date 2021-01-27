@@ -49,4 +49,24 @@ public class NurseServiceImpl implements NurseService {
     public MedEventDto getMedEventById(int idMedEvent) {
         return MedEventEntityDtoHelper.entityToDto(medEventDAO.getMedEventById(idMedEvent));
     }
+
+    @Override
+    public List<MedEventDto> getAllMedEvents() {
+        List<MedEvent> medEvents = medEventDAO.getAllMedEvents();
+        ArrayList<MedEventDto> dtos = new ArrayList<>();
+        for (MedEvent medEvent : medEvents) {
+            dtos.add(MedEventEntityDtoHelper.entityToDto(medEvent));
+        }
+        return dtos;
+    }
+
+    @Override
+    public List<MedEventDto> getAllMedEventsForPatient(int patientId) {
+        List<MedEvent> medEvents = medEventDAO.getAllMedEventsForPatient(patientId);
+        ArrayList<MedEventDto> dtos = new ArrayList<>();
+        for (MedEvent medEvent : medEvents) {
+            dtos.add(MedEventEntityDtoHelper.entityToDto(medEvent));
+        }
+        return dtos;
+    }
 }

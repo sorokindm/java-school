@@ -31,7 +31,18 @@ public class MedEventDAOImpl implements MedEventDAO {
     }
 
     @Override
+    public List<MedEvent> getAllMedEventsForPatient(int patientId) {
+        return em.createQuery("select medEvent from MedEvent medEvent where medEvent.patient.idPatient = :patientId")
+                .setParameter("patientId",patientId).getResultList();
+    }
+
+    @Override
     public MedEvent update(MedEvent medEvent) {
         return em.merge(medEvent);
+    }
+
+    @Override
+    public List<MedEvent> getAllMedEvents() {
+        return em.createQuery("select medEvent from MedEvent medEvent").getResultList();
     }
 }

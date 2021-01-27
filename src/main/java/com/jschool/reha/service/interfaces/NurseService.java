@@ -20,7 +20,7 @@ public interface NurseService {
     MedStaff findNurseForEvent(LocalDateTime time);
 
     /**
-     * Fetches all medEventsFromDatabase
+     * Fetches all medEventsFromDatabase for given nurse
      *
      * @param idMedStaff - medStaff id
      * @return List of MedEvent dtos
@@ -33,5 +33,20 @@ public interface NurseService {
      * @return dto with given id
      */
     MedEventDto getMedEventById(int idMedEvent);
+
+    /**
+     * Fetches all medEventsFromDatabase
+     *
+     * @return List of MedEvent dtos
+     */
+    List<MedEventDto> getAllMedEvents();
+
+    /**
+     * Fetches all medEventsFromDatabase for given patient
+     *
+     * @param idPatient - patient id
+     * @return List of MedEvent dtos
+     */
+    List<MedEventDto> getAllMedEventsForPatient(int idPatient);
 
 }

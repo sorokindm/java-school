@@ -20,7 +20,7 @@
 <br>
 
 <div class="container-fluid">
-    <h2>MedEvents</h2>
+    <h2>Active MedEvents</h2>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -36,18 +36,22 @@
             </thead>
             <tbody>
             <c:forEach items="${medEvents}" var="medEvent">
+                <c:if test="${medEvent.status=='SCHEDULED'}">
                 <tr>
                     <td>
-                        Name:${medEvent.patient.name}
+                        <strong>Name:</strong>${medEvent.patient.name}
                         <br>
-                        LastName:${medEvent.patient.lastName}
+                        <strong>LastName:</strong>${medEvent.patient.lastName}
                     </td>
                     <td>
-                        Name:${medEvent.nurse.name}
+                        <strong>Name:</strong>${medEvent.nurse.name}
                         <br>
-                        Last Name:${medEvent.nurse.lastName}
+                        <strong>Last Name:</strong>${medEvent.nurse.lastName}
                     </td>
-                    <td>${medEvent.starts}</td>
+                    <td>
+                            ${medEvent.starts.toLocalDate()}
+                            ${medEvent.starts.toLocalTime()}
+                    </td>
                     <td>${medEvent.status}</td>
                     <td>${medEvent.closedComments}</td>
                     <td>
@@ -63,12 +67,52 @@
                         </form:form>
                     </td>
                 </tr>
+                </c:if>
             </c:forEach>
 
             </tbody>
         </table>
     </div>
     <br>
+    <h2>Archived MedEvents</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="colgroup">Patient</th>
+                <th scope="colgroup">Nurse</th>
+                <th scope="colgroup">Starts</th>
+                <th scope="colgroup">Status</th>
+                <th scope="colgroup">Closed Comments</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${medEvents}" var="medEvent">
+                <c:if test="${medEvent.status!='SCHEDULED'}">
+                    <tr>
+                        <td>
+                            <strong>Name:</strong>${medEvent.patient.name}
+                            <br>
+                            <strong>LastName:</strong>${medEvent.patient.lastName}
+                        </td>
+                        <td>
+                            <strong>Name:</strong>${medEvent.nurse.name}
+                            <br>
+                            <strong>Last Name:</strong>${medEvent.nurse.lastName}
+                        </td>
+                        <td>
+                                ${medEvent.starts.toLocalDate()}
+                                ${medEvent.starts.toLocalTime()}
+                        </td>
+                        <td>${medEvent.status}</td>
+                        <td>${medEvent.closedComments}</td>
+                    </tr>
+                </c:if>
+            </c:forEach>
+
+            </tbody>
+        </table>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>

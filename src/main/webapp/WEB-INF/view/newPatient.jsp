@@ -13,17 +13,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid logo">
-    <div class="row">
-        <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-        <div class="col">
-            <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
-                       method="POST">
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form:form>
-        </div>
-    </div>
-</div>
+
+<%@include file="/resources/doctorHeader.html"%>
+
 <div class="container-fluid">
     <h2 class="text-center">Add new patient</h2>
     <div class="col-md-8 mx-auto">
@@ -32,19 +24,19 @@
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="firstName">First name</label>
-                    <form:errors path="patient.name" cssClass="style"/>
+                    <form:errors path="patient.name" cssClass="error"/>
                     <form:input type="text" class="form-control" id="firstName" path="patient.name" required="true"/>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="lastName">Last name</label>
-                    <form:errors path="patient.lastName" cssClass="style"/>
+                    <form:errors path="patient.lastName" cssClass="error"/>
                     <form:input type="text" class="form-control" id="lastName" path="patient.lastName" required="true"/>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="username">Username</label>
-                <form:errors path="username" cssClass="style"/>
+                <form:errors path="username" cssClass="error"/>
                 <div class="input-group">
                     <form:input type="text" class="form-control" id="username" placeholder="Username" required="true" path="username"/>
                 </div>
@@ -52,14 +44,14 @@
 
             <div class="mb-3">
                 <label for="email">Email </label>
-                <form:errors path="email" cssClass="style"/>
+                <form:errors path="email" cssClass="error"/>
                 <form:input type="email" class="form-control" id="email" placeholder="patient@example.com" required="true" path="email"/>
             </div>
 
             <div class="row">
                 <div class="col-md-5 mb-3">
                     <label for="gender">Gender</label>
-                    <form:errors path="patient.gender" cssClass="style"/>
+                    <form:errors path="patient.gender" cssClass="error"/>
                     <form:select class="custom-select d-block w-100" id="gender" required="true" path="patient.gender">
                         <option value="">Choose...</option>
                         <option value="MALE">Male</option>
@@ -73,15 +65,19 @@
 
             <div class="mb-3">
                 <label for="id_insurance">Insurance ID</label>
-                <form:errors path="patient" cssClass="style"/>
+                <form:errors path="patient" cssClass="error"/>
                 <form:input type="text" class="form-control" id="id_insurance" required="true"
                             path="patient.idInsurance"/>
             </div>
-            <form:input type="hidden" value="1" path="password"/>
-            <form:button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Add</form:button>
+            <div class="text-center">
+                <input id="password" name="password" type="hidden" value="1">
+                <form:button type="submit" class="btn btn-dark btn-lg btn-block mb-2" value="Submit">Add</form:button>
+            </div>
         </form:form>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

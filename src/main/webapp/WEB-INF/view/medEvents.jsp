@@ -14,26 +14,18 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid logo">
-    <div class="row">
-        <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-        <div class="col">
-            <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
-                       method="POST">
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form:form>
-        </div>
-    </div>
-</div>
+
+<%@include file="/resources/doctorHeader.html"%>
+
 <br>
 
 <div class="container-fluid">
     <c:if test="${medEvents.size()!=0}">
         <h2>Assignment</h2>
         <p>
-            Type:${medEvents.get(0).assignment.type}<br>
-            Name:${medEvents.get(0).assignment.name}<br>
-            Dosage:${medEvents.get(0).assignment.dosage}<br>
+            <strong>Type:</strong>${medEvents.get(0).assignment.type}<br>
+            <strong>Medication/Procedure name:</strong>${medEvents.get(0).assignment.name}<br>
+            <strong>Dosage/Duration:</strong>${medEvents.get(0).assignment.dosage}<br>
         </p>
         <hr class="mb-4">
     </c:if>
@@ -54,16 +46,19 @@
             <c:forEach items="${medEvents}" var="medEvent">
                 <tr>
                     <td>
-                            Name:${medEvent.patient.name}
+                        <strong>Name:</strong>${medEvent.patient.name}
                         <br>
-                        LastName:${medEvent.patient.lastName}
+                            <strong>LastName:</strong>${medEvent.patient.lastName}
                     </td>
                     <td>
-                          Name:${medEvent.nurse.name}
+                        <strong>Name:</strong>${medEvent.nurse.name}
                         <br>
-                        Last Name:${medEvent.nurse.lastName}
+                        <strong>Last Name:</strong>${medEvent.nurse.lastName}
                     </td>
-                    <td>${medEvent.starts}</td>
+                    <td>
+                            ${medEvent.starts.toLocalDate()}
+                            ${medEvent.starts.toLocalTime()}
+                    </td>
                     <td>${medEvent.status}</td>
                     <td>${medEvent.closedComments}</td>
                 </tr>
@@ -74,6 +69,8 @@
     </div>
     <br>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

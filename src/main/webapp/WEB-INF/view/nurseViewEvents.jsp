@@ -14,21 +14,13 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid logo">
-    <div class="row">
-        <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-        <div class="col">
-            <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
-                       method="POST">
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form:form>
-        </div>
-    </div>
-</div>
+
+<%@include file="/resources/nurseHeader.html"%>
+
 <br>
 
 <div class="container-fluid">
-    <h2>MedEvents</h2>
+    <h2>Active MedEvents</h2>
     <div class="table-responsive">
         <table class="table table-striped table-sm">
             <thead>
@@ -44,18 +36,22 @@
             </thead>
             <tbody>
             <c:forEach items="${medEvents}" var="medEvent">
+                <c:if test="${medEvent.status=='SCHEDULED'}">
                 <tr>
                     <td>
-                        Name:${medEvent.patient.name}
+                        <strong>Name:</strong>${medEvent.patient.name}
                         <br>
-                        LastName:${medEvent.patient.lastName}
+                        <strong>LastName:</strong>${medEvent.patient.lastName}
                     </td>
                     <td>
-                        Name:${medEvent.nurse.name}
+                        <strong>Name:</strong>${medEvent.nurse.name}
                         <br>
-                        Last Name:${medEvent.nurse.lastName}
+                        <strong>Last Name:</strong>${medEvent.nurse.lastName}
                     </td>
-                    <td>${medEvent.starts}</td>
+                    <td>
+                            ${medEvent.starts.toLocalDate()}
+                            ${medEvent.starts.toLocalTime()}
+                    </td>
                     <td>${medEvent.status}</td>
                     <td>${medEvent.closedComments}</td>
                     <td>
@@ -71,13 +67,55 @@
                         </form:form>
                     </td>
                 </tr>
+                </c:if>
             </c:forEach>
 
             </tbody>
         </table>
     </div>
     <br>
+    <h2>Archived MedEvents</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="colgroup">Patient</th>
+                <th scope="colgroup">Nurse</th>
+                <th scope="colgroup">Starts</th>
+                <th scope="colgroup">Status</th>
+                <th scope="colgroup">Closed Comments</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${medEvents}" var="medEvent">
+                <c:if test="${medEvent.status!='SCHEDULED'}">
+                    <tr>
+                        <td>
+                            <strong>Name:</strong>${medEvent.patient.name}
+                            <br>
+                            <strong>LastName:</strong>${medEvent.patient.lastName}
+                        </td>
+                        <td>
+                            <strong>Name:</strong>${medEvent.nurse.name}
+                            <br>
+                            <strong>Last Name:</strong>${medEvent.nurse.lastName}
+                        </td>
+                        <td>
+                                ${medEvent.starts.toLocalDate()}
+                                ${medEvent.starts.toLocalTime()}
+                        </td>
+                        <td>${medEvent.status}</td>
+                        <td>${medEvent.closedComments}</td>
+                    </tr>
+                </c:if>
+            </c:forEach>
+
+            </tbody>
+        </table>
+    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

@@ -14,17 +14,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid logo">
-    <div class="row">
-        <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-        <div class="col">
-            <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
-                       method="POST">
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form:form>
-        </div>
-    </div>
-</div>
+<%@include file="/resources/doctorHeader.html"%>
 <br>
 
 <div class="container-fluid">
@@ -59,13 +49,13 @@
                     </td>
                     <td>
                         <form action="${pageContext.request.contextPath}/doctor/assignment" method="GET">
-                            <input class="btn btn-primary" type="submit" value="View"/>
+                            <input class="btn btn-dark" type="submit" value="View"/>
                             <input type="hidden" name="idTreatment" value="${treatment.idTreatment}"/>
                         </form>
                     </td>
                     <td>
                         <form action="${pageContext.request.contextPath}/doctor/editTreatment" method="GET">
-                            <input class="btn btn-primary" type="submit" value="Edit"/>
+                            <input class="btn btn-dark" type="submit" value="Edit"/>
                             <input type="hidden" name="idTreatment" value="${treatment.idTreatment}"/>
                         </form>
                     </td>
@@ -76,9 +66,11 @@
         </table>
     </div>
     <br>
-    <a href="${pageContext.request.contextPath}/doctor/newTreatment/create" class="btn btn-primary">New
+    <a href="${pageContext.request.contextPath}/doctor/newTreatment/create" class="btn btn-dark">New
         Treatment</a>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

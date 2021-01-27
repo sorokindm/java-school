@@ -1,0 +1,39 @@
+<nav class="logo navbar navbar-expand-sm navbar-dark" aria-label="Nurse navbar">
+    <div class="container-xl">
+        <a class="logo-link navbar-brand" href="${pageContext.request.contextPath}/">Reha</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarControls" aria-controls="navbarControls" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarControls">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownEvents" data-bs-toggle="dropdown" aria-expanded="false">Events</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownEvents">
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/nurse/events/all">All</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/nurse/events/myEvents">My events</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/nurse/events/patient">For patient</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="navbar-nav nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="logout" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
+                <ul class="dropdown-menu" aria-labelledby="logout">
+                    <li>
+                        <form:form action="${pageContext.request.contextPath}/logout"
+                                   method="POST">
+                            <button type="submit" class="dropdown-item">Logout</button>
+                        </form:form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

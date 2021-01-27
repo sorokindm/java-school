@@ -14,17 +14,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid logo">
-    <div class="row">
-        <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-        <div class="col">
-            <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
-                       method="POST">
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form:form>
-        </div>
-    </div>
-</div>
+
+<%@include file="/resources/doctorHeader.html"%>
+
 <br>
 
 <div class="container-fluid">
@@ -35,8 +27,8 @@
             <tr>
                 <th scope="colgroup">Type</th>
                 <th scope="colgroup">Name</th>
-                <th scope="colgroup">Dosage</th>
-                <th scope="colgroup">Quantity</th>
+                <th scope="colgroup">Dosage/Duration</th>
+                <th scope="colgroup">Period(Weeks)</th>
                 <th scope="colgroup">Pattern</th>
                 <th scope="colgroup">Started</th>
                 <th scope="colgroup">Status</th>
@@ -52,11 +44,11 @@
                     <td>${assignment.dosage}</td>
                     <td>${assignment.quantity}</td>
                     <td>
-                        <c:if test="${assignment.pattern.morning==true}">Morning </c:if>
+                        <strong>Every:</strong><c:if test="${assignment.pattern.morning==true}">Morning </c:if>
                         <c:if test="${assignment.pattern.day==true}">Day </c:if>
                         <c:if test="${assignment.pattern.evening==true}">Evening </c:if>
                         <br>
-                        <c:if test="${assignment.pattern.monday==true}">Monday </c:if>
+                        <strong>On:</strong><c:if test="${assignment.pattern.monday==true}">Monday </c:if>
                         <c:if test="${assignment.pattern.tuesday==true}">Tuesday </c:if>
                         <c:if test="${assignment.pattern.wednesday==true}">Wednesday </c:if>
                         <c:if test="${assignment.pattern.thursday==true}">Thursday </c:if>
@@ -70,18 +62,18 @@
                         <c:if test="${assignment.assignmentEndDate!=null}">
                             Ended
                             <br>
-                            Reason:${assignment.closedComments}
+                            <strong>Reason:</strong>${assignment.closedComments}
                         </c:if>
                     </td>
                     <td>
                         <form action="${pageContext.request.contextPath}/doctor/medEvents" method="GET">
-                            <input class="btn btn-primary" type="submit" value="View">
+                            <input class="btn btn-dark" type="submit" value="View">
                             <input type="hidden" value="${assignment.idAssignment}" name="idAssignment">
                         </form>
                     </td>
                     <td>
                         <form action="${pageContext.request.contextPath}/doctor/editAssignment" method="GET">
-                            <input class="btn btn-primary" type="submit" value="Edit">
+                            <input class="btn btn-dark" type="submit" value="Edit">
                             <input type="hidden" value="${assignment.idAssignment}" name="idAssignment">
                         </form>
                     </td>
@@ -93,10 +85,12 @@
     </div>
     <br>
     <form action="${pageContext.request.contextPath}/doctor/newAssignment/create" method="GET">
-        <input class="btn btn-primary" type="submit" value="New Assignment"/>
+        <input class="btn btn-dark" type="submit" value="New Assignment"/>
         <input type="hidden" name="idTreatment" value="${idTreatment}"/>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

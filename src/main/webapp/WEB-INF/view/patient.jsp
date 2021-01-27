@@ -14,17 +14,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="container-fluid logo">
-    <div class="row">
-        <div class="col"><a class="logo-link" href="${pageContext.request.contextPath}/">Reha</a></div>
-        <div class="col">
-            <form:form class="login text-center" action="${pageContext.request.contextPath}/logout"
-                       method="POST">
-                <button type="submit" class="btn btn-primary">Logout</button>
-            </form:form>
-        </div>
-    </div>
-</div>
+
+<%@include file="/resources/emptyNavbar.html"%>
+
 <br>
 
 <div class="container-fluid">
@@ -38,8 +30,6 @@
                 <th scope="colgroup">Starts</th>
                 <th scope="colgroup">Status</th>
                 <th scope="colgroup">Closed Comments</th>
-                <th scope="colgroup">Cancel</th>
-                <th scope="colgroup">Done</th>
             </tr>
             </thead>
             <tbody>
@@ -58,18 +48,6 @@
                     <td>${medEvent.starts}</td>
                     <td>${medEvent.status}</td>
                     <td>${medEvent.closedComments}</td>
-                    <td>
-                        <form action="${pageContext.request.contextPath}/nurse/cancel" method="GET">
-                            <input class="btn btn-danger" type="submit" value="Cancel"/>
-                            <input type="hidden" name="idMedEvent" value="${medEvent.idMedEvent}"/>
-                        </form>
-                    </td>
-                    <td>
-                        <form:form action="${pageContext.request.contextPath}/nurse/done" method="POST">
-                            <input class="btn btn-success" type="submit" value="Done"/>
-                            <input type="hidden" name="idMedEvent" value="${medEvent.idMedEvent}"/>
-                        </form:form>
-                    </td>
                 </tr>
             </c:forEach>
 
@@ -78,6 +56,8 @@
     </div>
     <br>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

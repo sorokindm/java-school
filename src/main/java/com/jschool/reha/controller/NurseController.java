@@ -98,7 +98,7 @@ public class NurseController {
         medEventDto.setClosedComments("Done");
         medEventDto.setStatus(MedEventStatus.DONE);
         doctorService.closeMedEvent(medEventDto);
-        return new RedirectView("/java_school/nurse");
+        return new RedirectView("/java_school/nurse/events/all");
     }
 
 }

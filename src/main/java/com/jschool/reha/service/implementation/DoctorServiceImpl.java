@@ -5,9 +5,13 @@ import com.jschool.reha.dto.*;
 import com.jschool.reha.dto.helpers.*;
 import com.jschool.reha.entity.*;
 import com.jschool.reha.enums.MedEventStatus;
+import com.jschool.reha.jms.MedEventEntityToRestDtoHelper;
 import com.jschool.reha.service.helpers.MedEventCalendar;
 import com.jschool.reha.service.interfaces.DoctorService;
+import com.jschool.reha.jms.JMSUpdateComponent;
 import com.jschool.reha.service.interfaces.NurseService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +29,8 @@ import java.util.List;
 @Service
 @Transactional
 public class DoctorServiceImpl implements DoctorService {
+
+    private static final Logger logger= LogManager.getLogger();
 
     @Autowired
     UserDAO userDAO;
@@ -55,6 +61,9 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     NurseService nurseService;
+
+    @Autowired
+    JMSUpdateComponent jms;
 
     @Override
     public void addNewTreatment(TreatmentDto treatmentDto) {
@@ -97,6 +106,9 @@ public class DoctorServiceImpl implements DoctorService {
             medEvent.setNurse(nurseService.findNurseForEvent(time));
 
             medEventDAO.addNewMedEvent(medEvent);
+            if (medEvent.getStarts().toLocalDate().isEqual(LocalDate.now())) {
+                jms.newMedEventMessage(MedEventEntityToRestDtoHelper.entityToDto(medEvent));
+            }
         }
     }
 
@@ -219,6 +231,9 @@ public class DoctorServiceImpl implements DoctorService {
             medEvent.setClosedComments(medEventDto.getClosedComments());
 
             medEventDAO.update(medEvent);
+            if (medEvent.getStarts().toLocalDate().isEqual(LocalDate.now())) {
+                jms.closedMedEventMessage(medEvent.getIdMedEvent(),medEvent.getStatus());
+            }
         }
     }
 
@@ -242,7 +257,11 @@ public class DoctorServiceImpl implements DoctorService {
     private void alterMedEventsOnAssignmentEdit(Assignment assignment, int prevQuantity, Pattern prevPattern) {
         int diff = assignment.getQuantity() - prevQuantity;
         boolean patternChanged = !PatternEntityDtoHelper.isSamePattern(assignment.getPattern(),prevPattern);
+
+        //check if nothing changed
         if (diff == 0 && !patternChanged) return;
+
+        //cancel events on shortening assignment length
         if (diff < 0) {
             LocalDate closeAfter = assignment.getAssignmentStartDate().plusWeeks(assignment.getQuantity());
             for (MedEvent medEvent : assignment.getMedEvents()) {
@@ -256,6 +275,8 @@ public class DoctorServiceImpl implements DoctorService {
                 }
             }
         }
+
+        //cancel all events after now if pattern changed
         if (patternChanged) {
             LocalDateTime closeAfter = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
             for (MedEvent medEvent : assignment.getMedEvents()) {
@@ -269,6 +290,7 @@ public class DoctorServiceImpl implements DoctorService {
                 }
             }
         }
+
 
         LocalDateTime genStart = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY)).minusDays(1);
         LocalDateTime genEnd = assignment.getAssignmentStartDate().plusWeeks(assignment.getQuantity()).atTime(0, 0);
@@ -284,6 +306,10 @@ public class DoctorServiceImpl implements DoctorService {
             medEvent.setNurse(nurseService.findNurseForEvent(time));
 
             medEventDAO.addNewMedEvent(medEvent);
+            if (medEvent.getStarts().toLocalDate().isEqual(LocalDate.now())) {
+                jms.newMedEventMessage(MedEventEntityToRestDtoHelper.entityToDto(medEvent));
+            }
+
         }
 
     }

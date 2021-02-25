@@ -1,6 +1,9 @@
 package com.jschool.reha.config;
 
+import com.jschool.reha.exception.WrongDriverException;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,6 +35,8 @@ public class HibernateConfig {
     @Autowired
     Environment env;
 
+    private final Logger logger= LogManager.getLogger();
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em
@@ -57,8 +62,8 @@ public class HibernateConfig {
         try {
             dataSource.setDriverClass(env.getProperty("jdbc.driver"));
         } catch (PropertyVetoException e) {
-            //TODO Add logging and handling
-            throw new RuntimeException(e);
+            logger.error("Could not set database driver");
+            throw new WrongDriverException();
         }
 
         dataSource.setJdbcUrl(env.getProperty("jdbc.url"));

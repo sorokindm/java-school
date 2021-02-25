@@ -1,6 +1,8 @@
 package com.jschool.reha.service.helpers;
 
 import com.jschool.reha.entity.Pattern;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
@@ -16,6 +18,8 @@ import java.util.List;
  */
 @Component
 public class MedEventCalendarImpl implements MedEventCalendar {
+
+    private final Logger logger= LogManager.getLogger();
 
     @Override
     public List<LocalDateTime> getTimeForEvents(int quantityDays, Pattern pattern, LocalDateTime start) {
@@ -72,9 +76,8 @@ public class MedEventCalendarImpl implements MedEventCalendar {
                 return nextEvent;
             }
         }
-
+        logger.error("Could not find new event time");
         throw new RuntimeException();
-        //TODO Should never happen. Add logging
     }
 
     private LocalDate findNextPossibleDay(List<DayOfWeek> daysPattern, LocalDate currentDay) {

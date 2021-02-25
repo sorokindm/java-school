@@ -6,7 +6,8 @@ import com.jschool.reha.dto.TreatmentDto;
 import com.jschool.reha.dto.UserDto;
 import com.jschool.reha.service.interfaces.AdminService;
 import com.jschool.reha.service.interfaces.DoctorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,11 +32,16 @@ public class DoctorController {
     private static final String DOCTOR_PAGE = "doctor";
     private static final String REDIRECT_TREATMENTS_PAGE = "/java_school/doctor/treatments";
 
-    @Autowired
+    private final Logger logger = LogManager.getLogger();
+
     private AdminService adminService;
 
-    @Autowired
     private DoctorService doctorService;
+
+    public DoctorController(AdminService adminService, DoctorService doctorService) {
+        this.adminService = adminService;
+        this.doctorService = doctorService;
+    }
 
     /**
      * Doctor page mapping
@@ -43,7 +49,11 @@ public class DoctorController {
      * @return doctor page url
      */
     @GetMapping("/doctor")
-    public String doctorPage() {
+    public String doctorPage(Principal principal, Model model) {
+        model.addAttribute("medStaff", adminService.findMedStaffByUsername(principal.getName()));
+        List<TreatmentDto> treatments = doctorService.getTreatmentsForDoctorId(
+                adminService.findMedStaffByUsername(principal.getName()).getIdMedStaff());
+        model.addAttribute("treatments", treatments);
         return DOCTOR_PAGE;
     }
 

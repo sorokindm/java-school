@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author Dmitry Sorokin
  */
 @Data
-public class MedEventDto implements Serializable {
+public class MedEventDto implements Serializable, Comparable<MedEventDto>{
 
     private int idMedEvent;
 
@@ -27,5 +27,10 @@ public class MedEventDto implements Serializable {
     private PatientDto patient;
 
     private String closedComments;
+
+    @Override
+    public int compareTo(MedEventDto o) {
+        return starts.compareTo(o.getStarts());
+    }
 
 }

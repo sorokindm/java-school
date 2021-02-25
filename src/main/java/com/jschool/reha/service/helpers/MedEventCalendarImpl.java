@@ -43,7 +43,7 @@ public class MedEventCalendarImpl implements MedEventCalendar {
     }
 
     private boolean isEvening(int hour) {
-        return (hour >= 17);
+        return (hour >= 17 && hour <= 24);
     }
 
     private boolean isDayStart(int hour) {

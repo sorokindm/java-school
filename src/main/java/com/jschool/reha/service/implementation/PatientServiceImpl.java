@@ -5,7 +5,8 @@ import com.jschool.reha.dto.MedEventDto;
 import com.jschool.reha.dto.helpers.MedEventEntityDtoHelper;
 import com.jschool.reha.entity.MedEvent;
 import com.jschool.reha.service.interfaces.PatientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,8 +15,14 @@ import java.util.List;
 @Service
 public class PatientServiceImpl implements PatientService {
 
-    @Autowired
+    private static final Logger logger = LogManager.getLogger();
+
     MedEventDAO medEventDAO;
+
+    public PatientServiceImpl(MedEventDAO medEventDAO) {
+        this.medEventDAO = medEventDAO;
+    }
+
     @Override
     public List<MedEventDto> getAllActiveMedEventsForGivenPatient(int patientId) {
 

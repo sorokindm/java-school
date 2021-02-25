@@ -6,17 +6,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+
 /**
  * User login controller
+ *
  * @author Dmitry Sorokin
  */
 @Controller
 public class LoginController {
 
     private static final String LOGIN_PAGE = "login";
-    private static final String LOGGED_IN ="loggedIn";
+    private static final String LOGGED_IN = "loggedIn";
+
     /**
      * Welcome page mapping
+     *
      * @param request http request
      * @return welcome or login page ULR
      */
@@ -27,7 +31,8 @@ public class LoginController {
 
     /**
      * Login action
-     * @param request http request
+     *
+     * @param request  http request
      * @param username Username
      * @param password User password
      * @return Logged in page on success, login page on fail

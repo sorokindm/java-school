@@ -2,7 +2,6 @@ package com.jschool.reha.controller;
 
 import com.jschool.reha.dto.UserDto;
 import com.jschool.reha.service.interfaces.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,8 +28,11 @@ public class MainController {
     private static final String REDIRECT_DOCTOR_PAGE = "redirect:/doctor";
     private static final String REDIRECT_NURSE_PAGE = "redirect:/nurse";
 
-    @Autowired
     private AdminService adminService;
+
+    public MainController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     /**
      * Welcome page mapping

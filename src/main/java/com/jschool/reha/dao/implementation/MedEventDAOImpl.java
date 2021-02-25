@@ -2,6 +2,8 @@ package com.jschool.reha.dao.implementation;
 
 import com.jschool.reha.dao.interfaces.MedEventDAO;
 import com.jschool.reha.entity.MedEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,11 +14,14 @@ import java.util.List;
 @Repository
 public class MedEventDAOImpl implements MedEventDAO {
 
+    private final Logger logger = LogManager.getLogger();
+
     @PersistenceContext
     EntityManager em;
 
     @Override
     public void addNewMedEvent(MedEvent medEvent) {
+        logger.info("Adding new medEvent to db",medEvent);
         em.persist(medEvent);
     }
 

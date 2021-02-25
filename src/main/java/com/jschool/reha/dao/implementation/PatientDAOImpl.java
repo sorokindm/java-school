@@ -2,6 +2,8 @@ package com.jschool.reha.dao.implementation;
 
 import com.jschool.reha.dao.interfaces.PatientDAO;
 import com.jschool.reha.entity.Patient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -11,11 +13,14 @@ import java.util.List;
 @Repository
 public class PatientDAOImpl implements PatientDAO {
 
+    private final Logger logger = LogManager.getLogger();
+
     @PersistenceContext
     EntityManager em;
 
     @Override
     public void addNewPatient(Patient patient) {
+        logger.info("Adding new patient to db",patient);
         em.persist(patient);
     }
 

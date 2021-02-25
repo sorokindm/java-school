@@ -8,7 +8,7 @@ import com.jschool.reha.entity.MedEvent;
  */
 public final class MedEventEntityToRestDtoHelper {
     private MedEventEntityToRestDtoHelper() {
-        
+
     }
 
     /**

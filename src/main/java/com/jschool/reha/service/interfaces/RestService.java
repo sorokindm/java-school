@@ -1,5 +1,6 @@
 package com.jschool.reha.service.interfaces;
 
+import com.jschool.reha.dto.MedEventDto;
 import com.jschool.reha.dto.RestMedEventDto;
 
 import java.util.List;
@@ -12,5 +13,10 @@ public interface RestService {
     /**
      * Fetches list of med event dto's
      */
-    List<RestMedEventDto> getCurrentMedEvents();
+    List<RestMedEventDto> getCurrentRestMedEvents();
+
+    /**
+     * Fetches list of med event dto's
+     */
+    List<MedEventDto> getCurrentMedEvents();
 }

@@ -15,6 +15,7 @@ import com.jschool.reha.service.interfaces.DoctorService;
 import com.jschool.reha.service.interfaces.NurseService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,12 +55,13 @@ public class DoctorServiceImpl implements DoctorService {
 
     NurseService nurseService;
 
+    @Autowired
     JMSUpdateComponent jms;
 
     public DoctorServiceImpl(UserDAO userDAO, PatientDAO patientDAO, MedStaffDAO medStaffDAO,
                              TreatmentDAO treatmentDAO, AssignmentDAO assignmentDAO,
                              MedEventDAO medEventDAO, PatternDAO patternDAO, PasswordEncoder passwordEncoder,
-                             MedEventCalendar medEventCalendar, NurseService nurseService, JMSUpdateComponent jms) {
+                             MedEventCalendar medEventCalendar, NurseService nurseService) {
         this.userDAO = userDAO;
         this.patientDAO = patientDAO;
         this.medStaffDAO = medStaffDAO;
@@ -70,7 +72,6 @@ public class DoctorServiceImpl implements DoctorService {
         this.passwordEncoder = passwordEncoder;
         this.medEventCalendar = medEventCalendar;
         this.nurseService = nurseService;
-        this.jms = jms;
     }
 
     @Override

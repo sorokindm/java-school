@@ -5,6 +5,7 @@ import com.jschool.reha.enums.MedEventStatus;
 import com.jschool.reha.enums.MessageType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
@@ -25,16 +26,14 @@ import java.util.Properties;
 public class JMSUpdateComponentImpl implements JMSUpdateComponent {
 
     private final Logger logger = LogManager.getLogger();
-    private final Environment env;
+
+    @Autowired
+    private Environment env;
 
     private ConnectionFactory connectionFactory;
     private JMSContext jmsContext;
     private JMSProducer sender;
     private Destination destination;
-
-    public JMSUpdateComponentImpl(Environment env) {
-        this.env = env;
-    }
 
     @Override
     public void newMedEventMessage(RestMedEventDto dto) {

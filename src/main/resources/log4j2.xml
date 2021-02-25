@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO">
     <Appenders>
-        <File name="FileAppender" fileName="mylog.log" immediateFlush="false" append="true">
+        <File name="FileAppender" fileName="mylog.log" immediateFlush="false" append="false">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
-        <File name="HibernateAppender" fileName="hibernate.log" immediateFlush="true" append="false">
+        <File name="HibernateAppender" fileName="hibernate.log" immediateFlush="false" append="false">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
         <File name="SpringAppender" fileName="spring.log" immediateFlush="false" append="false">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <File name="RehaAppender" fileName="reha.log" immediateFlush="true" append="true">
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </File>
         <Console name="Console" target="SYSTEM_OUT">
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="ALL">
+        <Root level="DEBUG">
             <AppenderRef ref="FileAppender"/>
         </Root>
-        <Logger name="org.hibernate" level="ALL">
+        <Logger name="org.hibernate" level="DEBUG">
             <AppenderRef ref="HibernateAppender"/>
         </Logger>
-        <Logger name="org.springframework" level="TRACE">
+        <Logger name="org.springframework" level="DEBUG">
             <AppenderRef ref="SpringAppender"/>
+        </Logger>
+        <Logger name="com.jschool.reha" level="ALL">
+            <AppenderRef ref="RehaAppender"/>
         </Logger>
     </Loggers>
 </Configuration>

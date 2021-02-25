@@ -15,6 +15,8 @@ import com.jschool.reha.entity.User;
 import com.jschool.reha.enums.Role;
 import com.jschool.reha.service.interfaces.AdminService;
 import org.apache.commons.text.RandomStringGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,17 +35,22 @@ import java.util.List;
 @Transactional
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
+    private final Logger logger= LogManager.getLogger();
+
     private UserDAO userDAO;
 
-    @Autowired
     private MedStaffDAO medStaffDAO;
 
-    @Autowired
     private PatientDAO patientDAO;
 
-    @Autowired
     PasswordEncoder passwordEncoder;
+
+    public AdminServiceImpl(UserDAO userDAO, MedStaffDAO medStaffDAO, PatientDAO patientDAO, PasswordEncoder passwordEncoder) {
+        this.userDAO = userDAO;
+        this.medStaffDAO = medStaffDAO;
+        this.patientDAO = patientDAO;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public List<UserDto> getAllUserData() {

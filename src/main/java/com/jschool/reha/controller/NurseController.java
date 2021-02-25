@@ -6,7 +6,7 @@ import com.jschool.reha.enums.MedEventStatus;
 import com.jschool.reha.service.interfaces.AdminService;
 import com.jschool.reha.service.interfaces.DoctorService;
 import com.jschool.reha.service.interfaces.NurseService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jschool.reha.service.interfaces.RestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -27,18 +28,23 @@ import java.util.List;
 @Controller
 public class NurseController {
 
-    @Autowired
     NurseService nurseService;
 
-    @Autowired
     AdminService adminService;
 
-    @Autowired
     DoctorService doctorService;
+
+    RestService restService;
 
     private static final String NURSE_PAGE = "nurse";
     private static final String NURSE_VIEW_EVENTS_PAGE = "nurseViewEvents";
 
+    public NurseController(NurseService nurseService, AdminService adminService, DoctorService doctorService, RestService restService) {
+        this.nurseService = nurseService;
+        this.adminService = adminService;
+        this.doctorService = doctorService;
+        this.restService=restService;
+    }
 
     /**
      * Nurse page mapping
@@ -47,23 +53,25 @@ public class NurseController {
      */
     @GetMapping("/nurse")
     public String nursePage(Principal principal, Model model) {
-        MedStaffDto medStaffDto=adminService.findMedStaffByUsername(principal.getName());
-        List<MedEventDto> list=nurseService.findMedEventsForNurse(medStaffDto.getIdMedStaff());
-        model.addAttribute("medEvents",list);
+        MedStaffDto medStaffDto = adminService.findMedStaffByUsername(principal.getName());
+        List<MedEventDto> list = restService.getCurrentMedEvents();
+        Collections.sort(list);
+        model.addAttribute("medEvents", list);
+        model.addAttribute("medStaff",medStaffDto);
         return NURSE_PAGE;
     }
 
     @GetMapping("/nurse/events/all")
     public String nurseEventsAllPage(Model model) {
-        model.addAttribute("medEvents",nurseService.getAllMedEvents());
+        model.addAttribute("medEvents", nurseService.getAllMedEvents());
         return NURSE_VIEW_EVENTS_PAGE;
     }
 
     @GetMapping("/nurse/events/myEvents")
     public String nurseEventsMyEventsPage(Principal principal, Model model) {
-        MedStaffDto medStaffDto=adminService.findMedStaffByUsername(principal.getName());
-        List<MedEventDto> list=nurseService.findMedEventsForNurse(medStaffDto.getIdMedStaff());
-        model.addAttribute("medEvents",list);
+        MedStaffDto medStaffDto = adminService.findMedStaffByUsername(principal.getName());
+        List<MedEventDto> list = nurseService.findMedEventsForNurse(medStaffDto.getIdMedStaff());
+        model.addAttribute("medEvents", list);
         return NURSE_VIEW_EVENTS_PAGE;
     }
 
@@ -74,14 +82,14 @@ public class NurseController {
     }
 
     @PostMapping("/nurse/events/patient")
-    public String nurseEventsForPatientPage(@RequestParam ("patientId") int patientId,Model model) {
-        model.addAttribute("medEvents",nurseService.getAllMedEventsForPatient(patientId));
+    public String nurseEventsForPatientPage(@RequestParam("patientId") int patientId, Model model) {
+        model.addAttribute("medEvents", nurseService.getAllMedEventsForPatient(patientId));
         return NURSE_VIEW_EVENTS_PAGE;
     }
 
     @GetMapping("/nurse/cancel")
-    public String nurseCancelEventPage(@RequestParam ("idMedEvent") int idMedEvent,Model model) {
-        model.addAttribute("medEvent",nurseService.getMedEventById(idMedEvent));
+    public String nurseCancelEventPage(@RequestParam("idMedEvent") int idMedEvent, Model model) {
+        model.addAttribute("medEvent", nurseService.getMedEventById(idMedEvent));
         return "nurseCancelEvent";
     }
 
@@ -93,8 +101,8 @@ public class NurseController {
     }
 
     @PostMapping("/nurse/done")
-    public RedirectView processDoneEvent (@RequestParam ("idMedEvent") int idMedEvent) {
-        MedEventDto medEventDto=nurseService.getMedEventById(idMedEvent);
+    public RedirectView processDoneEvent(@RequestParam("idMedEvent") int idMedEvent) {
+        MedEventDto medEventDto = nurseService.getMedEventById(idMedEvent);
         medEventDto.setClosedComments("Done");
         medEventDto.setStatus(MedEventStatus.DONE);
         doctorService.closeMedEvent(medEventDto);

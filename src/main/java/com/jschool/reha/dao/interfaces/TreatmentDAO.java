@@ -34,6 +34,13 @@ public interface TreatmentDAO {
     List<Treatment> findAllTreatments();
 
     /**
+     * Fetches all treatments entities from db with doctor id
+     * @param id - doctor id
+     * @return - list of treatments
+     */
+    List<Treatment> findTreatmentsForDoctorId(int id);
+
+    /**
      * Updates entity in db
      * @param treatment - Entity with update
      * @return updated Entity

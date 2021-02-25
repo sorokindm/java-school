@@ -7,6 +7,8 @@ import com.jschool.reha.dto.helpers.MedEventEntityDtoHelper;
 import com.jschool.reha.entity.MedEvent;
 import com.jschool.reha.entity.MedStaff;
 import com.jschool.reha.service.interfaces.NurseService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +23,16 @@ import java.util.Random;
 @Transactional
 public class NurseServiceImpl implements NurseService {
 
-    @Autowired
+    private static final Logger logger = LogManager.getLogger();
+
     MedStaffDAO medStaffDAO;
 
-    @Autowired
     MedEventDAO medEventDAO;
+
+    public NurseServiceImpl(MedStaffDAO medStaffDAO, MedEventDAO medEventDAO) {
+        this.medStaffDAO = medStaffDAO;
+        this.medEventDAO = medEventDAO;
+    }
 
     @Override
     public MedStaff findNurseForEvent(LocalDateTime time) {

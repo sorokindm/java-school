@@ -52,6 +52,13 @@ public interface DoctorService {
     List<TreatmentDto> getAllTreatments();
 
     /**
+     * Fetches all treatments data from db for doctor id
+     * @param id - doctor id
+     * @return List TreatmentDto
+     **/
+    List<TreatmentDto> getTreatmentsForDoctorId(int id);
+
+    /**
      * Fetches treatmentDto with given id
      *
      * @param idTreatment - treatment id

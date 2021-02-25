@@ -56,4 +56,10 @@ public interface MedEventDAO {
      * @return List of MedEvent entities
      */
     List<MedEvent> getAllMedEvents();
+
+    /**
+     * Fetches all medEvents for current date
+     * @return list of all current medEvents
+     */
+    List<MedEvent> getCurrentMedEvents();
 }

@@ -50,6 +50,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/patient/**").hasRole("PATIENT")
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/error").permitAll()
+                .antMatchers("/screen").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -15,15 +15,25 @@
 </head>
 <body>
 
-<%@include file="/resources/nurseHeader.html"%>
-
+<%@include file="/resources/nurseHeader.html" %>
 <br>
-
 <div class="container-fluid">
+    <h2>Welcome,${medStaff.name} ${medStaff.lastName}!</h2>
+    <h3>Today's events:</h3>
     <div class="row">
-        <div class="col-md"></div>
-        <div class="col-md"></div>
-        <div class="col-md"></div>
+        <c:forEach items="${medEvents}" var="medEvent">
+            <div class="col-md-4">
+                <div class="card med-event m-4">
+                    <div class="card-header text-center">Time:${medEvent.starts}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Patient:${medEvent.patient.name} ${medEvent.patient.lastName}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            Nurse:${medEvent.nurse.name} ${medEvent.nurse.lastName}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">${medEvent.status}</h6>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </div>
 
 </div>
